@@ -1,16 +1,16 @@
 name: 🧪 test
 
 on:
-  push:
-    branches:
-    - long_lived/**
-    - main
-    - release/**
-    tags:
-    - '**'
-  pull_request:
-    branches:
-    - '**'
+  # push:
+  #   branches:
+  #   - long_lived/**
+  #   - main
+  #   - release/**
+  #   tags:
+  #   - '**'
+  # pull_request:
+  #   branches:
+  #   - '**'
   workflow_dispatch: null
 
 concurrency:

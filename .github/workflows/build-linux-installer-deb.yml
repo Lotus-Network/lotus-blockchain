@@ -3,15 +3,15 @@ name: 📦🚀 Build Installer - Linux DEB AMD64
 on:
   workflow_dispatch:
   push:
-    branches:
-      - 'long_lived/**'
-      - main
-      - 'release/**'
+    # branches:
+    #   - 'long_lived/**'
+    #   - main
+    #   - 'release/**'
     tags:
         - '**'
-  pull_request:
-    branches:
-      - '**'
+  # pull_request:
+  #   branches:
+  #     - '**'
 
 concurrency:
   # SHA is added to the end if on `main` to let all main workflows run
