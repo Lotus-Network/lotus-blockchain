@@ -56,8 +56,8 @@ def generate_ca_signed_cert(ca_crt: bytes, ca_key: bytes, cert_out: Path, key_ou
     cert_key = rsa.generate_private_key(public_exponent=65537, key_size=2048, backend=default_backend())
     new_subject = x509.Name(
         [
-            x509.NameAttribute(NameOID.COMMON_NAME, "Chia"),
-            x509.NameAttribute(NameOID.ORGANIZATION_NAME, "Chia"),
+            x509.NameAttribute(NameOID.COMMON_NAME, "Lotus"),
+            x509.NameAttribute(NameOID.ORGANIZATION_NAME, "Lotus"),
             x509.NameAttribute(NameOID.ORGANIZATIONAL_UNIT_NAME, "Organic Farming Division"),
         ]
     )
@@ -91,8 +91,8 @@ def make_ca_cert(cert_path: Path, key_path: Path):
     root_key = rsa.generate_private_key(public_exponent=65537, key_size=2048, backend=default_backend())
     subject = issuer = x509.Name(
         [
-            x509.NameAttribute(NameOID.ORGANIZATION_NAME, "Chia"),
-            x509.NameAttribute(NameOID.COMMON_NAME, "Chia CA"),
+            x509.NameAttribute(NameOID.ORGANIZATION_NAME, "Lotus"),
+            x509.NameAttribute(NameOID.COMMON_NAME, "Lotus CA"),
             x509.NameAttribute(NameOID.ORGANIZATIONAL_UNIT_NAME, "Organic Farming Division"),
         ]
     )
