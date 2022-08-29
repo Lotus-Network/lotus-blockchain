@@ -23,7 +23,7 @@ if [ "$(id -u)" = 0 ]; then
   exit 1
 fi
 
-# Allows overriding the branch or commit to build in chia-blockchain-gui
+# Allows overriding the branch or commit to build in lotus-blockchain-gui
 SUBMODULE_BRANCH=$1
 
 nodejs_is_installed(){
@@ -182,7 +182,7 @@ if [ ! "$CI" ]; then
   echo "Running git submodule update."
   echo ""
   git submodule update
-  cd chia-blockchain-gui
+  cd lotus-blockchain-gui
 
   if [ "$SUBMODULE_BRANCH" ];
   then

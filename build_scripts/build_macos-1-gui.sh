@@ -9,9 +9,9 @@ cd npm_macos || exit 1
 npm ci
 PATH=$(npm bin):$PATH
 cd ../../ || exit 1
-git submodule update --init chia-blockchain-gui
+git submodule update --init lotus-blockchain-gui
 
-cd ./chia-blockchain-gui || exit 1
+cd ./lotus-blockchain-gui || exit 1
 echo "npm build"
 lerna clean -y
 npm ci
@@ -27,7 +27,7 @@ fi
 # Remove unused packages
 rm -rf node_modules
 
-# Other than `chia-blockchain-gui/package/gui`, all other packages are no longer necessary after build.
+# Other than `lotus-blockchain-gui/package/gui`, all other packages are no longer necessary after build.
 # Since these unused packages make cache unnecessarily fat, unused packages should be removed.
 echo "Remove unused @chia packages to make cache slim"
 ls -l packages

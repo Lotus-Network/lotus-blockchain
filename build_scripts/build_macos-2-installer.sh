@@ -32,10 +32,10 @@ if [ "$LAST_EXIT_CODE" -ne 0 ]; then
 	echo >&2 "pyinstaller failed!"
 	exit $LAST_EXIT_CODE
 fi
-cp -r dist/daemon ../chia-blockchain-gui/packages/gui
+cp -r dist/daemon ../lotus-blockchain-gui/packages/gui
 
 # Change to the gui package
-cd ../chia-blockchain-gui/packages/gui || exit 1
+cd ../lotus-blockchain-gui/packages/gui || exit 1
 
 # sets the version for chia-blockchain in package.json
 brew install jq

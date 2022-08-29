@@ -76,13 +76,13 @@ main.sym
 *.pstats
 
 # Dev config react
-# chia-blockchain-gui/src/dev_config.js
+# lotus-blockchain-gui/src/dev_config.js
 # React built app
-chia-blockchain-gui/.eslintcache
-chia-blockchain-gui/build
+lotus-blockchain-gui/.eslintcache
+lotus-blockchain-gui/build
 build_scripts/dist
 build_scripts/*.Dmg
-chia-blockchain-gui/src/locales/_build
+lotus-blockchain-gui/src/locales/_build
 build_scripts\win_build
 build_scripts/win_build
 win_code_sign_cert.p12
@@ -155,7 +155,7 @@ MANIFEST
 #  Usually these files are written by a python script from a template
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
 *.manifest
-*.spec
+# *.spec
 
 # Installer logs
 pip-log.txt

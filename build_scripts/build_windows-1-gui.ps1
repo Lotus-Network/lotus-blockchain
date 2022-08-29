@@ -12,9 +12,9 @@ npm ci
 $Env:Path = $(npm bin) + ";" + $Env:Path
 
 Set-Location -Path "..\..\" -PassThru
-git submodule update --init chia-blockchain-gui
+git submodule update --init lotus-blockchain-gui
 
-Set-Location -Path ".\chia-blockchain-gui" -PassThru
+Set-Location -Path ".\lotus-blockchain-gui" -PassThru
 
 Write-Output "   ---"
 Write-Output "Build GUI npm modules"
@@ -39,7 +39,7 @@ If ($LastExitCode -gt 0){
 # Remove unused packages
 Remove-Item node_modules -Recurse -Force
 
-# Other than `chia-blockchain-gui/package/gui`, all other packages are no longer necessary after build.
+# Other than `lotus-blockchain-gui/package/gui`, all other packages are no longer necessary after build.
 # Since these unused packages make cache unnecessarily fat, unused packages should be removed.
 Write-Output "Remove unused @chia packages to make cache slim"
 Remove-Item packages\api -Recurse -Force

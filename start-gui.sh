@@ -37,7 +37,7 @@ else
 fi
 
 echo "### Checking GUI build"
-GUI_BUILD_PATH="${SCRIPT_DIR}/chia-blockchain-gui/packages/gui/build/electron/main.js"
+GUI_BUILD_PATH="${SCRIPT_DIR}/lotus-blockchain-gui/packages/gui/build/electron/main.js"
 if [ ! -e "$GUI_BUILD_PATH" ]; then
   echo "Error: GUI build was not found"
   echo "It is expected at $GUI_BUILD_PATH"
@@ -49,6 +49,6 @@ else
 fi
 
 echo "### Starting GUI"
-cd "${SCRIPT_DIR}/chia-blockchain-gui/"
+cd "${SCRIPT_DIR}/lotus-blockchain-gui/"
 echo "npm run electron"
 npm run electron
