@@ -177,10 +177,10 @@ def validate_v2(in_path: Path, *, validate_blocks: bool) -> None:
 
         # make sure the prev_hash pointer of block height 0 is the genesis
         # challenge
-        if next_hash != DEFAULT_CONSTANTS.AGG_SIG_ME_ADDITIONAL_DATA:
+        if next_hash != DEFAULT_CONSTANTS.GENESIS_CHALLENGE:
             raise RuntimeError(
-                f"Blockchain has invalid genesis challenge {next_hash}, expected "
-                f"{DEFAULT_CONSTANTS.AGG_SIG_ME_ADDITIONAL_DATA.hex()}"
+                f"Blockchain has invalid genesis challenge {next_hash.hex()}, expected "
+                f"{DEFAULT_CONSTANTS.GENESIS_CHALLENGE.hex()}"
             )
 
         if num_orphans > 0:
