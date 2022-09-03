@@ -4,5 +4,4 @@
         branch = main
 [submodule "lotus-blockchain-gui"]
 	path = lotus-blockchain-gui
-	url = https://github.com/Lotus-Community/lotus-blockchain-gui/
-		branch = renames_1_5_1
+	url = https://github.com/Lotus-Network/lotus-blockchain-gui
