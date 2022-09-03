@@ -868,7 +868,7 @@ async def test_nft_endpoints(wallet_rpc_environment: WalletRpcTestEnvironment):
         None,
         None,
         "0xD4584AD463139FA8C0D9F68F4B59F185",
-        ["https://www.lotusgang.org/img/branding/lotus-logo.svg"],
+        ["https://lotusgang.org/lotus_ascii_small.svg"],
     )
     assert res["success"]
 

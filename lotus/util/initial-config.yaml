@@ -76,7 +76,7 @@ network_overrides: &network_overrides
       default_full_node_port: 5980
     testnet0:
       address_prefix: "tlch"
-      default_full_node_port: 58444
+      default_full_node_port: 55980
     testnet1:
       address_prefix: "tlch"
     testnet2:
@@ -87,10 +87,10 @@ network_overrides: &network_overrides
       address_prefix: "tlch"
     testnet7:
       address_prefix: "tlch"
-      default_full_node_port: 58444
+      default_full_node_port: 55980
     testnet10:
       address_prefix: "tlch"
-      default_full_node_port: 58444
+      default_full_node_port: 55980
 
 selected_network: &selected_network "mainnet"
 ALERTS_URL: https://agem.ae/mainnet_alert.txt
@@ -126,7 +126,7 @@ logging: &logging
 seeder:
   # The fake full node used for crawling will run on this port.
   port: 5944
-  # Most full nodes on the network run on this port. (i.e. 8444 for mainnet, 58444 for testnet).
+  # Most full nodes on the network run on this port. (i.e. 5980 for mainnet, 55980 for testnet).
   other_peers_port: 5980
   # This will override the default full_node.peer_connect_timeout for the crawler full node
   peer_connect_timeout: 2
@@ -134,7 +134,7 @@ seeder:
   crawler_db_path: "crawler.db"
   # Peers used for the initial run.
   bootstrap_peers:
-    - "node.lotusgang.org"
+    - "node.agem.ae"
   # Only consider nodes synced at least to this height.
   minimum_height: 240000
   # How many of a particular version we need to see before reporting it in the logs
@@ -407,7 +407,7 @@ full_node:
   # List of trusted DNS seeders to bootstrap from.
   # If you modify this, please change the hardcode as well from FullNode.set_server()
   dns_servers:
-    - "dns-introducer.lotusgang.org"
+    - "dns-introducer.agem.ae"
   farmer_peer:
       host: *self_hostname
       port: 5947
@@ -415,7 +415,7 @@ full_node:
       host: *self_hostname
       port: 5946
   introducer_peer:
-      host: introducer.lotusgang.org  # Lotus AWS introducer IPv4/IPv6
+      host: introducer.agem.ae  # Lotus AWS introducer IPv4/IPv6
       port: 5980
   wallet_peer:
     host: *self_hostname
@@ -490,7 +490,7 @@ wallet:
   initial_num_public_keys: 425
 
   dns_servers:
-    - "dns-introducer.lotusgang.org"
+    - "dns-introducer.agem.ae"
 
   full_node_peer:
     host: *self_hostname
@@ -520,7 +520,7 @@ wallet:
   recent_peer_threshold: 6000
 
   introducer_peer:
-    host: introducer.lotusgang.org # Lotus AWS introducer IPv4/IPv6
+    host: introducer.agem.ae # Lotus AWS introducer IPv4/IPv6
     port: 5980
 
   ssl:
