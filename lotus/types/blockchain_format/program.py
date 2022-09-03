@@ -6,7 +6,7 @@ from clvm import SExp
 from clvm.casts import int_from_bytes
 from clvm.EvalError import EvalError
 from clvm.serialize import sexp_from_stream, sexp_to_stream
-from lotus_rs import MEMPOOL_MODE, run_chia_program, serialized_length, run_generator, tree_hash
+from chia_rs import MEMPOOL_MODE, run_chia_program, serialized_length, run_generator, tree_hash
 
 from lotus.types.blockchain_format.sized_bytes import bytes32
 from lotus.util.hash import std_hash
@@ -294,7 +294,7 @@ class SerializedProgram:
     def run_with_cost(self, max_cost: int, *args) -> Tuple[int, Program]:
         return self._run(max_cost, 0, *args)
 
-    # returns an optional error code and an optional SpendBundleConditions (from lotus_rs)
+    # returns an optional error code and an optional SpendBundleConditions (from chia_rs)
     # exactly one of those will hold a value
     def run_as_generator(
         self, max_cost: int, flags: int, *args

@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import List, Optional, Tuple
 
-from lotus_rs import CoinState, RespondToPhUpdates
+from chia_rs import CoinState, RespondToPhUpdates
 
 from lotus.types.blockchain_format.coin import Coin
 from lotus.types.blockchain_format.program import SerializedProgram

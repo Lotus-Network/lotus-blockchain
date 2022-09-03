@@ -5,7 +5,7 @@ import logging
 import random
 from typing import List, Optional, Tuple, Union, Dict
 
-from lotus_rs import compute_merkle_set_root
+from chia_rs import compute_merkle_set_root
 
 from lotus.consensus.constants import ConsensusConstants
 from lotus.protocols import wallet_protocol

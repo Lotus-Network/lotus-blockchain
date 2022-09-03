@@ -1,6 +1,6 @@
 from typing import Dict, List, Optional, Tuple
 
-from lotus_rs import compute_merkle_set_root
+from chia_rs import compute_merkle_set_root
 
 from lotus.types.blockchain_format.coin import Coin, hash_coin_ids
 from lotus.types.blockchain_format.sized_bytes import bytes32

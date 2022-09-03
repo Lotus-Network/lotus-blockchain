@@ -1,6 +1,6 @@
 from typing import List, Union
 
-from lotus_rs import Coin
+from chia_rs import Coin
 
 from lotus.types.blockchain_format.sized_bytes import bytes32
 from lotus.util.hash import std_hash

@@ -5,7 +5,7 @@ from typing import Callable, Dict, List, Optional, Tuple
 
 import blspy
 from blspy import G1Element, G2Element
-from lotus_rs import compute_merkle_set_root
+from chia_rs import compute_merkle_set_root
 from chiabip158 import PyBIP158
 
 from lotus.consensus.block_record import BlockRecord

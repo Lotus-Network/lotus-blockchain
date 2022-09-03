@@ -2,7 +2,7 @@ import io
 from typing import Callable, List, Optional
 
 from blspy import G1Element, G2Element
-from lotus_rs import serialized_length
+from chia_rs import serialized_length
 from chiabip158 import PyBIP158
 
 from lotus.types.blockchain_format.coin import Coin

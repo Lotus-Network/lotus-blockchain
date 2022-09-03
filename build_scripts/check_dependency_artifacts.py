@@ -53,7 +53,7 @@ def main() -> int:
                 "--dest",
                 os.fspath(directory_path),
                 "--extra-index",
-                "https://pypi.lotus.net/simple/",
+                "https://pypi.chia.net/simple/",
                 package_and_extras,
             ],
             check=True,

@@ -5,7 +5,7 @@ from itertools import permutations
 from typing import List
 
 import pytest
-from lotus_rs import compute_merkle_set_root
+from chia_rs import compute_merkle_set_root
 
 from lotus.types.blockchain_format.sized_bytes import bytes32
 from lotus.util.merkle_set import MerkleSet, confirm_included_already_hashed

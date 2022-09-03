@@ -1,6 +1,6 @@
 import logging
 from typing import Dict, Optional, Tuple
-from lotus_rs import MEMPOOL_MODE, NO_NEG_DIV
+from chia_rs import MEMPOOL_MODE, NO_NEG_DIV
 from lotus.types.blockchain_format.coin import Coin
 
 from lotus.consensus.cost_calculator import NPCResult
