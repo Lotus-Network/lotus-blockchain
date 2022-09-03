@@ -297,6 +297,9 @@ python -m pip install wheel
 python -m pip install --extra-index-url https://pypi.chia.net/simple/ miniupnpc==2.2.2
 python -m pip install -e ."${EXTRAS}" --extra-index-url https://pypi.chia.net/simple/
 
+# show fancy ascii art logo
+python lotus_logo.py
+
 echo ""
 echo "Chia blockchain install.sh complete."
 echo "For assistance join us on Keybase in the #support chat channel:"
