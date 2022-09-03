@@ -66,6 +66,11 @@ class Harvester:
         self.cached_challenges = []
         self.state_changed_callback: Optional[Callable] = None
         self.parallel_read: bool = config.get("parallel_read", True)
+        # Mod to use config defined plot filter zero bits
+        if "number_zero_bits_plot_filter" in config:
+            self.number_zero_bits_plot_filter = config["number_zero_bits_plot_filter"]
+        else:
+            self.number_zero_bits_plot_filter = constants.NUMBER_ZERO_BITS_PLOT_FILTER
 
     async def _start(self):
         self._refresh_lock = asyncio.Lock()

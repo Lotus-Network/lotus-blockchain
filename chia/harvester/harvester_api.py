@@ -181,6 +181,7 @@ class HarvesterAPI:
                     try_plot_info.prover.get_id(),
                     new_challenge.challenge_hash,
                     new_challenge.sp_hash,
+                    self.harvester.number_zero_bits_plot_filter,
                 ):
                     passed += 1
                     awaitables.append(lookup_challenge(try_plot_filename, try_plot_info))

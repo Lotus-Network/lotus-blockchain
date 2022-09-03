@@ -201,6 +201,10 @@ harvester:
     crt: "config/ssl/ca/chia_ca.crt"
     key: "config/ssl/ca/chia_ca.key"
 
+  # The local plot filter. Set it to 9 for reduced drive usage at the expense of less wins
+  # Leaving this undefined will cause it to use the consensus constant value of 5
+  number_zero_bits_plot_filter: 9
+
 pool:
   # Replace this with a real receive address
   # xch_target_address: txch102gkhhzs60grx7cfnpng5n6rjecr89r86l5s8xux2za8k820cxsq64ssdg
