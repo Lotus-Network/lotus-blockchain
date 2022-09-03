@@ -121,7 +121,7 @@ class TestKeysCommands:
     def test_generate_with_new_config(self, tmp_path, empty_keyring):
         """
         Generate a new config and a new key. Verify that the config has
-        the correct xch_target_address entries.
+        the correct lch_target_address entries.
         """
 
         keychain = empty_keyring
@@ -155,19 +155,19 @@ class TestKeysCommands:
         assert result.exit_code == 0
         assert len(keychain.get_all_private_keys()) == 1
 
-        # Verify that the config has the correct xch_target_address entries
-        address_matches = re.findall(r"xch1[^\n]+", result.output)
+        # Verify that the config has the correct lch_target_address entries
+        address_matches = re.findall(r"lch1[^\n]+", result.output)
         assert len(address_matches) > 1
         address = address_matches[0]
 
         config: Dict = load_config(tmp_path, "config.yaml")
-        assert config["farmer"]["xch_target_address"] == address
-        assert config["pool"]["xch_target_address"] == address
+        assert config["farmer"]["lch_target_address"] == address
+        assert config["pool"]["lch_target_address"] == address
 
     def test_generate_with_existing_config(self, tmp_path, empty_keyring):
         """
         Generate a new key using an existing config. Verify that the config has
-        the original xch_target_address entries.
+        the original lch_target_address entries.
         """
 
         keychain = empty_keyring
@@ -201,14 +201,14 @@ class TestKeysCommands:
         assert generate_result.exit_code == 0
         assert len(keychain.get_all_private_keys()) == 1
 
-        # Verify that the config has the correct xch_target_address entries
-        address_matches = re.findall(r"xch1[^\n]+", generate_result.output)
+        # Verify that the config has the correct lch_target_address entries
+        address_matches = re.findall(r"lch1[^\n]+", generate_result.output)
         assert len(address_matches) > 1
         address = address_matches[0]
 
         existing_config: Dict = load_config(tmp_path, "config.yaml")
-        assert existing_config["farmer"]["xch_target_address"] == address
-        assert existing_config["pool"]["xch_target_address"] == address
+        assert existing_config["farmer"]["lch_target_address"] == address
+        assert existing_config["pool"]["lch_target_address"] == address
 
         # Generate the second key
         runner = CliRunner()
@@ -229,10 +229,10 @@ class TestKeysCommands:
         assert result.exit_code == 0
         assert len(keychain.get_all_private_keys()) == 2
 
-        # Verify that the config's xch_target_address entries have not changed
+        # Verify that the config's lch_target_address entries have not changed
         config: Dict = load_config(tmp_path, "config.yaml")
-        assert config["farmer"]["xch_target_address"] == existing_config["farmer"]["xch_target_address"]
-        assert config["pool"]["xch_target_address"] == existing_config["pool"]["xch_target_address"]
+        assert config["farmer"]["lch_target_address"] == existing_config["farmer"]["lch_target_address"]
+        assert config["pool"]["lch_target_address"] == existing_config["pool"]["lch_target_address"]
 
     @pytest.mark.parametrize(
         "cmd_params, label, input_str",
@@ -762,7 +762,7 @@ class TestKeysCommands:
                 "40",
                 "--search-type",
                 "address",
-                "xch1mnr0ygu7lvmk3nfgzmncfk39fwu0dv933yrcv97nd6pmrt7fzmhs8taffd",
+                "lch1mnr0ygu7lvmk3nfgzmncfk39fwu0dv933yrcv97nd6pmrt7fzmhs8taffd",
             ],
         )
 
@@ -771,7 +771,7 @@ class TestKeysCommands:
             result.output.find(
                 (
                     "Found wallet address: "
-                    "xch1mnr0ygu7lvmk3nfgzmncfk39fwu0dv933yrcv97nd6pmrt7fzmhs8taffd (HD path: m/12381/8444/2/30)"
+                    "lch1mnr0ygu7lvmk3nfgzmncfk39fwu0dv933yrcv97nd6pmrt7fzmhs8taffd (HD path: m/12381/8444/2/30)"
                 )
             )
             != -1
@@ -811,9 +811,9 @@ class TestKeysCommands:
                 "40",
                 "--search-type",
                 "address",
-                "txch1mnr0ygu7lvmk3nfgzmncfk39fwu0dv933yrcv97nd6pmrt7fzmhs2v6lg7",
+                "tlch1mnr0ygu7lvmk3nfgzmncfk39fwu0dv933yrcv97nd6pmrt7fzmhs2v6lg7",
                 "--prefix",
-                "txch",
+                "tlch",
             ],
         )
 
@@ -822,7 +822,7 @@ class TestKeysCommands:
             result.output.find(
                 (
                     "Found wallet address: "
-                    "txch1mnr0ygu7lvmk3nfgzmncfk39fwu0dv933yrcv97nd6pmrt7fzmhs2v6lg7 (HD path: m/12381/8444/2/30)"
+                    "tlch1mnr0ygu7lvmk3nfgzmncfk39fwu0dv933yrcv97nd6pmrt7fzmhs2v6lg7 (HD path: m/12381/8444/2/30)"
                 )
             )
             != -1
@@ -962,7 +962,7 @@ class TestKeysCommands:
             result.output.find(
                 (
                     "Wallet address 50 (m/12381n/8444n/2n/50n): "
-                    "xch1jp2u7an0mn9hdlw2x05nmje49gwgzmqyvh0qmh6008yksetuvkfs6wrfdq"
+                    "lch1jp2u7an0mn9hdlw2x05nmje49gwgzmqyvh0qmh6008yksetuvkfs6wrfdq"
                 )
             )
             != -1
@@ -971,7 +971,7 @@ class TestKeysCommands:
             result.output.find(
                 (
                     "Wallet address 51 (m/12381n/8444n/2n/51n): "
-                    "xch1006n6l3x5e8exar8mlj004znjl5pq0tq73h76kz0yergswnjzn8sumvfmt"
+                    "lch1006n6l3x5e8exar8mlj004znjl5pq0tq73h76kz0yergswnjzn8sumvfmt"
                 )
             )
             != -1
@@ -1014,7 +1014,7 @@ class TestKeysCommands:
                 "--non-observer-derivation",
                 "--show-hd-path",
                 "--prefix",
-                "txch",
+                "tlch",
             ],
         )
 
@@ -1023,7 +1023,7 @@ class TestKeysCommands:
             result.output.find(
                 (
                     "Wallet address 50 (m/12381n/8444n/2n/50n): "
-                    "txch1jp2u7an0mn9hdlw2x05nmje49gwgzmqyvh0qmh6008yksetuvkfshfylvn"
+                    "tlch1jp2u7an0mn9hdlw2x05nmje49gwgzmqyvh0qmh6008yksetuvkfshfylvn"
                 )
             )
             != -1
@@ -1032,7 +1032,7 @@ class TestKeysCommands:
             result.output.find(
                 (
                     "Wallet address 51 (m/12381n/8444n/2n/51n): "
-                    "txch1006n6l3x5e8exar8mlj004znjl5pq0tq73h76kz0yergswnjzn8s3utl6c"
+                    "tlch1006n6l3x5e8exar8mlj004znjl5pq0tq73h76kz0yergswnjzn8s3utl6c"
                 )
             )
             != -1

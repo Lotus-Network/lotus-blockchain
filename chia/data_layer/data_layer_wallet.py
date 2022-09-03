@@ -376,7 +376,7 @@ class DataLayerWallet:
 
         return dl_record, std_record, launcher_coin.name()
 
-    async def create_tandem_xch_tx(
+    async def create_tandem_lch_tx(
         self,
         fee: uint64,
         announcement_to_assert: Announcement,
@@ -594,7 +594,7 @@ class DataLayerWallet:
             name=singleton_record.coin_id,
         )
         if fee > 0:
-            lotus_tx = await self.create_tandem_xch_tx(
+            lotus_tx = await self.create_tandem_lch_tx(
                 fee, Announcement(current_coin.name(), b"$"), coin_announcement=True
             )
             aggregate_bundle = SpendBundle.aggregate([dl_tx.spend_bundle, lotus_tx.spend_bundle])

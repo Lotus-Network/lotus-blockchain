@@ -97,7 +97,7 @@ def create_fee_option() -> "IdentityFunction":
     return click.option(
         "-m",
         "--fee",
-        help="Set the fees for the transaction, in XCH",
+        help="Set the fees for the transaction, in LCH",
         type=str,
         default=None,
         show_default=True,

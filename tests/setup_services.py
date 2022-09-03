@@ -273,11 +273,11 @@ async def setup_farmer(
     service_config = root_config["farmer"]
     config_pool = root_config["pool"]
 
-    service_config["xch_target_address"] = encode_puzzle_hash(b_tools.farmer_ph, "xch")
+    service_config["lch_target_address"] = encode_puzzle_hash(b_tools.farmer_ph, "lch")
     service_config["pool_public_keys"] = [bytes(pk).hex() for pk in b_tools.pool_pubkeys]
     service_config["port"] = port
     service_config["rpc_port"] = uint16(0)
-    config_pool["xch_target_address"] = encode_puzzle_hash(b_tools.pool_ph, "xch")
+    config_pool["lch_target_address"] = encode_puzzle_hash(b_tools.pool_ph, "lch")
 
     if full_node_port:
         service_config["full_node_peer"]["host"] = self_hostname

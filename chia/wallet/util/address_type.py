@@ -6,13 +6,13 @@ from lotus.util.config import selected_network_address_prefix
 
 
 class AddressType(Enum):
-    XCH = "xch"
+    LCH = "lch"
     NFT = "nft"
     DID = "did:lotus:"
 
     def hrp(self, config: Dict[str, Any]) -> str:
-        if self == AddressType.XCH:
-            # Special case to map XCH to the current network's address prefix
+        if self == AddressType.LCH:
+            # Special case to map LCH to the current network's address prefix
             return selected_network_address_prefix(config)
         return self.value
 
