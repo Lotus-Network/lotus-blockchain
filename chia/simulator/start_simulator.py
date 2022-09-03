@@ -4,18 +4,18 @@ from multiprocessing import freeze_support
 from pathlib import Path
 from typing import Optional, Dict, List, Tuple
 
-from chia.full_node.full_node import FullNode
-from chia.server.outbound_message import NodeType
-from chia.server.start_service import Service, async_run
-from chia.simulator.simulator_full_node_rpc_api import SimulatorFullNodeRpcApi
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.util.bech32m import decode_puzzle_hash
-from chia.util.chia_logging import initialize_logging
-from chia.util.config import load_config_cli, override_config, load_config
-from chia.util.default_root import DEFAULT_ROOT_PATH
-from chia.simulator.block_tools import BlockTools, test_constants
-from chia.util.ints import uint16
-from chia.simulator.full_node_simulator import FullNodeSimulator
+from lotus.full_node.full_node import FullNode
+from lotus.server.outbound_message import NodeType
+from lotus.server.start_service import Service, async_run
+from lotus.simulator.simulator_full_node_rpc_api import SimulatorFullNodeRpcApi
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.util.bech32m import decode_puzzle_hash
+from lotus.util.lotus_logging import initialize_logging
+from lotus.util.config import load_config_cli, override_config, load_config
+from lotus.util.default_root import DEFAULT_ROOT_PATH
+from lotus.simulator.block_tools import BlockTools, test_constants
+from lotus.util.ints import uint16
+from lotus.simulator.full_node_simulator import FullNodeSimulator
 
 # See: https://bugs.python.org/issue29288
 "".encode("idna")

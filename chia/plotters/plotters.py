@@ -2,9 +2,9 @@ import argparse
 import binascii
 import os
 from enum import Enum
-from chia.plotters.bladebit import get_bladebit_install_info, plot_bladebit, install_bladebit
-from chia.plotters.chiapos import get_chiapos_install_info, plot_chia
-from chia.plotters.madmax import get_madmax_install_info, plot_madmax, install_madmax
+from lotus.plotters.bladebit import get_bladebit_install_info, plot_bladebit, install_bladebit
+from lotus.plotters.chiapos import get_chiapos_install_info, plot_lotus
+from lotus.plotters.madmax import get_madmax_install_info, plot_madmax, install_madmax
 from pathlib import Path
 from typing import Any, Dict, Optional
 
@@ -343,8 +343,8 @@ def install_plotter(plotter, root_path):
 
 
 def call_plotters(root_path: Path, args):
-    # Add `plotters` section in CHIA_ROOT.
-    chia_root_path = root_path
+    # Add `plotters` section in LOTUS_ROOT.
+    lotus_root_path = root_path
     root_path = get_plotters_root_path(root_path)
     if not root_path.is_dir():
         if os.path.exists(root_path):
@@ -354,7 +354,7 @@ def call_plotters(root_path: Path, args):
                 print(f"Exception deleting old root path: {type(e)} {e}.")
 
     if not os.path.exists(root_path):
-        print(f"Creating plotters folder within CHIA_ROOT: {root_path}")
+        print(f"Creating plotters folder within LOTUS_ROOT: {root_path}")
         try:
             os.mkdir(root_path)
         except Exception as e:
@@ -371,11 +371,11 @@ def call_plotters(root_path: Path, args):
     args = plotters.parse_args(args)
 
     if args.plotter == "chiapos":
-        plot_chia(args, chia_root_path)
+        plot_lotus(args, lotus_root_path)
     if args.plotter == "madmax":
-        plot_madmax(args, chia_root_path, root_path)
+        plot_madmax(args, lotus_root_path, root_path)
     if args.plotter == "bladebit":
-        plot_bladebit(args, chia_root_path, root_path)
+        plot_bladebit(args, lotus_root_path, root_path)
     if args.plotter == "install":
         install_plotter(args.install_plotter, root_path)
 

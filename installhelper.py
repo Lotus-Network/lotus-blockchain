@@ -1,6 +1,6 @@
 #
 # Install helper code to manage inserting the correct version for the GUI
-# Gets the version from the result of "chia version"
+# Gets the version from the result of "lotus version"
 # Converts to proper symver format so NPM doesn't complain
 # Adds the version info to the package.json file
 #
@@ -47,9 +47,9 @@ def make_semver(version_str: str) -> str:
     return version
 
 
-def get_chia_version() -> str:
+def get_lotus_version() -> str:
     version: str = "0.0"
-    output = subprocess.run(["chia", "version"], capture_output=True)
+    output = subprocess.run(["lotus", "version"], capture_output=True)
     if output.returncode == 0:
         version = str(output.stdout.strip(), "utf-8").splitlines()[-1]
     return make_semver(version)
@@ -62,7 +62,7 @@ def update_version(package_json_path: str):
     with open(package_json_path) as f:
         data = json.load(f)
 
-    data["version"] = get_chia_version()
+    data["version"] = get_lotus_version()
 
     with open(package_json_path, "w") as w:
         json.dump(data, indent=4, fp=w)

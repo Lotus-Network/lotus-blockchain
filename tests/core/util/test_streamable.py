@@ -10,15 +10,15 @@ from blspy import G1Element
 from clvm_tools import binutils
 from typing_extensions import Literal, get_args
 
-from chia.protocols.wallet_protocol import RespondRemovals
-from chia.simulator.block_tools import BlockTools
-from chia.types.blockchain_format.coin import Coin
-from chia.types.blockchain_format.program import Program
-from chia.types.blockchain_format.sized_bytes import bytes4, bytes32
-from chia.types.full_block import FullBlock
-from chia.types.weight_proof import SubEpochChallengeSegment
-from chia.util.ints import uint8, uint32, uint64
-from chia.util.streamable import (
+from lotus.protocols.wallet_protocol import RespondRemovals
+from lotus.simulator.block_tools import BlockTools
+from lotus.types.blockchain_format.coin import Coin
+from lotus.types.blockchain_format.program import Program
+from lotus.types.blockchain_format.sized_bytes import bytes4, bytes32
+from lotus.types.full_block import FullBlock
+from lotus.types.weight_proof import SubEpochChallengeSegment
+from lotus.util.ints import uint8, uint32, uint64
+from lotus.util.streamable import (
     ConversionError,
     DefinitionError,
     InvalidSizeError,

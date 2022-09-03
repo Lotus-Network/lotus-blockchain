@@ -3,15 +3,15 @@ from secrets import token_bytes
 
 import pytest
 
-from chia.types.blockchain_format.coin import Coin
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.util.ints import uint32, uint64
-from chia.wallet.trade_record import TradeRecord
-from chia.wallet.trading.trade_status import TradeStatus
-from chia.wallet.trading.trade_store import TradeStore, migrate_coin_of_interest
-from chia.wallet.util.wallet_types import WalletType
-from chia.wallet.wallet_coin_record import WalletCoinRecord
-from chia.wallet.wallet_coin_store import WalletCoinStore
+from lotus.types.blockchain_format.coin import Coin
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.util.ints import uint32, uint64
+from lotus.wallet.trade_record import TradeRecord
+from lotus.wallet.trading.trade_status import TradeStatus
+from lotus.wallet.trading.trade_store import TradeStore, migrate_coin_of_interest
+from lotus.wallet.util.wallet_types import WalletType
+from lotus.wallet.wallet_coin_record import WalletCoinRecord
+from lotus.wallet.wallet_coin_store import WalletCoinStore
 from tests.util.db_connection import DBConnection
 
 coin_1 = Coin(token_bytes(32), token_bytes(32), uint64(12311))

@@ -1,9 +1,9 @@
 from typing import List
 
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.types.condition_opcodes import ConditionOpcode
-from chia.types.blockchain_format.program import INFINITE_COST
-from chia.types.coin_spend import CoinSpend
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.types.condition_opcodes import ConditionOpcode
+from lotus.types.blockchain_format.program import INFINITE_COST
+from lotus.types.coin_spend import CoinSpend
 
 
 def compute_coin_hints(cs: CoinSpend) -> List[bytes32]:

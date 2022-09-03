@@ -6,12 +6,12 @@ from bitstring import BitArray
 from blspy import G1Element, AugSchemeMPL, PrivateKey
 from chiapos import Verifier
 
-from chia.consensus.constants import ConsensusConstants
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.util.hash import std_hash
-from chia.util.ints import uint8
-from chia.util.streamable import Streamable, streamable
-from chia.consensus.default_constants import DEFAULT_CONSTANTS
+from lotus.consensus.constants import ConsensusConstants
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.util.hash import std_hash
+from lotus.util.ints import uint8
+from lotus.util.streamable import Streamable, streamable
+from lotus.consensus.default_constants import DEFAULT_CONSTANTS
 
 log = logging.getLogger(__name__)
 

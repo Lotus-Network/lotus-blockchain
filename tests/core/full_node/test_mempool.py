@@ -6,48 +6,48 @@ from typing import Dict, List, Optional, Tuple, Callable
 from clvm.casts import int_to_bytes
 import pytest
 
-import chia.server.ws_connection as ws
+import lotus.server.ws_connection as ws
 
-from chia.full_node.mempool import Mempool
-from chia.full_node.full_node_api import FullNodeAPI
-from chia.protocols import full_node_protocol, wallet_protocol
-from chia.protocols.wallet_protocol import TransactionAck
-from chia.server.outbound_message import Message
-from chia.simulator.simulator_protocol import FarmNewBlockProtocol
-from chia.types.announcement import Announcement
-from chia.types.blockchain_format.coin import Coin
-from chia.types.blockchain_format.sized_bytes import bytes32, bytes48
-from chia.types.coin_spend import CoinSpend
-from chia.types.condition_opcodes import ConditionOpcode
-from chia.types.condition_with_args import ConditionWithArgs
-from chia.types.spend_bundle import SpendBundle
-from chia.types.mempool_item import MempoolItem
-from chia.util.condition_tools import conditions_for_solution, pkm_pairs
-from chia.util.errors import Err
-from chia.util.ints import uint64
-from chia.util.hash import std_hash
-from chia.types.mempool_inclusion_status import MempoolInclusionStatus
-from chia.util.api_decorators import api_request, peer_required, bytes_required
-from chia.full_node.mempool_check_conditions import get_name_puzzle_conditions
-from chia.full_node.pending_tx_cache import PendingTxCache
+from lotus.full_node.mempool import Mempool
+from lotus.full_node.full_node_api import FullNodeAPI
+from lotus.protocols import full_node_protocol, wallet_protocol
+from lotus.protocols.wallet_protocol import TransactionAck
+from lotus.server.outbound_message import Message
+from lotus.simulator.simulator_protocol import FarmNewBlockProtocol
+from lotus.types.announcement import Announcement
+from lotus.types.blockchain_format.coin import Coin
+from lotus.types.blockchain_format.sized_bytes import bytes32, bytes48
+from lotus.types.coin_spend import CoinSpend
+from lotus.types.condition_opcodes import ConditionOpcode
+from lotus.types.condition_with_args import ConditionWithArgs
+from lotus.types.spend_bundle import SpendBundle
+from lotus.types.mempool_item import MempoolItem
+from lotus.util.condition_tools import conditions_for_solution, pkm_pairs
+from lotus.util.errors import Err
+from lotus.util.ints import uint64
+from lotus.util.hash import std_hash
+from lotus.types.mempool_inclusion_status import MempoolInclusionStatus
+from lotus.util.api_decorators import api_request, peer_required, bytes_required
+from lotus.full_node.mempool_check_conditions import get_name_puzzle_conditions
+from lotus.full_node.pending_tx_cache import PendingTxCache
 from blspy import G2Element
 
-from chia.util.recursive_replace import recursive_replace
+from lotus.util.recursive_replace import recursive_replace
 from tests.blockchain.blockchain_test_utils import _validate_and_add_block
 from tests.connection_utils import connect_and_get_peer, add_dummy_connection
 from tests.core.node_height import node_height_at_least
-from chia.simulator.time_out_assert import time_out_assert
-from chia.types.blockchain_format.program import Program, INFINITE_COST
-from chia.consensus.cost_calculator import NPCResult
-from chia.consensus.condition_costs import ConditionCost
-from chia.types.blockchain_format.program import SerializedProgram
+from lotus.simulator.time_out_assert import time_out_assert
+from lotus.types.blockchain_format.program import Program, INFINITE_COST
+from lotus.consensus.cost_calculator import NPCResult
+from lotus.consensus.condition_costs import ConditionCost
+from lotus.types.blockchain_format.program import SerializedProgram
 from clvm_tools import binutils
-from chia.types.generator_types import BlockGenerator
+from lotus.types.generator_types import BlockGenerator
 from blspy import G1Element
-from chia.types.spend_bundle_conditions import SpendBundleConditions, Spend
+from lotus.types.spend_bundle_conditions import SpendBundleConditions, Spend
 
 from tests.util.misc import assert_runtime
-from chia.simulator.wallet_tools import WalletTool
+from lotus.simulator.wallet_tools import WalletTool
 
 BURN_PUZZLE_HASH = bytes32(b"0" * 32)
 BURN_PUZZLE_HASH_2 = bytes32(b"1" * 32)
@@ -176,7 +176,7 @@ class TestMempool:
 async def respond_transaction(
     node: FullNodeAPI,
     tx: full_node_protocol.RespondTransaction,
-    peer: ws.WSChiaConnection,
+    peer: ws.WSLotusConnection,
     tx_bytes: bytes = b"",
     test: bool = False,
 ) -> Tuple[MempoolInclusionStatus, Optional[Err]]:

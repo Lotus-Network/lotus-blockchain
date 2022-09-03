@@ -2,24 +2,24 @@ from typing import KeysView, Generator
 
 SERVICES_FOR_GROUP = {
     "all": (
-        "chia_harvester chia_timelord_launcher chia_timelord chia_farmer chia_full_node chia_wallet chia_data_layer"
+        "lotus_harvester lotus_timelord_launcher lotus_timelord lotus_farmer lotus_full_node lotus_wallet lotus_data_layer"
     ).split(),
     # TODO: should this be `data_layer`?
-    "data": "chia_wallet chia_data_layer".split(),
-    "node": "chia_full_node".split(),
-    "harvester": "chia_harvester".split(),
-    "farmer": "chia_harvester chia_farmer chia_full_node chia_wallet".split(),
-    "farmer-no-wallet": "chia_harvester chia_farmer chia_full_node".split(),
-    "farmer-only": "chia_farmer".split(),
-    "timelord": "chia_timelord_launcher chia_timelord chia_full_node".split(),
-    "timelord-only": "chia_timelord".split(),
-    "timelord-launcher-only": "chia_timelord_launcher".split(),
-    "wallet": "chia_wallet".split(),
-    "introducer": "chia_introducer".split(),
-    "simulator": "chia_full_node_simulator".split(),
-    "crawler": "chia_crawler".split(),
-    "seeder": "chia_crawler chia_seeder".split(),
-    "seeder-only": "chia_seeder".split(),
+    "data": "lotus_wallet lotus_data_layer".split(),
+    "node": "lotus_full_node".split(),
+    "harvester": "lotus_harvester".split(),
+    "farmer": "lotus_harvester lotus_farmer lotus_full_node lotus_wallet".split(),
+    "farmer-no-wallet": "lotus_harvester lotus_farmer lotus_full_node".split(),
+    "farmer-only": "lotus_farmer".split(),
+    "timelord": "lotus_timelord_launcher lotus_timelord lotus_full_node".split(),
+    "timelord-only": "lotus_timelord".split(),
+    "timelord-launcher-only": "lotus_timelord_launcher".split(),
+    "wallet": "lotus_wallet".split(),
+    "introducer": "lotus_introducer".split(),
+    "simulator": "lotus_full_node_simulator".split(),
+    "crawler": "lotus_crawler".split(),
+    "seeder": "lotus_crawler lotus_seeder".split(),
+    "seeder-only": "lotus_seeder".split(),
 }
 
 

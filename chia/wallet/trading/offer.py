@@ -5,15 +5,15 @@ from typing import Any, Dict, List, Optional, Set, Tuple, Union, BinaryIO
 from blspy import G2Element
 from clvm_tools.binutils import disassemble
 
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.types.blockchain_format.coin import Coin, coin_as_list
-from chia.types.blockchain_format.program import Program, INFINITE_COST
-from chia.types.announcement import Announcement
-from chia.types.coin_spend import CoinSpend
-from chia.types.spend_bundle import SpendBundle
-from chia.util.bech32m import bech32_decode, bech32_encode, convertbits
-from chia.util.ints import uint64
-from chia.wallet.outer_puzzles import (
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.types.blockchain_format.coin import Coin, coin_as_list
+from lotus.types.blockchain_format.program import Program, INFINITE_COST
+from lotus.types.announcement import Announcement
+from lotus.types.coin_spend import CoinSpend
+from lotus.types.spend_bundle import SpendBundle
+from lotus.util.bech32m import bech32_decode, bech32_encode, convertbits
+from lotus.util.ints import uint64
+from lotus.wallet.outer_puzzles import (
     construct_puzzle,
     create_asset_id,
     match_puzzle,
@@ -21,15 +21,15 @@ from chia.wallet.outer_puzzles import (
     get_inner_puzzle,
     get_inner_solution,
 )
-from chia.wallet.payment import Payment
-from chia.wallet.puzzle_drivers import PuzzleInfo, Solver
-from chia.wallet.puzzles.load_clvm import load_clvm
-from chia.wallet.util.puzzle_compression import (
+from lotus.wallet.payment import Payment
+from lotus.wallet.puzzle_drivers import PuzzleInfo, Solver
+from lotus.wallet.puzzles.load_clvm import load_clvm
+from lotus.wallet.util.puzzle_compression import (
     compress_object_with_puzzles,
     decompress_object_with_puzzles,
     lowest_best_version,
 )
-from chia.wallet.uncurried_puzzle import UncurriedPuzzle, uncurry_puzzle
+from lotus.wallet.uncurried_puzzle import UncurriedPuzzle, uncurry_puzzle
 
 OFFER_MOD = load_clvm("settlement_payments.clvm")
 OFFER_MOD_HASH = OFFER_MOD.get_tree_hash()

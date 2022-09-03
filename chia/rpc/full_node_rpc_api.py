@@ -2,27 +2,27 @@ from typing import Any, Dict, List, Optional
 
 from clvm.casts import int_from_bytes
 
-from chia.consensus.block_record import BlockRecord
-from chia.consensus.pos_quality import UI_ACTUAL_SPACE_CONSTANT_FACTOR
-from chia.full_node.full_node import FullNode
-from chia.full_node.generator import setup_generator_args
-from chia.full_node.mempool_check_conditions import get_puzzle_and_solution_for_coin
-from chia.rpc.rpc_server import Endpoint, EndpointResult
-from chia.types.blockchain_format.coin import Coin
-from chia.types.blockchain_format.program import Program, SerializedProgram
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.types.coin_record import CoinRecord
-from chia.types.coin_spend import CoinSpend
-from chia.types.full_block import FullBlock
-from chia.types.generator_types import BlockGenerator
-from chia.types.mempool_inclusion_status import MempoolInclusionStatus
-from chia.types.spend_bundle import SpendBundle
-from chia.types.unfinished_header_block import UnfinishedHeaderBlock
-from chia.util.byte_types import hexstr_to_bytes
-from chia.util.ints import uint32, uint64, uint128
-from chia.util.log_exceptions import log_exceptions
-from chia.util.ws_message import WsRpcMessage, create_payload_dict
-from chia.wallet.puzzles.decompress_block_spends import DECOMPRESS_BLOCK_SPENDS
+from lotus.consensus.block_record import BlockRecord
+from lotus.consensus.pos_quality import UI_ACTUAL_SPACE_CONSTANT_FACTOR
+from lotus.full_node.full_node import FullNode
+from lotus.full_node.generator import setup_generator_args
+from lotus.full_node.mempool_check_conditions import get_puzzle_and_solution_for_coin
+from lotus.rpc.rpc_server import Endpoint, EndpointResult
+from lotus.types.blockchain_format.coin import Coin
+from lotus.types.blockchain_format.program import Program, SerializedProgram
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.types.coin_record import CoinRecord
+from lotus.types.coin_spend import CoinSpend
+from lotus.types.full_block import FullBlock
+from lotus.types.generator_types import BlockGenerator
+from lotus.types.mempool_inclusion_status import MempoolInclusionStatus
+from lotus.types.spend_bundle import SpendBundle
+from lotus.types.unfinished_header_block import UnfinishedHeaderBlock
+from lotus.util.byte_types import hexstr_to_bytes
+from lotus.util.ints import uint32, uint64, uint128
+from lotus.util.log_exceptions import log_exceptions
+from lotus.util.ws_message import WsRpcMessage, create_payload_dict
+from lotus.wallet.puzzles.decompress_block_spends import DECOMPRESS_BLOCK_SPENDS
 
 
 def coin_record_dict_backwards_compat(coin_record: Dict[str, Any]):
@@ -33,7 +33,7 @@ def coin_record_dict_backwards_compat(coin_record: Dict[str, Any]):
 class FullNodeRpcApi:
     def __init__(self, service: FullNode):
         self.service = service
-        self.service_name = "chia_full_node"
+        self.service_name = "lotus_full_node"
         self.cached_blockchain_state: Optional[Dict] = None
 
     def get_routes(self) -> Dict[str, Endpoint]:

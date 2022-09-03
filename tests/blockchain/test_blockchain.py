@@ -9,47 +9,47 @@ import pytest
 from blspy import AugSchemeMPL, G2Element
 from clvm.casts import int_to_bytes
 
-from chia.consensus.block_header_validation import validate_finished_header_block
-from chia.consensus.block_rewards import calculate_base_farmer_reward
-from chia.consensus.blockchain import ReceiveBlockResult
-from chia.consensus.coinbase import create_farmer_coin
-from chia.consensus.multiprocess_validation import PreValidationResult
-from chia.consensus.pot_iterations import is_overflow_block
-from chia.full_node.bundle_tools import detect_potential_template_generator
-from chia.full_node.mempool_check_conditions import get_name_puzzle_conditions
-from chia.types.blockchain_format.classgroup import ClassgroupElement
-from chia.types.blockchain_format.coin import Coin
-from chia.types.blockchain_format.foliage import TransactionsInfo
-from chia.types.blockchain_format.program import SerializedProgram
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.types.blockchain_format.slots import InfusedChallengeChainSubSlot
-from chia.types.blockchain_format.vdf import VDFInfo, VDFProof
-from chia.types.condition_opcodes import ConditionOpcode
-from chia.types.condition_with_args import ConditionWithArgs
-from chia.types.end_of_slot_bundle import EndOfSubSlotBundle
-from chia.types.full_block import FullBlock
-from chia.types.generator_types import BlockGenerator
-from chia.types.spend_bundle import SpendBundle
-from chia.types.unfinished_block import UnfinishedBlock
-from chia.util.generator_tools import get_block_header
-from chia.util.vdf_prover import get_vdf_info_and_proof
-from chia.simulator.block_tools import create_block_tools_async
-from chia.util.errors import Err
-from chia.util.hash import std_hash
-from chia.util.ints import uint8, uint64, uint32
-from chia.util.merkle_set import MerkleSet
-from chia.util.recursive_replace import recursive_replace
+from lotus.consensus.block_header_validation import validate_finished_header_block
+from lotus.consensus.block_rewards import calculate_base_farmer_reward
+from lotus.consensus.blockchain import ReceiveBlockResult
+from lotus.consensus.coinbase import create_farmer_coin
+from lotus.consensus.multiprocess_validation import PreValidationResult
+from lotus.consensus.pot_iterations import is_overflow_block
+from lotus.full_node.bundle_tools import detect_potential_template_generator
+from lotus.full_node.mempool_check_conditions import get_name_puzzle_conditions
+from lotus.types.blockchain_format.classgroup import ClassgroupElement
+from lotus.types.blockchain_format.coin import Coin
+from lotus.types.blockchain_format.foliage import TransactionsInfo
+from lotus.types.blockchain_format.program import SerializedProgram
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.types.blockchain_format.slots import InfusedChallengeChainSubSlot
+from lotus.types.blockchain_format.vdf import VDFInfo, VDFProof
+from lotus.types.condition_opcodes import ConditionOpcode
+from lotus.types.condition_with_args import ConditionWithArgs
+from lotus.types.end_of_slot_bundle import EndOfSubSlotBundle
+from lotus.types.full_block import FullBlock
+from lotus.types.generator_types import BlockGenerator
+from lotus.types.spend_bundle import SpendBundle
+from lotus.types.unfinished_block import UnfinishedBlock
+from lotus.util.generator_tools import get_block_header
+from lotus.util.vdf_prover import get_vdf_info_and_proof
+from lotus.simulator.block_tools import create_block_tools_async
+from lotus.util.errors import Err
+from lotus.util.hash import std_hash
+from lotus.util.ints import uint8, uint64, uint32
+from lotus.util.merkle_set import MerkleSet
+from lotus.util.recursive_replace import recursive_replace
 from tests.blockchain.blockchain_test_utils import (
     _validate_and_add_block,
     _validate_and_add_block_multi_error,
     _validate_and_add_block_multi_result,
     _validate_and_add_block_no_error,
 )
-from chia.simulator.wallet_tools import WalletTool
+from lotus.simulator.wallet_tools import WalletTool
 from tests.setup_nodes import test_constants
 from tests.util.blockchain import create_blockchain
 from tests.util.keyring import TempKeyring
-from chia.wallet.puzzles.p2_delegated_puzzle_or_hidden_puzzle import (
+from lotus.wallet.puzzles.p2_delegated_puzzle_or_hidden_puzzle import (
     DEFAULT_HIDDEN_PUZZLE_HASH,
     calculate_synthetic_secret_key,
 )

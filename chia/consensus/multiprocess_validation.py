@@ -7,30 +7,30 @@ from typing import Awaitable, Callable, Dict, List, Optional, Sequence, Tuple
 
 from blspy import AugSchemeMPL, G1Element
 
-from chia.consensus.block_header_validation import validate_finished_header_block
-from chia.consensus.block_record import BlockRecord
-from chia.consensus.blockchain_interface import BlockchainInterface
-from chia.consensus.constants import ConsensusConstants
-from chia.consensus.cost_calculator import NPCResult
-from chia.consensus.difficulty_adjustment import get_next_sub_slot_iters_and_difficulty
-from chia.consensus.full_block_to_block_record import block_to_block_record
-from chia.consensus.get_block_challenge import get_block_challenge
-from chia.consensus.pot_iterations import calculate_iterations_quality, is_overflow_block
-from chia.full_node.mempool_check_conditions import get_name_puzzle_conditions
-from chia.types.block_protocol import BlockInfo
-from chia.types.blockchain_format.coin import Coin
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.types.blockchain_format.sub_epoch_summary import SubEpochSummary
-from chia.types.full_block import FullBlock
-from chia.types.generator_types import BlockGenerator
-from chia.types.header_block import HeaderBlock
-from chia.types.unfinished_block import UnfinishedBlock
-from chia.util.block_cache import BlockCache
-from chia.util.condition_tools import pkm_pairs
-from chia.util.errors import Err, ValidationError
-from chia.util.generator_tools import get_block_header, tx_removals_and_additions
-from chia.util.ints import uint16, uint32, uint64
-from chia.util.streamable import Streamable, streamable
+from lotus.consensus.block_header_validation import validate_finished_header_block
+from lotus.consensus.block_record import BlockRecord
+from lotus.consensus.blockchain_interface import BlockchainInterface
+from lotus.consensus.constants import ConsensusConstants
+from lotus.consensus.cost_calculator import NPCResult
+from lotus.consensus.difficulty_adjustment import get_next_sub_slot_iters_and_difficulty
+from lotus.consensus.full_block_to_block_record import block_to_block_record
+from lotus.consensus.get_block_challenge import get_block_challenge
+from lotus.consensus.pot_iterations import calculate_iterations_quality, is_overflow_block
+from lotus.full_node.mempool_check_conditions import get_name_puzzle_conditions
+from lotus.types.block_protocol import BlockInfo
+from lotus.types.blockchain_format.coin import Coin
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.types.blockchain_format.sub_epoch_summary import SubEpochSummary
+from lotus.types.full_block import FullBlock
+from lotus.types.generator_types import BlockGenerator
+from lotus.types.header_block import HeaderBlock
+from lotus.types.unfinished_block import UnfinishedBlock
+from lotus.util.block_cache import BlockCache
+from lotus.util.condition_tools import pkm_pairs
+from lotus.util.errors import Err, ValidationError
+from lotus.util.generator_tools import get_block_header, tx_removals_and_additions
+from lotus.util.ints import uint16, uint32, uint64
+from lotus.util.streamable import Streamable, streamable
 
 log = logging.getLogger(__name__)
 

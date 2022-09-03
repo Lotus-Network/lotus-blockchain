@@ -1,7 +1,7 @@
 import logging
 from typing import Any
 
-from chia.data_layer.data_layer import DataLayer
+from lotus.data_layer.data_layer import DataLayer
 
 
 class DataLayerAPI:

@@ -5,18 +5,18 @@ import traceback
 
 from aiohttp import ClientSession, ClientConnectorError
 from blspy import AugSchemeMPL, PrivateKey
-from chia.cmds.init_funcs import check_keys
-from chia.daemon.client import DaemonProxy
-from chia.daemon.keychain_server import (
+from lotus.cmds.init_funcs import check_keys
+from lotus.daemon.client import DaemonProxy
+from lotus.daemon.keychain_server import (
     KEYCHAIN_ERR_KEYERROR,
     KEYCHAIN_ERR_LOCKED,
     KEYCHAIN_ERR_MALFORMED_REQUEST,
     KEYCHAIN_ERR_NO_KEYS,
     KEYCHAIN_ERR_KEY_NOT_FOUND,
 )
-from chia.server.server import ssl_context_for_client
-from chia.util.config import load_config
-from chia.util.errors import (
+from lotus.server.server import ssl_context_for_client
+from lotus.util.config import load_config
+from lotus.util.errors import (
     KeychainIsLocked,
     KeychainIsEmpty,
     KeychainKeyNotFound,
@@ -24,12 +24,12 @@ from chia.util.errors import (
     KeychainMalformedResponse,
     KeychainProxyConnectionTimeout,
 )
-from chia.util.keychain import (
+from lotus.util.keychain import (
     Keychain,
     bytes_to_mnemonic,
     mnemonic_to_seed,
 )
-from chia.util.ws_message import WsRpcMessage
+from lotus.util.ws_message import WsRpcMessage
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 

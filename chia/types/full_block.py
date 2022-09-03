@@ -1,14 +1,14 @@
 from dataclasses import dataclass
 from typing import List, Optional, Set
-from chia.types.blockchain_format.coin import Coin
-from chia.types.blockchain_format.foliage import Foliage, FoliageTransactionBlock, TransactionsInfo
-from chia.types.blockchain_format.program import SerializedProgram
-from chia.types.blockchain_format.reward_chain_block import RewardChainBlock
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.types.blockchain_format.vdf import VDFProof
-from chia.types.end_of_slot_bundle import EndOfSubSlotBundle
-from chia.util.ints import uint32
-from chia.util.streamable import Streamable, streamable
+from lotus.types.blockchain_format.coin import Coin
+from lotus.types.blockchain_format.foliage import Foliage, FoliageTransactionBlock, TransactionsInfo
+from lotus.types.blockchain_format.program import SerializedProgram
+from lotus.types.blockchain_format.reward_chain_block import RewardChainBlock
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.types.blockchain_format.vdf import VDFProof
+from lotus.types.end_of_slot_bundle import EndOfSubSlotBundle
+from lotus.util.ints import uint32
+from lotus.util.streamable import Streamable, streamable
 
 
 @streamable

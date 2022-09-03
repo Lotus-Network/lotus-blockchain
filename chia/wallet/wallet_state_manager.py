@@ -13,35 +13,35 @@ from typing import Any, Callable, Dict, Iterator, List, Optional, Set, Tuple
 import aiosqlite
 from blspy import G1Element, PrivateKey
 
-from chia.consensus.block_rewards import calculate_base_farmer_reward, calculate_pool_reward
-from chia.consensus.coinbase import farmer_parent_id, pool_parent_id
-from chia.consensus.constants import ConsensusConstants
-from chia.data_layer.data_layer_wallet import DataLayerWallet
-from chia.data_layer.dl_wallet_store import DataLayerStore
-from chia.pools.pool_puzzles import SINGLETON_LAUNCHER_HASH, solution_to_pool_state
-from chia.pools.pool_wallet import PoolWallet
-from chia.protocols import wallet_protocol
-from chia.protocols.wallet_protocol import CoinState
-from chia.server.server import ChiaServer
-from chia.server.ws_connection import WSChiaConnection
-from chia.types.blockchain_format.coin import Coin
-from chia.types.blockchain_format.program import Program
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.types.coin_spend import CoinSpend
-from chia.types.full_block import FullBlock
-from chia.types.mempool_inclusion_status import MempoolInclusionStatus
-from chia.util.bech32m import encode_puzzle_hash
-from chia.util.db_synchronous import db_synchronous_on
-from chia.util.db_wrapper import DBWrapper2
-from chia.util.errors import Err
-from chia.util.path import path_from_root
-from chia.util.ints import uint8, uint32, uint64, uint128
-from chia.util.lru_cache import LRUCache
-from chia.wallet.cat_wallet.cat_constants import DEFAULT_CATS
-from chia.wallet.cat_wallet.cat_utils import construct_cat_puzzle, match_cat_puzzle
-from chia.wallet.cat_wallet.cat_wallet import CATWallet
-from chia.wallet.derivation_record import DerivationRecord
-from chia.wallet.derive_keys import (
+from lotus.consensus.block_rewards import calculate_base_farmer_reward, calculate_pool_reward
+from lotus.consensus.coinbase import farmer_parent_id, pool_parent_id
+from lotus.consensus.constants import ConsensusConstants
+from lotus.data_layer.data_layer_wallet import DataLayerWallet
+from lotus.data_layer.dl_wallet_store import DataLayerStore
+from lotus.pools.pool_puzzles import SINGLETON_LAUNCHER_HASH, solution_to_pool_state
+from lotus.pools.pool_wallet import PoolWallet
+from lotus.protocols import wallet_protocol
+from lotus.protocols.wallet_protocol import CoinState
+from lotus.server.server import LotusServer
+from lotus.server.ws_connection import WSLotusConnection
+from lotus.types.blockchain_format.coin import Coin
+from lotus.types.blockchain_format.program import Program
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.types.coin_spend import CoinSpend
+from lotus.types.full_block import FullBlock
+from lotus.types.mempool_inclusion_status import MempoolInclusionStatus
+from lotus.util.bech32m import encode_puzzle_hash
+from lotus.util.db_synchronous import db_synchronous_on
+from lotus.util.db_wrapper import DBWrapper2
+from lotus.util.errors import Err
+from lotus.util.path import path_from_root
+from lotus.util.ints import uint8, uint32, uint64, uint128
+from lotus.util.lru_cache import LRUCache
+from lotus.wallet.cat_wallet.cat_constants import DEFAULT_CATS
+from lotus.wallet.cat_wallet.cat_utils import construct_cat_puzzle, match_cat_puzzle
+from lotus.wallet.cat_wallet.cat_wallet import CATWallet
+from lotus.wallet.derivation_record import DerivationRecord
+from lotus.wallet.derive_keys import (
     master_sk_to_wallet_sk,
     master_sk_to_wallet_sk_unhardened,
     master_sk_to_wallet_sk_intermediate,
@@ -49,38 +49,38 @@ from chia.wallet.derive_keys import (
     master_sk_to_wallet_sk_unhardened_intermediate,
     _derive_path_unhardened,
 )
-from chia.wallet.did_wallet.did_wallet import DIDWallet
-from chia.wallet.did_wallet.did_wallet_puzzles import DID_INNERPUZ_MOD, create_fullpuz, match_did_puzzle
-from chia.wallet.key_val_store import KeyValStore
-from chia.wallet.nft_wallet.nft_info import NFTWalletInfo
-from chia.wallet.nft_wallet.nft_puzzles import get_metadata_and_phs, get_new_owner_did
-from chia.wallet.nft_wallet.nft_wallet import NFTWallet
-from chia.wallet.nft_wallet.uncurry_nft import UncurriedNFT
-from chia.wallet.outer_puzzles import AssetType
-from chia.wallet.puzzle_drivers import PuzzleInfo
-from chia.wallet.puzzles.cat_loader import CAT_MOD, CAT_MOD_HASH
-from chia.wallet.rl_wallet.rl_wallet import RLWallet
-from chia.wallet.settings.user_settings import UserSettings
-from chia.wallet.trade_manager import TradeManager
-from chia.wallet.transaction_record import TransactionRecord
-from chia.wallet.util.address_type import AddressType
-from chia.wallet.util.compute_hints import compute_coin_hints
-from chia.wallet.util.transaction_type import TransactionType
-from chia.wallet.util.wallet_sync_utils import last_change_height_cs
-from chia.wallet.util.wallet_types import WalletType
-from chia.wallet.wallet import Wallet
-from chia.wallet.wallet_blockchain import WalletBlockchain
-from chia.wallet.wallet_coin_record import WalletCoinRecord
-from chia.wallet.wallet_coin_store import WalletCoinStore
-from chia.wallet.wallet_info import WalletInfo
-from chia.wallet.wallet_interested_store import WalletInterestedStore
-from chia.wallet.wallet_nft_store import WalletNftStore
-from chia.wallet.wallet_pool_store import WalletPoolStore
-from chia.wallet.wallet_puzzle_store import WalletPuzzleStore
-from chia.wallet.wallet_sync_store import WalletSyncStore
-from chia.wallet.wallet_transaction_store import WalletTransactionStore
-from chia.wallet.wallet_user_store import WalletUserStore
-from chia.wallet.uncurried_puzzle import uncurry_puzzle
+from lotus.wallet.did_wallet.did_wallet import DIDWallet
+from lotus.wallet.did_wallet.did_wallet_puzzles import DID_INNERPUZ_MOD, create_fullpuz, match_did_puzzle
+from lotus.wallet.key_val_store import KeyValStore
+from lotus.wallet.nft_wallet.nft_info import NFTWalletInfo
+from lotus.wallet.nft_wallet.nft_puzzles import get_metadata_and_phs, get_new_owner_did
+from lotus.wallet.nft_wallet.nft_wallet import NFTWallet
+from lotus.wallet.nft_wallet.uncurry_nft import UncurriedNFT
+from lotus.wallet.outer_puzzles import AssetType
+from lotus.wallet.puzzle_drivers import PuzzleInfo
+from lotus.wallet.puzzles.cat_loader import CAT_MOD, CAT_MOD_HASH
+from lotus.wallet.rl_wallet.rl_wallet import RLWallet
+from lotus.wallet.settings.user_settings import UserSettings
+from lotus.wallet.trade_manager import TradeManager
+from lotus.wallet.transaction_record import TransactionRecord
+from lotus.wallet.util.address_type import AddressType
+from lotus.wallet.util.compute_hints import compute_coin_hints
+from lotus.wallet.util.transaction_type import TransactionType
+from lotus.wallet.util.wallet_sync_utils import last_change_height_cs
+from lotus.wallet.util.wallet_types import WalletType
+from lotus.wallet.wallet import Wallet
+from lotus.wallet.wallet_blockchain import WalletBlockchain
+from lotus.wallet.wallet_coin_record import WalletCoinRecord
+from lotus.wallet.wallet_coin_store import WalletCoinStore
+from lotus.wallet.wallet_info import WalletInfo
+from lotus.wallet.wallet_interested_store import WalletInterestedStore
+from lotus.wallet.wallet_nft_store import WalletNftStore
+from lotus.wallet.wallet_pool_store import WalletPoolStore
+from lotus.wallet.wallet_puzzle_store import WalletPuzzleStore
+from lotus.wallet.wallet_sync_store import WalletSyncStore
+from lotus.wallet.wallet_transaction_store import WalletTransactionStore
+from lotus.wallet.wallet_user_store import WalletUserStore
+from lotus.wallet.uncurried_puzzle import uncurry_puzzle
 
 
 class WalletStateManager:
@@ -122,7 +122,7 @@ class WalletStateManager:
     sync_store: WalletSyncStore
     interested_store: WalletInterestedStore
     multiprocessing_context: multiprocessing.context.BaseContext
-    server: ChiaServer
+    server: LotusServer
     root_path: Path
     wallet_node: Any
     pool_store: WalletPoolStore
@@ -137,7 +137,7 @@ class WalletStateManager:
         config: Dict,
         db_path: Path,
         constants: ConsensusConstants,
-        server: ChiaServer,
+        server: LotusServer,
         root_path: Path,
         wallet_node,
         name: str = None,
@@ -610,7 +610,7 @@ class WalletStateManager:
         return removals
 
     async def determine_coin_type(
-        self, peer: WSChiaConnection, coin_state: CoinState, fork_height: Optional[uint32]
+        self, peer: WSLotusConnection, coin_state: CoinState, fork_height: Optional[uint32]
     ) -> Tuple[Optional[uint32], Optional[WalletType]]:
         if coin_state.created_height is not None and (
             self.is_pool_reward(uint32(coin_state.created_height), coin_state.coin)
@@ -714,7 +714,7 @@ class WalletStateManager:
         parent_coin_state: CoinState,
         coin_state: CoinState,
         coin_spend: CoinSpend,
-        peer: WSChiaConnection,
+        peer: WSLotusConnection,
     ) -> Tuple[Optional[uint32], Optional[WalletType]]:
         """
         Handle the new coin when it is a DID
@@ -871,7 +871,7 @@ class WalletStateManager:
     async def new_coin_state(
         self,
         coin_states: List[CoinState],
-        peer: WSChiaConnection,
+        peer: WSLotusConnection,
         fork_height: Optional[uint32],
     ) -> None:
         # TODO: add comment about what this method does
@@ -1284,7 +1284,7 @@ class WalletStateManager:
         all_unconfirmed_transaction_records: List[TransactionRecord],
         wallet_id: uint32,
         wallet_type: WalletType,
-        peer: WSChiaConnection,
+        peer: WSLotusConnection,
         coin_name: bytes32,
     ) -> None:
         """

@@ -1,10 +1,10 @@
 from dataclasses import dataclass
 from typing import List, Optional, Tuple
 
-from chia.types.blockchain_format.program import Program
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.wallet.lineage_proof import LineageProof
-from chia.util.streamable import Streamable, streamable
+from lotus.types.blockchain_format.program import Program
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.wallet.lineage_proof import LineageProof
+from lotus.util.streamable import Streamable, streamable
 
 
 @streamable

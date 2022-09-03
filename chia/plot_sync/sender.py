@@ -8,11 +8,11 @@ from typing import Any, Generic, Iterable, List, Optional, Tuple, Type, TypeVar
 
 from typing_extensions import Protocol
 
-from chia.plot_sync.exceptions import AlreadyStartedError, InvalidConnectionTypeError
-from chia.plot_sync.util import Constants
-from chia.plotting.manager import PlotManager
-from chia.plotting.util import PlotInfo
-from chia.protocols.harvester_protocol import (
+from lotus.plot_sync.exceptions import AlreadyStartedError, InvalidConnectionTypeError
+from lotus.plot_sync.util import Constants
+from lotus.plotting.manager import PlotManager
+from lotus.plotting.util import PlotInfo
+from lotus.protocols.harvester_protocol import (
     Plot,
     PlotSyncDone,
     PlotSyncIdentifier,
@@ -21,9 +21,9 @@ from chia.protocols.harvester_protocol import (
     PlotSyncResponse,
     PlotSyncStart,
 )
-from chia.server.ws_connection import NodeType, ProtocolMessageTypes, WSChiaConnection, make_msg
-from chia.util.generator_tools import list_to_batches
-from chia.util.ints import int16, uint32, uint64
+from lotus.server.ws_connection import NodeType, ProtocolMessageTypes, WSLotusConnection, make_msg
+from lotus.util.generator_tools import list_to_batches
+from lotus.util.ints import int16, uint32, uint64
 
 log = logging.getLogger(__name__)
 
@@ -86,7 +86,7 @@ class ExpectedResponse:
 
 class Sender:
     _plot_manager: PlotManager
-    _connection: Optional[WSChiaConnection]
+    _connection: Optional[WSLotusConnection]
     _sync_id: uint64
     _next_message_id: uint64
     _messages: List[MessageGenerator[PayloadType]]
@@ -130,7 +130,7 @@ class Sender:
         self._reset()
         self._stop_requested = False
 
-    def set_connection(self, connection: WSChiaConnection) -> None:
+    def set_connection(self, connection: WSLotusConnection) -> None:
         assert connection.connection_type is not None
         if connection.connection_type != NodeType.FARMER:
             raise InvalidConnectionTypeError(connection.connection_type, NodeType.HARVESTER)

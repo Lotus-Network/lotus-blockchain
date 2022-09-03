@@ -1,8 +1,8 @@
 import pytest
 
-from chia.types.full_block import FullBlock
-from chia.types.header_block import HeaderBlock
-from chia.wallet.key_val_store import KeyValStore
+from lotus.types.full_block import FullBlock
+from lotus.types.header_block import HeaderBlock
+from lotus.wallet.key_val_store import KeyValStore
 from tests.util.db_connection import DBConnection
 
 

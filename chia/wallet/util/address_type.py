@@ -1,14 +1,14 @@
 from enum import Enum
 from typing import Any, Dict, Set
 
-from chia.util.bech32m import bech32_decode, convertbits
-from chia.util.config import selected_network_address_prefix
+from lotus.util.bech32m import bech32_decode, convertbits
+from lotus.util.config import selected_network_address_prefix
 
 
 class AddressType(Enum):
     XCH = "xch"
     NFT = "nft"
-    DID = "did:chia:"
+    DID = "did:lotus:"
 
     def hrp(self, config: Dict[str, Any]) -> str:
         if self == AddressType.XCH:

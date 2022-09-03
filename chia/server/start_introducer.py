@@ -2,13 +2,13 @@ import pathlib
 import sys
 from typing import Dict, Optional
 
-from chia.introducer.introducer import Introducer
-from chia.introducer.introducer_api import IntroducerAPI
-from chia.server.outbound_message import NodeType
-from chia.server.start_service import Service, async_run
-from chia.util.chia_logging import initialize_logging
-from chia.util.config import load_config, load_config_cli
-from chia.util.default_root import DEFAULT_ROOT_PATH
+from lotus.introducer.introducer import Introducer
+from lotus.introducer.introducer_api import IntroducerAPI
+from lotus.server.outbound_message import NodeType
+from lotus.server.start_service import Service, async_run
+from lotus.util.lotus_logging import initialize_logging
+from lotus.util.config import load_config, load_config_cli
+from lotus.util.default_root import DEFAULT_ROOT_PATH
 
 # See: https://bugs.python.org/issue29288
 "".encode("idna")

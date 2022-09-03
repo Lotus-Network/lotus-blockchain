@@ -13,13 +13,13 @@ if [ "${SCRIPT_DIR}" != "$(pwd)" ]; then
 fi
 
 if [ -z "$VIRTUAL_ENV" ]; then
-  echo "This requires the chia python virtual environment."
+  echo "This requires the lotus python virtual environment."
   echo "Execute '. ./activate' before running."
   exit 1
 fi
 
 if [ "$(id -u)" = 0 ]; then
-  echo "The Chia Blockchain GUI can not be installed or run by the root user."
+  echo "The Lotus Blockchain GUI can not be installed or run by the root user."
   exit 1
 fi
 
@@ -201,13 +201,13 @@ if [ ! "$CI" ]; then
   npm audit fix || true
   npm run build
 
-  # Set modified output of `chia version` to version property of GUI's package.json
+  # Set modified output of `lotus version` to version property of GUI's package.json
   python ../installhelper.py
 else
   echo "Skipping node.js in install.sh on MacOS ci."
 fi
 
 echo ""
-echo "Chia blockchain install-gui.sh completed."
+echo "Lotus blockchain install-gui.sh completed."
 echo ""
 echo "Type 'bash start-gui.sh &' to start the GUI."

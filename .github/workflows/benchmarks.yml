@@ -29,7 +29,7 @@ jobs:
       matrix:
         python-version: [ 3.9 ]
     env:
-      CHIA_ROOT: ${{ github.workspace }}/.chia/mainnet
+      LOTUS_ROOT: ${{ github.workspace }}/.lotus/mainnet
       BLOCKS_AND_PLOTS_VERSION: 0.29.0
 
     steps:
@@ -63,7 +63,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: 'Chia-Network/test-cache'
-          path: '.chia'
+          path: '.lotus'
           ref: ${{ env.BLOCKS_AND_PLOTS_VERSION }}
           fetch-depth: 1
 

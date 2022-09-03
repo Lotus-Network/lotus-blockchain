@@ -1,12 +1,12 @@
 from pathlib import Path
 from typing import Any, Dict, Optional
 
-from chia.consensus.block_record import BlockRecord
-from chia.consensus.default_constants import DEFAULT_CONSTANTS
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.types.full_block import FullBlock
-from chia.util.config import load_config
-from chia.util.path import path_from_root
+from lotus.consensus.block_record import BlockRecord
+from lotus.consensus.default_constants import DEFAULT_CONSTANTS
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.types.full_block import FullBlock
+from lotus.util.config import load_config
+from lotus.util.path import path_from_root
 
 
 def db_validate_func(

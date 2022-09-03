@@ -1,14 +1,14 @@
 from dataclasses import dataclass
 from typing import List, Optional
 
-from chia.types.blockchain_format.proof_of_space import ProofOfSpace
-from chia.types.blockchain_format.reward_chain_block import RewardChainBlock
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.types.blockchain_format.vdf import VDFInfo, VDFProof
-from chia.types.end_of_slot_bundle import EndOfSubSlotBundle
-from chia.types.header_block import HeaderBlock
-from chia.util.ints import uint8, uint32, uint64, uint128
-from chia.util.streamable import Streamable, streamable
+from lotus.types.blockchain_format.proof_of_space import ProofOfSpace
+from lotus.types.blockchain_format.reward_chain_block import RewardChainBlock
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.types.blockchain_format.vdf import VDFInfo, VDFProof
+from lotus.types.end_of_slot_bundle import EndOfSubSlotBundle
+from lotus.types.header_block import HeaderBlock
+from lotus.util.ints import uint8, uint32, uint64, uint128
+from lotus.util.streamable import Streamable, streamable
 
 
 @streamable

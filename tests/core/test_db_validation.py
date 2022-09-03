@@ -7,17 +7,17 @@ from typing import List
 import aiosqlite
 import pytest
 
-from chia.cmds.db_validate_func import validate_v2
-from chia.consensus.blockchain import Blockchain
-from chia.consensus.default_constants import DEFAULT_CONSTANTS
-from chia.consensus.multiprocess_validation import PreValidationResult
-from chia.full_node.block_store import BlockStore
-from chia.full_node.coin_store import CoinStore
-from chia.full_node.hint_store import HintStore
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.types.full_block import FullBlock
-from chia.util.db_wrapper import DBWrapper2
-from chia.util.ints import uint64
+from lotus.cmds.db_validate_func import validate_v2
+from lotus.consensus.blockchain import Blockchain
+from lotus.consensus.default_constants import DEFAULT_CONSTANTS
+from lotus.consensus.multiprocess_validation import PreValidationResult
+from lotus.full_node.block_store import BlockStore
+from lotus.full_node.coin_store import CoinStore
+from lotus.full_node.hint_store import HintStore
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.types.full_block import FullBlock
+from lotus.util.db_wrapper import DBWrapper2
+from lotus.util.ints import uint64
 from tests.setup_nodes import test_constants
 from tests.util.temp_file import TempFile
 
@@ -134,7 +134,7 @@ async def make_db(db_file: Path, blocks: List[FullBlock]) -> None:
         await db_wrapper.add_connection(await aiosqlite.connect(db_file))
 
         async with db_wrapper.writer_maybe_transaction() as conn:
-            # this is done by chia init normally
+            # this is done by lotus init normally
             await conn.execute("CREATE TABLE database_version(version int)")
             await conn.execute("INSERT INTO database_version VALUES (2)")
 

@@ -24,7 +24,7 @@ config/keys.yaml
 config/plots.yaml
 
 # Bundled code
-chia-blockchain.tar.gz.tar.gz
+lotus-blockchain.tar.gz.tar.gz
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -50,7 +50,7 @@ activate
 .idea
 
 # Packaging
-chia-blockchain.tar.gz
+lotus-blockchain.tar.gz
 
 # Timelord utilities
 vdf_bench
@@ -87,7 +87,7 @@ build_scripts\win_build
 build_scripts/win_build
 win_code_sign_cert.p12
 
-# chia-blockchain wheel build folder
+# lotus-blockchain wheel build folder
 build/
 
 # Temporal `n` (node version manager) directory

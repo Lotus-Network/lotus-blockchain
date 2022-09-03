@@ -15,91 +15,91 @@ from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 
 from blspy import AugSchemeMPL, G1Element, G2Element, PrivateKey
-from chia_rs import compute_merkle_set_root
+from lotus_rs import compute_merkle_set_root
 from chiabip158 import PyBIP158
 
-from chia.cmds.init_funcs import create_all_ssl, create_default_chia_config
-from chia.consensus.block_creation import unfinished_block_to_full_block
-from chia.consensus.block_record import BlockRecord
-from chia.consensus.block_rewards import calculate_base_farmer_reward, calculate_pool_reward
-from chia.consensus.blockchain_interface import BlockchainInterface
-from chia.consensus.coinbase import create_farmer_coin, create_pool_coin, create_puzzlehash_for_pk
-from chia.consensus.condition_costs import ConditionCost
-from chia.consensus.constants import ConsensusConstants
-from chia.consensus.default_constants import DEFAULT_CONSTANTS
-from chia.consensus.deficit import calculate_deficit
-from chia.consensus.full_block_to_block_record import block_to_block_record
-from chia.consensus.make_sub_epoch_summary import next_sub_epoch_summary
-from chia.consensus.pot_iterations import (
+from lotus.cmds.init_funcs import create_all_ssl, create_default_lotus_config
+from lotus.consensus.block_creation import unfinished_block_to_full_block
+from lotus.consensus.block_record import BlockRecord
+from lotus.consensus.block_rewards import calculate_base_farmer_reward, calculate_pool_reward
+from lotus.consensus.blockchain_interface import BlockchainInterface
+from lotus.consensus.coinbase import create_farmer_coin, create_pool_coin, create_puzzlehash_for_pk
+from lotus.consensus.condition_costs import ConditionCost
+from lotus.consensus.constants import ConsensusConstants
+from lotus.consensus.default_constants import DEFAULT_CONSTANTS
+from lotus.consensus.deficit import calculate_deficit
+from lotus.consensus.full_block_to_block_record import block_to_block_record
+from lotus.consensus.make_sub_epoch_summary import next_sub_epoch_summary
+from lotus.consensus.pot_iterations import (
     calculate_ip_iters,
     calculate_iterations_quality,
     calculate_sp_interval_iters,
     calculate_sp_iters,
     is_overflow_block,
 )
-from chia.consensus.vdf_info_computation import get_signage_point_vdf_info
-from chia.daemon.keychain_proxy import KeychainProxy, connect_to_keychain_and_validate, wrap_local_keychain
-from chia.full_node.bundle_tools import (
+from lotus.consensus.vdf_info_computation import get_signage_point_vdf_info
+from lotus.daemon.keychain_proxy import KeychainProxy, connect_to_keychain_and_validate, wrap_local_keychain
+from lotus.full_node.bundle_tools import (
     best_solution_generator_from_template,
     detect_potential_template_generator,
     simple_solution_generator,
 )
-from chia.full_node.generator import setup_generator_args
-from chia.full_node.mempool_check_conditions import GENERATOR_MOD
-from chia.full_node.signage_point import SignagePoint
-from chia.plotting.create_plots import PlotKeys, create_plots
-from chia.plotting.manager import PlotManager
-from chia.plotting.util import (
+from lotus.full_node.generator import setup_generator_args
+from lotus.full_node.mempool_check_conditions import GENERATOR_MOD
+from lotus.full_node.signage_point import SignagePoint
+from lotus.plotting.create_plots import PlotKeys, create_plots
+from lotus.plotting.manager import PlotManager
+from lotus.plotting.util import (
     PlotRefreshEvents,
     PlotRefreshResult,
     PlotsRefreshParameter,
     add_plot_directory,
     parse_plot_info,
 )
-from chia.server.server import ssl_context_for_client
-from chia.simulator.socket import find_available_listen_port
-from chia.simulator.ssl_certs import (
+from lotus.server.server import ssl_context_for_client
+from lotus.simulator.socket import find_available_listen_port
+from lotus.simulator.ssl_certs import (
     SSLTestCACertAndPrivateKey,
     SSLTestCollateralWrapper,
     SSLTestNodeCertsAndKeys,
     get_next_nodes_certs_and_keys,
     get_next_private_ca_cert_and_key,
 )
-from chia.simulator.time_out_assert import time_out_assert_custom_interval
-from chia.simulator.wallet_tools import WalletTool
-from chia.types.blockchain_format.classgroup import ClassgroupElement
-from chia.types.blockchain_format.coin import Coin, hash_coin_ids
-from chia.types.blockchain_format.foliage import Foliage, FoliageBlockData, FoliageTransactionBlock, TransactionsInfo
-from chia.types.blockchain_format.pool_target import PoolTarget
-from chia.types.blockchain_format.program import INFINITE_COST
-from chia.types.blockchain_format.proof_of_space import ProofOfSpace
-from chia.types.blockchain_format.reward_chain_block import RewardChainBlockUnfinished
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.types.blockchain_format.slots import (
+from lotus.simulator.time_out_assert import time_out_assert_custom_interval
+from lotus.simulator.wallet_tools import WalletTool
+from lotus.types.blockchain_format.classgroup import ClassgroupElement
+from lotus.types.blockchain_format.coin import Coin, hash_coin_ids
+from lotus.types.blockchain_format.foliage import Foliage, FoliageBlockData, FoliageTransactionBlock, TransactionsInfo
+from lotus.types.blockchain_format.pool_target import PoolTarget
+from lotus.types.blockchain_format.program import INFINITE_COST
+from lotus.types.blockchain_format.proof_of_space import ProofOfSpace
+from lotus.types.blockchain_format.reward_chain_block import RewardChainBlockUnfinished
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.types.blockchain_format.slots import (
     ChallengeChainSubSlot,
     InfusedChallengeChainSubSlot,
     RewardChainSubSlot,
     SubSlotProofs,
 )
-from chia.types.blockchain_format.sub_epoch_summary import SubEpochSummary
-from chia.types.blockchain_format.vdf import VDFInfo, VDFProof
-from chia.types.condition_opcodes import ConditionOpcode
-from chia.types.end_of_slot_bundle import EndOfSubSlotBundle
-from chia.types.full_block import FullBlock
-from chia.types.generator_types import BlockGenerator, CompressorArg
-from chia.types.spend_bundle import SpendBundle
-from chia.types.unfinished_block import UnfinishedBlock
-from chia.util.bech32m import encode_puzzle_hash
-from chia.util.block_cache import BlockCache
-from chia.util.config import load_config, lock_config, override_config, save_config
-from chia.util.default_root import DEFAULT_ROOT_PATH
-from chia.util.errors import Err
-from chia.util.hash import std_hash
-from chia.util.ints import uint8, uint16, uint32, uint64, uint128
-from chia.util.keychain import Keychain, bytes_to_mnemonic
-from chia.util.prev_transaction_block import get_prev_transaction_block
-from chia.util.vdf_prover import get_vdf_info_and_proof
-from chia.wallet.derive_keys import (
+from lotus.types.blockchain_format.sub_epoch_summary import SubEpochSummary
+from lotus.types.blockchain_format.vdf import VDFInfo, VDFProof
+from lotus.types.condition_opcodes import ConditionOpcode
+from lotus.types.end_of_slot_bundle import EndOfSubSlotBundle
+from lotus.types.full_block import FullBlock
+from lotus.types.generator_types import BlockGenerator, CompressorArg
+from lotus.types.spend_bundle import SpendBundle
+from lotus.types.unfinished_block import UnfinishedBlock
+from lotus.util.bech32m import encode_puzzle_hash
+from lotus.util.block_cache import BlockCache
+from lotus.util.config import load_config, lock_config, override_config, save_config
+from lotus.util.default_root import DEFAULT_ROOT_PATH
+from lotus.util.errors import Err
+from lotus.util.hash import std_hash
+from lotus.util.ints import uint8, uint16, uint32, uint64, uint128
+from lotus.util.keychain import Keychain, bytes_to_mnemonic
+from lotus.util.prev_transaction_block import get_prev_transaction_block
+from lotus.util.vdf_prover import get_vdf_info_and_proof
+from lotus.wallet.derive_keys import (
     master_sk_to_farmer_sk,
     master_sk_to_local_sk,
     master_sk_to_pool_sk,
@@ -178,7 +178,7 @@ class BlockTools:
             self.ssl_nodes_certs_and_keys_wrapper: SSLTestCollateralWrapper[
                 SSLTestNodeCertsAndKeys
             ] = get_next_nodes_certs_and_keys()
-            create_default_chia_config(root_path)
+            create_default_lotus_config(root_path)
             create_all_ssl(
                 root_path,
                 private_ca_crt_and_key=self.ssl_ca_cert_and_key_wrapper.collateral.cert_and_key,
@@ -255,7 +255,7 @@ class BlockTools:
             keychain_proxy = await connect_to_keychain_and_validate(self.root_path, self.log)
         else:  # if we are automated testing or if we don't have a fingerprint.
             keychain_proxy = await connect_to_keychain_and_validate(
-                self.root_path, self.log, user="testing-1.8.0", service="chia-testing-1.8.0"
+                self.root_path, self.log, user="testing-1.8.0", service="lotus-testing-1.8.0"
             )
         assert keychain_proxy is not None
         if fingerprint is None:  # if we are not specifying an existing key
@@ -291,7 +291,7 @@ class BlockTools:
 
         self.farmer_pubkeys: List[G1Element] = [master_sk_to_farmer_sk(sk).get_g1() for sk in self.all_sks]
         if len(self.pool_pubkeys) == 0 or len(self.farmer_pubkeys) == 0:
-            raise RuntimeError("Keys not generated. Run `chia keys generate`")
+            raise RuntimeError("Keys not generated. Run `lotus keys generate`")
 
         self.plot_manager.set_public_keys(self.farmer_pubkeys, self.pool_pubkeys)
         await keychain_proxy.close()  # close the keychain proxy

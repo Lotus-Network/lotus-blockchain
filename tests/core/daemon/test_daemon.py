@@ -7,16 +7,16 @@ import pytest
 from dataclasses import replace
 from typing import Any, Dict, List, Type
 
-from chia.daemon.keychain_server import DeleteLabelRequest, SetLabelRequest
-from chia.server.outbound_message import NodeType
-from chia.types.peer_info import PeerInfo
-from chia.util.ints import uint16
-from chia.util.keychain import KeyData
-from chia.daemon.keychain_server import GetKeyRequest, GetKeyResponse, GetKeysResponse
-from chia.util.keyring_wrapper import DEFAULT_PASSPHRASE_IF_NO_MASTER_PASSPHRASE
-from chia.util.ws_message import create_payload
+from lotus.daemon.keychain_server import DeleteLabelRequest, SetLabelRequest
+from lotus.server.outbound_message import NodeType
+from lotus.types.peer_info import PeerInfo
+from lotus.util.ints import uint16
+from lotus.util.keychain import KeyData
+from lotus.daemon.keychain_server import GetKeyRequest, GetKeyResponse, GetKeysResponse
+from lotus.util.keyring_wrapper import DEFAULT_PASSPHRASE_IF_NO_MASTER_PASSPHRASE
+from lotus.util.ws_message import create_payload
 from tests.core.node_height import node_height_at_least
-from chia.simulator.time_out_assert import time_out_assert_custom_interval, time_out_assert
+from lotus.simulator.time_out_assert import time_out_assert_custom_interval, time_out_assert
 
 test_key_data = KeyData.from_mnemonic(
     "grief lock ketchup video day owner torch young work "
@@ -154,7 +154,7 @@ async def test_daemon_simulation(self_hostname, daemon_simulation):
 
     read_handler = asyncio.create_task(reader(ws, message_queue))
     data = {}
-    payload = create_payload("get_blockchain_state", data, service_name, "chia_full_node")
+    payload = create_payload("get_blockchain_state", data, service_name, "lotus_full_node")
     await ws.send_str(payload)
 
     await asyncio.sleep(5)

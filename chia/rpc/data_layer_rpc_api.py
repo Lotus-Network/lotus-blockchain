@@ -4,8 +4,8 @@ import dataclasses
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, Dict, List, Optional
 
-from chia.data_layer.data_layer_errors import OfferIntegrityError
-from chia.data_layer.data_layer_util import (
+from lotus.data_layer.data_layer_errors import OfferIntegrityError
+from lotus.data_layer.data_layer_util import (
     CancelOfferRequest,
     CancelOfferResponse,
     MakeOfferRequest,
@@ -16,19 +16,19 @@ from chia.data_layer.data_layer_util import (
     TakeOfferResponse,
     VerifyOfferResponse,
 )
-from chia.data_layer.data_layer_wallet import DataLayerWallet, Mirror, verify_offer
-from chia.rpc.data_layer_rpc_util import marshal
-from chia.rpc.rpc_server import Endpoint, EndpointResult
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.util.byte_types import hexstr_to_bytes
+from lotus.data_layer.data_layer_wallet import DataLayerWallet, Mirror, verify_offer
+from lotus.rpc.data_layer_rpc_util import marshal
+from lotus.rpc.rpc_server import Endpoint, EndpointResult
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.util.byte_types import hexstr_to_bytes
 
 # todo input assertions for all rpc's
-from chia.util.ints import uint64
-from chia.util.streamable import recurse_jsonify
-from chia.wallet.trading.offer import Offer as TradingOffer
+from lotus.util.ints import uint64
+from lotus.util.streamable import recurse_jsonify
+from lotus.wallet.trading.offer import Offer as TradingOffer
 
 if TYPE_CHECKING:
-    from chia.data_layer.data_layer import DataLayer
+    from lotus.data_layer.data_layer import DataLayer
 
 
 def process_change(change: Dict[str, Any]) -> Dict[str, Any]:
@@ -67,7 +67,7 @@ class DataLayerRpcApi:
     # TODO: other RPC APIs do not accept a wallet and the service start does not expect to provide one
     def __init__(self, data_layer: DataLayer):  # , wallet: DataLayerWallet):
         self.service: DataLayer = data_layer
-        self.service_name = "chia_data_layer"
+        self.service_name = "lotus_data_layer"
 
     def get_routes(self) -> Dict[str, Endpoint]:
         return {

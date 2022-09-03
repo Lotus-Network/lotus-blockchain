@@ -1,6 +1,6 @@
 import zstd
 
-from chia.types.full_block import FullBlock
+from lotus.types.full_block import FullBlock
 
 LARGE_BLOCK: FullBlock = FullBlock.from_bytes(
     zstd.decompress(

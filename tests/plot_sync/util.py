@@ -3,19 +3,19 @@ from dataclasses import dataclass
 from secrets import token_bytes
 from typing import Optional
 
-from chia.harvester.harvester_api import Harvester
-from chia.plot_sync.sender import Sender
-from chia.protocols.harvester_protocol import PlotSyncIdentifier
-from chia.server.start_service import Service
-from chia.server.ws_connection import Message, NodeType
-from chia.simulator.time_out_assert import time_out_assert
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.types.peer_info import PeerInfo
-from chia.util.ints import uint64
+from lotus.harvester.harvester_api import Harvester
+from lotus.plot_sync.sender import Sender
+from lotus.protocols.harvester_protocol import PlotSyncIdentifier
+from lotus.server.start_service import Service
+from lotus.server.ws_connection import Message, NodeType
+from lotus.simulator.time_out_assert import time_out_assert
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.types.peer_info import PeerInfo
+from lotus.util.ints import uint64
 
 
 @dataclass
-class WSChiaConnectionDummy:
+class WSLotusConnectionDummy:
     connection_type: NodeType
     peer_node_id: bytes32
     peer_host: str = "localhost"
@@ -26,8 +26,8 @@ class WSChiaConnectionDummy:
         self.last_sent_message = message
 
 
-def get_dummy_connection(node_type: NodeType, peer_id: Optional[bytes32] = None) -> WSChiaConnectionDummy:
-    return WSChiaConnectionDummy(node_type, bytes32(token_bytes(32)) if peer_id is None else peer_id)
+def get_dummy_connection(node_type: NodeType, peer_id: Optional[bytes32] = None) -> WSLotusConnectionDummy:
+    return WSLotusConnectionDummy(node_type, bytes32(token_bytes(32)) if peer_id is None else peer_id)
 
 
 def plot_sync_identifier(current_sync_id: uint64, message_id: uint64) -> PlotSyncIdentifier:

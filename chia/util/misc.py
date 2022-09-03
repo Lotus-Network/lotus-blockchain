@@ -1,8 +1,8 @@
 import dataclasses
 from typing import Any, Dict, Sequence, Union
 
-from chia.util.ints import uint16
-from chia.util.streamable import Streamable, recurse_jsonify, streamable
+from lotus.util.ints import uint16
+from lotus.util.streamable import Streamable, recurse_jsonify, streamable
 
 
 @streamable

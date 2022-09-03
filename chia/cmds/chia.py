@@ -1,31 +1,31 @@
 from io import TextIOWrapper
 import click
 
-from chia import __version__
-from chia.cmds.configure import configure_cmd
-from chia.cmds.farm import farm_cmd
-from chia.cmds.data import data_cmd
-from chia.cmds.init import init_cmd
-from chia.cmds.keys import keys_cmd
-from chia.cmds.netspace import netspace_cmd
-from chia.cmds.passphrase import passphrase_cmd
-from chia.cmds.peer import peer_cmd
-from chia.cmds.plots import plots_cmd
-from chia.cmds.rpc import rpc_cmd
-from chia.cmds.show import show_cmd
-from chia.cmds.start import start_cmd
-from chia.cmds.stop import stop_cmd
-from chia.cmds.wallet import wallet_cmd
-from chia.cmds.plotnft import plotnft_cmd
-from chia.cmds.plotters import plotters_cmd
-from chia.cmds.db import db_cmd
-from chia.util.default_root import DEFAULT_KEYS_ROOT_PATH, DEFAULT_ROOT_PATH
-from chia.util.errors import KeychainCurrentPassphraseIsInvalid
-from chia.util.keychain import (
+from lotus import __version__
+from lotus.cmds.configure import configure_cmd
+from lotus.cmds.farm import farm_cmd
+from lotus.cmds.data import data_cmd
+from lotus.cmds.init import init_cmd
+from lotus.cmds.keys import keys_cmd
+from lotus.cmds.netspace import netspace_cmd
+from lotus.cmds.passphrase import passphrase_cmd
+from lotus.cmds.peer import peer_cmd
+from lotus.cmds.plots import plots_cmd
+from lotus.cmds.rpc import rpc_cmd
+from lotus.cmds.show import show_cmd
+from lotus.cmds.start import start_cmd
+from lotus.cmds.stop import stop_cmd
+from lotus.cmds.wallet import wallet_cmd
+from lotus.cmds.plotnft import plotnft_cmd
+from lotus.cmds.plotters import plotters_cmd
+from lotus.cmds.db import db_cmd
+from lotus.util.default_root import DEFAULT_KEYS_ROOT_PATH, DEFAULT_ROOT_PATH
+from lotus.util.errors import KeychainCurrentPassphraseIsInvalid
+from lotus.util.keychain import (
     Keychain,
     set_keys_root_path,
 )
-from chia.util.ssl_check import check_ssl
+from lotus.util.ssl_check import check_ssl
 from typing import Optional
 
 CONTEXT_SETTINGS = dict(help_option_names=["-h", "--help"])
@@ -48,8 +48,8 @@ def monkey_patch_click() -> None:
 
 
 @click.group(
-    help=f"\n  Manage chia blockchain infrastructure ({__version__})\n",
-    epilog="Try 'chia start node', 'chia netspace -d 192', or 'chia show -s'",
+    help=f"\n  Manage lotus blockchain infrastructure ({__version__})\n",
+    epilog="Try 'lotus start node', 'lotus netspace -d 192', or 'lotus show -s'",
     context_settings=CONTEXT_SETTINGS,
 )
 @click.option("--root-path", default=DEFAULT_ROOT_PATH, help="Config file root", type=click.Path(), show_default=True)
@@ -82,7 +82,7 @@ def cli(
         set_keys_root_path(Path(keys_root_path))
 
     if passphrase_file is not None:
-        from chia.cmds.passphrase_funcs import cache_passphrase, read_passphrase_from_file
+        from lotus.cmds.passphrase_funcs import cache_passphrase, read_passphrase_from_file
         from sys import exit
 
         try:
@@ -103,24 +103,24 @@ def cli(
     check_ssl(Path(root_path))
 
 
-@cli.command("version", short_help="Show chia version")
+@cli.command("version", short_help="Show lotus version")
 def version_cmd() -> None:
     print(__version__)
 
 
-@cli.command("run_daemon", short_help="Runs chia daemon")
+@cli.command("run_daemon", short_help="Runs lotus daemon")
 @click.option(
     "--wait-for-unlock",
     help="If the keyring is passphrase-protected, the daemon will wait for an unlock command before accessing keys",
     default=False,
     is_flag=True,
-    hidden=True,  # --wait-for-unlock is only set when launched by chia start <service>
+    hidden=True,  # --wait-for-unlock is only set when launched by lotus start <service>
 )
 @click.pass_context
 def run_daemon_cmd(ctx: click.Context, wait_for_unlock: bool) -> None:
     import asyncio
-    from chia.daemon.server import async_run_daemon
-    from chia.util.keychain import Keychain
+    from lotus.daemon.server import async_run_daemon
+    from lotus.util.keychain import Keychain
 
     wait_for_unlock = wait_for_unlock and Keychain.is_keyring_locked()
 

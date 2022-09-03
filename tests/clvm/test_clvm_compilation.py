@@ -6,62 +6,62 @@ from unittest import TestCase
 import pytest
 from clvm_tools.clvmc import compile_clvm
 
-from chia.types.blockchain_format.program import Program, SerializedProgram
+from lotus.types.blockchain_format.program import Program, SerializedProgram
 
 pytestmark = pytest.mark.data_layer
 
 
 wallet_program_files = set(
     [
-        "chia/wallet/puzzles/calculate_synthetic_public_key.clvm",
-        "chia/wallet/puzzles/cat_v2.clvm",
-        "chia/wallet/puzzles/chialisp_deserialisation.clvm",
-        "chia/wallet/puzzles/rom_bootstrap_generator.clvm",
-        "chia/wallet/puzzles/lock.inner.puzzle.clvm",
-        "chia/wallet/puzzles/p2_conditions.clvm",
-        "chia/wallet/puzzles/p2_delegated_conditions.clvm",
-        "chia/wallet/puzzles/p2_delegated_puzzle.clvm",
-        "chia/wallet/puzzles/p2_delegated_puzzle_or_hidden_puzzle.clvm",
-        "chia/wallet/puzzles/p2_m_of_n_delegate_direct.clvm",
-        "chia/wallet/puzzles/p2_puzzle_hash.clvm",
-        "chia/wallet/puzzles/rl_aggregation.clvm",
-        "chia/wallet/puzzles/rl.clvm",
-        "chia/wallet/puzzles/sha256tree_module.clvm",
-        "chia/wallet/puzzles/singleton_top_layer.clvm",
-        "chia/wallet/puzzles/did_innerpuz.clvm",
-        "chia/wallet/puzzles/decompress_puzzle.clvm",
-        "chia/wallet/puzzles/decompress_coin_spend_entry_with_prefix.clvm",
-        "chia/wallet/puzzles/decompress_coin_spend_entry.clvm",
-        "chia/wallet/puzzles/block_program_zero.clvm",
-        "chia/wallet/puzzles/test_generator_deserialize.clvm",
-        "chia/wallet/puzzles/test_multiple_generator_input_arguments.clvm",
-        "chia/wallet/puzzles/p2_singleton.clvm",
-        "chia/wallet/puzzles/pool_waitingroom_innerpuz.clvm",
-        "chia/wallet/puzzles/pool_member_innerpuz.clvm",
-        "chia/wallet/puzzles/singleton_launcher.clvm",
-        "chia/wallet/puzzles/p2_singleton_or_delayed_puzhash.clvm",
-        "chia/wallet/puzzles/genesis_by_puzzle_hash.clvm",
-        "chia/wallet/puzzles/everything_with_signature.clvm",
-        "chia/wallet/puzzles/delegated_tail.clvm",
-        "chia/wallet/puzzles/settlement_payments.clvm",
-        "chia/wallet/puzzles/genesis_by_coin_id.clvm",
-        "chia/wallet/puzzles/singleton_top_layer_v1_1.clvm",
-        "chia/wallet/puzzles/nft_metadata_updater_default.clvm",
-        "chia/wallet/puzzles/nft_metadata_updater_updateable.clvm",
-        "chia/wallet/puzzles/nft_state_layer.clvm",
-        "chia/wallet/puzzles/nft_ownership_layer.clvm",
-        "chia/wallet/puzzles/nft_ownership_transfer_program_one_way_claim_with_royalties.clvm",
-        "chia/wallet/puzzles/graftroot_dl_offers.clvm",
-        "chia/wallet/puzzles/p2_parent.clvm",
-        "chia/wallet/puzzles/decompress_block_spends.clvm",
+        "lotus/wallet/puzzles/calculate_synthetic_public_key.clvm",
+        "lotus/wallet/puzzles/cat_v2.clvm",
+        "lotus/wallet/puzzles/chialisp_deserialisation.clvm",
+        "lotus/wallet/puzzles/rom_bootstrap_generator.clvm",
+        "lotus/wallet/puzzles/lock.inner.puzzle.clvm",
+        "lotus/wallet/puzzles/p2_conditions.clvm",
+        "lotus/wallet/puzzles/p2_delegated_conditions.clvm",
+        "lotus/wallet/puzzles/p2_delegated_puzzle.clvm",
+        "lotus/wallet/puzzles/p2_delegated_puzzle_or_hidden_puzzle.clvm",
+        "lotus/wallet/puzzles/p2_m_of_n_delegate_direct.clvm",
+        "lotus/wallet/puzzles/p2_puzzle_hash.clvm",
+        "lotus/wallet/puzzles/rl_aggregation.clvm",
+        "lotus/wallet/puzzles/rl.clvm",
+        "lotus/wallet/puzzles/sha256tree_module.clvm",
+        "lotus/wallet/puzzles/singleton_top_layer.clvm",
+        "lotus/wallet/puzzles/did_innerpuz.clvm",
+        "lotus/wallet/puzzles/decompress_puzzle.clvm",
+        "lotus/wallet/puzzles/decompress_coin_spend_entry_with_prefix.clvm",
+        "lotus/wallet/puzzles/decompress_coin_spend_entry.clvm",
+        "lotus/wallet/puzzles/block_program_zero.clvm",
+        "lotus/wallet/puzzles/test_generator_deserialize.clvm",
+        "lotus/wallet/puzzles/test_multiple_generator_input_arguments.clvm",
+        "lotus/wallet/puzzles/p2_singleton.clvm",
+        "lotus/wallet/puzzles/pool_waitingroom_innerpuz.clvm",
+        "lotus/wallet/puzzles/pool_member_innerpuz.clvm",
+        "lotus/wallet/puzzles/singleton_launcher.clvm",
+        "lotus/wallet/puzzles/p2_singleton_or_delayed_puzhash.clvm",
+        "lotus/wallet/puzzles/genesis_by_puzzle_hash.clvm",
+        "lotus/wallet/puzzles/everything_with_signature.clvm",
+        "lotus/wallet/puzzles/delegated_tail.clvm",
+        "lotus/wallet/puzzles/settlement_payments.clvm",
+        "lotus/wallet/puzzles/genesis_by_coin_id.clvm",
+        "lotus/wallet/puzzles/singleton_top_layer_v1_1.clvm",
+        "lotus/wallet/puzzles/nft_metadata_updater_default.clvm",
+        "lotus/wallet/puzzles/nft_metadata_updater_updateable.clvm",
+        "lotus/wallet/puzzles/nft_state_layer.clvm",
+        "lotus/wallet/puzzles/nft_ownership_layer.clvm",
+        "lotus/wallet/puzzles/nft_ownership_transfer_program_one_way_claim_with_royalties.clvm",
+        "lotus/wallet/puzzles/graftroot_dl_offers.clvm",
+        "lotus/wallet/puzzles/p2_parent.clvm",
+        "lotus/wallet/puzzles/decompress_block_spends.clvm",
     ]
 )
 
 clvm_include_files = set(
-    ["chia/wallet/puzzles/create-lock-puzzlehash.clvm", "chia/wallet/puzzles/condition_codes.clvm"]
+    ["lotus/wallet/puzzles/create-lock-puzzlehash.clvm", "lotus/wallet/puzzles/condition_codes.clvm"]
 )
 
-CLVM_PROGRAM_ROOT = "chia/wallet/puzzles"
+CLVM_PROGRAM_ROOT = "lotus/wallet/puzzles"
 
 
 def list_files(dir, glob):
@@ -88,7 +88,7 @@ class TestClvmCompilation(TestCase):
 
     def test_all_programs_listed(self):
         """
-        Checks to see if a new .clvm file was added to chia/wallet/puzzles, but not added to `wallet_program_files`
+        Checks to see if a new .clvm file was added to lotus/wallet/puzzles, but not added to `wallet_program_files`
         """
         existing_files = list_files(CLVM_PROGRAM_ROOT, "*.clvm")
         existing_file_paths = set([Path(x).relative_to(CLVM_PROGRAM_ROOT) for x in existing_files])

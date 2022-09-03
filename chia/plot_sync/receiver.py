@@ -5,8 +5,8 @@ from typing import Any, Awaitable, Callable, Collection, Dict, List, Optional
 
 from typing_extensions import Protocol
 
-from chia.plot_sync.delta import Delta, PathListDelta, PlotListDelta
-from chia.plot_sync.exceptions import (
+from lotus.plot_sync.delta import Delta, PathListDelta, PlotListDelta
+from lotus.plot_sync.exceptions import (
     InvalidIdentifierError,
     InvalidLastSyncIdError,
     PlotAlreadyAvailableError,
@@ -14,8 +14,8 @@ from chia.plot_sync.exceptions import (
     PlotSyncException,
     SyncIdsMatchError,
 )
-from chia.plot_sync.util import ErrorCodes, State, T_PlotSyncMessage
-from chia.protocols.harvester_protocol import (
+from lotus.plot_sync.util import ErrorCodes, State, T_PlotSyncMessage
+from lotus.protocols.harvester_protocol import (
     Plot,
     PlotSyncDone,
     PlotSyncError,
@@ -25,10 +25,10 @@ from chia.protocols.harvester_protocol import (
     PlotSyncResponse,
     PlotSyncStart,
 )
-from chia.server.ws_connection import ProtocolMessageTypes, WSChiaConnection, make_msg
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.util.ints import int16, uint32, uint64
-from chia.util.misc import get_list_or_len
+from lotus.server.ws_connection import ProtocolMessageTypes, WSLotusConnection, make_msg
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.util.ints import int16, uint32, uint64
+from lotus.util.misc import get_list_or_len
 
 log = logging.getLogger(__name__)
 
@@ -70,7 +70,7 @@ class ReceiverUpdateCallback(Protocol):
 
 
 class Receiver:
-    _connection: WSChiaConnection
+    _connection: WSLotusConnection
     _current_sync: Sync
     _last_sync: Sync
     _plots: Dict[str, Plot]
@@ -82,7 +82,7 @@ class Receiver:
 
     def __init__(
         self,
-        connection: WSChiaConnection,
+        connection: WSLotusConnection,
         update_callback: ReceiverUpdateCallback,
     ) -> None:
         self._connection = connection
@@ -111,7 +111,7 @@ class Receiver:
         self._duplicates.clear()
         self._total_plot_size = 0
 
-    def connection(self) -> WSChiaConnection:
+    def connection(self) -> WSLotusConnection:
         return self._connection
 
     def current_sync(self) -> Sync:

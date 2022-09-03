@@ -1,21 +1,21 @@
 from dataclasses import dataclass
 from typing import Callable, List, Optional
 
-from chia.types.blockchain_format.coin import Coin
-from chia.types.blockchain_format.program import Program
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.types.coin_spend import CoinSpend
-from chia.util.ints import uint64
-from chia.wallet.cat_wallet.cat_utils import (
+from lotus.types.blockchain_format.coin import Coin
+from lotus.types.blockchain_format.program import Program
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.types.coin_spend import CoinSpend
+from lotus.util.ints import uint64
+from lotus.wallet.cat_wallet.cat_utils import (
     SpendableCAT,
     construct_cat_puzzle,
     match_cat_puzzle,
     unsigned_spend_bundle_for_spendable_cats,
 )
-from chia.wallet.lineage_proof import LineageProof
-from chia.wallet.puzzle_drivers import PuzzleInfo, Solver
-from chia.wallet.puzzles.cat_loader import CAT_MOD
-from chia.wallet.uncurried_puzzle import UncurriedPuzzle, uncurry_puzzle
+from lotus.wallet.lineage_proof import LineageProof
+from lotus.wallet.puzzle_drivers import PuzzleInfo, Solver
+from lotus.wallet.puzzles.cat_loader import CAT_MOD
+from lotus.wallet.uncurried_puzzle import UncurriedPuzzle, uncurry_puzzle
 
 
 @dataclass(frozen=True)

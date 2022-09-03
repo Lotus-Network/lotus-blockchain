@@ -8,18 +8,18 @@ from typing import Dict
 import pytest
 from clvm.casts import int_to_bytes
 
-from chia.consensus.block_record import BlockRecord
-from chia.consensus.pot_iterations import is_overflow_block
-from chia.full_node.full_node_api import FullNodeAPI
-from chia.protocols import full_node_protocol as fnp
-from chia.types.condition_opcodes import ConditionOpcode
-from chia.types.condition_with_args import ConditionWithArgs
-from chia.types.unfinished_block import UnfinishedBlock
-from chia.util.ints import uint64
+from lotus.consensus.block_record import BlockRecord
+from lotus.consensus.pot_iterations import is_overflow_block
+from lotus.full_node.full_node_api import FullNodeAPI
+from lotus.protocols import full_node_protocol as fnp
+from lotus.types.condition_opcodes import ConditionOpcode
+from lotus.types.condition_with_args import ConditionWithArgs
+from lotus.types.unfinished_block import UnfinishedBlock
+from lotus.util.ints import uint64
 from tests.connection_utils import add_dummy_connection
 from tests.core.full_node.stores.test_coin_store import get_future_reward_coins
 from tests.core.node_height import node_height_at_least
-from chia.simulator.time_out_assert import time_out_assert
+from lotus.simulator.time_out_assert import time_out_assert
 from tests.util.misc import assert_runtime
 
 log = logging.getLogger(__name__)

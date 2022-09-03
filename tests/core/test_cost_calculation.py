@@ -6,16 +6,16 @@ import pytest
 from blspy import G1Element
 from clvm_tools import binutils
 
-from chia.consensus.condition_costs import ConditionCost
-from chia.consensus.cost_calculator import NPCResult
-from chia.consensus.default_constants import DEFAULT_CONSTANTS
-from chia.full_node.bundle_tools import simple_solution_generator
-from chia.full_node.mempool_check_conditions import get_name_puzzle_conditions, get_puzzle_and_solution_for_coin
-from chia.types.blockchain_format.coin import Coin
-from chia.types.blockchain_format.program import Program, SerializedProgram
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.types.generator_types import BlockGenerator
-from chia.wallet.puzzles import p2_delegated_puzzle_or_hidden_puzzle
+from lotus.consensus.condition_costs import ConditionCost
+from lotus.consensus.cost_calculator import NPCResult
+from lotus.consensus.default_constants import DEFAULT_CONSTANTS
+from lotus.full_node.bundle_tools import simple_solution_generator
+from lotus.full_node.mempool_check_conditions import get_name_puzzle_conditions, get_puzzle_and_solution_for_coin
+from lotus.types.blockchain_format.coin import Coin
+from lotus.types.blockchain_format.program import Program, SerializedProgram
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.types.generator_types import BlockGenerator
+from lotus.wallet.puzzles import p2_delegated_puzzle_or_hidden_puzzle
 from tests.setup_nodes import test_constants
 from tests.util.misc import assert_runtime
 
@@ -44,7 +44,7 @@ def large_block_generator(size):
     except FileNotFoundError:
         generator = make_block_generator(size)
         blob = bytes(generator.program)
-        #  TODO: Re-enable large-block*.hex but cache in ~/.chia/subdir
+        #  TODO: Re-enable large-block*.hex but cache in ~/.lotus/subdir
         #  with open(hex_path, "w") as f:
         #      f.write(blob.hex())
         return blob
@@ -276,7 +276,7 @@ async def test_get_puzzle_and_solution_for_coin_performance():
 
     from clvm.casts import int_from_bytes
 
-    from chia.full_node.mempool_check_conditions import DESERIALIZE_MOD
+    from lotus.full_node.mempool_check_conditions import DESERIALIZE_MOD
     from tests.core.large_block import LARGE_BLOCK
 
     spends: List[Coin] = []

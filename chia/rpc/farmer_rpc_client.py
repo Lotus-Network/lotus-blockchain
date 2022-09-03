@@ -1,16 +1,16 @@
 from typing import Any, Dict, List, Optional
 
-from chia.rpc.farmer_rpc_api import PlotInfoRequestData, PlotPathRequestData
-from chia.rpc.rpc_client import RpcClient
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.util.misc import dataclass_to_json_dict
+from lotus.rpc.farmer_rpc_api import PlotInfoRequestData, PlotPathRequestData
+from lotus.rpc.rpc_client import RpcClient
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.util.misc import dataclass_to_json_dict
 
 
 class FarmerRpcClient(RpcClient):
     """
-    Client to Chia RPC, connects to a local farmer. Uses HTTP/JSON, and converts back from
+    Client to Lotus RPC, connects to a local farmer. Uses HTTP/JSON, and converts back from
     JSON into native python objects before returning. All api calls use POST requests.
-    Note that this is not the same as the peer protocol, or wallet protocol (which run Chia's
+    Note that this is not the same as the peer protocol, or wallet protocol (which run Lotus's
     protocol on top of TCP), it's a separate protocol on top of HTTP that provides easy access
     to the full node.
     """

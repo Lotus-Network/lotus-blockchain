@@ -1,13 +1,13 @@
 from typing import Callable, Optional
 
-from chia.introducer.introducer import Introducer
-from chia.protocols.introducer_protocol import RequestPeersIntroducer, RespondPeersIntroducer
-from chia.protocols.protocol_message_types import ProtocolMessageTypes
-from chia.server.outbound_message import Message, make_msg
-from chia.server.ws_connection import WSChiaConnection
-from chia.types.peer_info import TimestampedPeerInfo
-from chia.util.api_decorators import api_request, peer_required
-from chia.util.ints import uint64
+from lotus.introducer.introducer import Introducer
+from lotus.protocols.introducer_protocol import RequestPeersIntroducer, RespondPeersIntroducer
+from lotus.protocols.protocol_message_types import ProtocolMessageTypes
+from lotus.server.outbound_message import Message, make_msg
+from lotus.server.ws_connection import WSLotusConnection
+from lotus.types.peer_info import TimestampedPeerInfo
+from lotus.util.api_decorators import api_request, peer_required
+from lotus.util.ints import uint64
 
 
 class IntroducerAPI:
@@ -24,7 +24,7 @@ class IntroducerAPI:
     async def request_peers_introducer(
         self,
         request: RequestPeersIntroducer,
-        peer: WSChiaConnection,
+        peer: WSLotusConnection,
     ) -> Optional[Message]:
         max_peers = self.introducer.max_peers_to_send
         if self.introducer.server is None or self.introducer.server.introducer_peers is None:

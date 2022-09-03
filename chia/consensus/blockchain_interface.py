@@ -1,12 +1,12 @@
 from typing import Dict, List, Optional
 
-from chia.consensus.block_record import BlockRecord
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.types.blockchain_format.sub_epoch_summary import SubEpochSummary
-from chia.types.blockchain_format.vdf import VDFInfo
-from chia.types.header_block import HeaderBlock
-from chia.types.weight_proof import SubEpochChallengeSegment
-from chia.util.ints import uint32
+from lotus.consensus.block_record import BlockRecord
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.types.blockchain_format.sub_epoch_summary import SubEpochSummary
+from lotus.types.blockchain_format.vdf import VDFInfo
+from lotus.types.header_block import HeaderBlock
+from lotus.types.weight_proof import SubEpochChallengeSegment
+from lotus.util.ints import uint32
 
 
 class BlockchainInterface:

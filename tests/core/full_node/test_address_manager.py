@@ -4,10 +4,10 @@ from pathlib import Path
 
 import pytest
 
-from chia.server.address_manager import AddressManager, ExtendedPeerInfo
-from chia.server.address_manager_store import AddressManagerStore
-from chia.types.peer_info import PeerInfo, TimestampedPeerInfo
-from chia.util.ints import uint16, uint64
+from lotus.server.address_manager import AddressManager, ExtendedPeerInfo
+from lotus.server.address_manager_store import AddressManagerStore
+from lotus.types.peer_info import PeerInfo, TimestampedPeerInfo
+from lotus.util.ints import uint16, uint64
 
 
 class AddressManagerTest(AddressManager):

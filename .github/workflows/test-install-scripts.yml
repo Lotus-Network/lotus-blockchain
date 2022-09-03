@@ -248,6 +248,6 @@ jobs:
 
     - uses: chia-network/actions/activate-venv@main
 
-    - name: Run chia --help
+    - name: Run lotus --help
       run: |
-        chia --help
+        lotus --help

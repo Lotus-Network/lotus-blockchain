@@ -4,10 +4,10 @@ import click
 import colorama
 import yaml
 
-from chia.cmds.passphrase_funcs import prompt_for_passphrase, read_passphrase_from_file
-from chia.util.default_root import DEFAULT_KEYS_ROOT_PATH
-from chia.util.file_keyring import FileKeyring
-from chia.util.keyring_wrapper import DEFAULT_PASSPHRASE_IF_NO_MASTER_PASSPHRASE, KeyringWrapper
+from lotus.cmds.passphrase_funcs import prompt_for_passphrase, read_passphrase_from_file
+from lotus.util.default_root import DEFAULT_KEYS_ROOT_PATH
+from lotus.util.file_keyring import FileKeyring
+from lotus.util.keyring_wrapper import DEFAULT_PASSPHRASE_IF_NO_MASTER_PASSPHRASE, KeyringWrapper
 from cryptography.exceptions import InvalidTag
 from io import TextIOWrapper
 from pathlib import Path

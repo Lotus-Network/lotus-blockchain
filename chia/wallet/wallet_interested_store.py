@@ -1,8 +1,8 @@
 from typing import List, Tuple, Optional
 
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.util.db_wrapper import DBWrapper2
-from chia.util.ints import uint32
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.util.db_wrapper import DBWrapper2
+from lotus.util.ints import uint32
 
 
 class WalletInterestedStore:

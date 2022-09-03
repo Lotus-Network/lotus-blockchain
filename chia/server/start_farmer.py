@@ -2,18 +2,18 @@ import pathlib
 import sys
 from typing import Dict, Optional
 
-from chia.consensus.constants import ConsensusConstants
-from chia.consensus.default_constants import DEFAULT_CONSTANTS
-from chia.farmer.farmer import Farmer
-from chia.farmer.farmer_api import FarmerAPI
-from chia.rpc.farmer_rpc_api import FarmerRpcApi
-from chia.server.outbound_message import NodeType
-from chia.server.start_service import RpcInfo, Service, async_run
-from chia.types.peer_info import PeerInfo
-from chia.util.chia_logging import initialize_logging
-from chia.util.config import load_config, load_config_cli
-from chia.util.default_root import DEFAULT_ROOT_PATH
-from chia.util.keychain import Keychain
+from lotus.consensus.constants import ConsensusConstants
+from lotus.consensus.default_constants import DEFAULT_CONSTANTS
+from lotus.farmer.farmer import Farmer
+from lotus.farmer.farmer_api import FarmerAPI
+from lotus.rpc.farmer_rpc_api import FarmerRpcApi
+from lotus.server.outbound_message import NodeType
+from lotus.server.start_service import RpcInfo, Service, async_run
+from lotus.types.peer_info import PeerInfo
+from lotus.util.lotus_logging import initialize_logging
+from lotus.util.config import load_config, load_config_cli
+from lotus.util.default_root import DEFAULT_ROOT_PATH
+from lotus.util.keychain import Keychain
 
 # See: https://bugs.python.org/issue29288
 "".encode("idna")

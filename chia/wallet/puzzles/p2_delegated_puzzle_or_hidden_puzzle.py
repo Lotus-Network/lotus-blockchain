@@ -15,7 +15,7 @@ This roughly corresponds to bitcoin's taproot.
 
 Note:
 
-p2_delegated_puzzle_or_hidden_puzzle is essentially the "standard coin" in chia.
+p2_delegated_puzzle_or_hidden_puzzle is essentially the "standard coin" in lotus.
 DEFAULT_HIDDEN_PUZZLE_HASH from this puzzle is used with
 calculate_synthetic_secret_key in the wallet's standard pk_to_sk finder.
 
@@ -61,9 +61,9 @@ from typing import Union
 from blspy import G1Element, PrivateKey
 from clvm.casts import int_from_bytes
 
-from chia.types.blockchain_format.program import Program
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.wallet.util.curry_and_treehash import calculate_hash_of_quoted_mod_hash, curry_and_treehash
+from lotus.types.blockchain_format.program import Program
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.wallet.util.curry_and_treehash import calculate_hash_of_quoted_mod_hash, curry_and_treehash
 
 from .load_clvm import load_clvm
 from .p2_conditions import puzzle_for_conditions

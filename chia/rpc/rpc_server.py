@@ -12,15 +12,15 @@ from typing import Any, Awaitable, Callable, Dict, List, Optional
 from aiohttp import ClientConnectorError, ClientSession, ClientWebSocketResponse, WSMsgType, web
 from typing_extensions import Protocol, final
 
-from chia.rpc.util import wrap_http_handler
-from chia.server.outbound_message import NodeType
-from chia.server.server import ssl_context_for_client, ssl_context_for_server
-from chia.types.peer_info import PeerInfo
-from chia.util.byte_types import hexstr_to_bytes
-from chia.util.ints import uint16
-from chia.util.json_util import dict_to_json_str
-from chia.util.network import select_port
-from chia.util.ws_message import WsRpcMessage, create_payload, create_payload_dict, format_response, pong
+from lotus.rpc.util import wrap_http_handler
+from lotus.server.outbound_message import NodeType
+from lotus.server.server import ssl_context_for_client, ssl_context_for_server
+from lotus.types.peer_info import PeerInfo
+from lotus.util.byte_types import hexstr_to_bytes
+from lotus.util.ints import uint16
+from lotus.util.json_util import dict_to_json_str
+from lotus.util.network import select_port
+from lotus.util.ws_message import WsRpcMessage, create_payload, create_payload_dict, format_response, pong
 
 log = logging.getLogger(__name__)
 max_message_size = 50 * 1024 * 1024  # 50MB

@@ -1,7 +1,7 @@
 import click
 
-from chia.util.config import load_config
-from chia.util.service_groups import all_groups
+from lotus.util.config import load_config
+from lotus.util.service_groups import all_groups
 
 
 @click.command("start", short_help="Start service groups")

@@ -1,13 +1,13 @@
 import json
 from typing import List, Optional, Type, TypeVar
 
-from chia.types.blockchain_format.coin import Coin
-from chia.types.blockchain_format.program import Program
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.util.db_wrapper import DBWrapper2, execute_fetchone
-from chia.util.ints import uint32
-from chia.wallet.lineage_proof import LineageProof
-from chia.wallet.nft_wallet.nft_info import DEFAULT_STATUS, IN_TRANSACTION_STATUS, NFTCoinInfo
+from lotus.types.blockchain_format.coin import Coin
+from lotus.types.blockchain_format.program import Program
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.util.db_wrapper import DBWrapper2, execute_fetchone
+from lotus.util.ints import uint32
+from lotus.wallet.lineage_proof import LineageProof
+from lotus.wallet.nft_wallet.nft_info import DEFAULT_STATUS, IN_TRANSACTION_STATUS, NFTCoinInfo
 
 _T_WalletNftStore = TypeVar("_T_WalletNftStore", bound="WalletNftStore")
 REMOVE_BUFF_BLOCKS = 1000

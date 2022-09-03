@@ -9,16 +9,16 @@ from typing import Any, Callable, Dict, List, Optional, Tuple
 
 import aiosqlite
 
-import chia.server.ws_connection as ws
-from chia.consensus.constants import ConsensusConstants
-from chia.full_node.coin_store import CoinStore
-from chia.protocols import full_node_protocol
-from chia.seeder.crawl_store import CrawlStore
-from chia.seeder.peer_record import PeerRecord, PeerReliability
-from chia.server.server import ChiaServer
-from chia.types.peer_info import PeerInfo
-from chia.util.path import path_from_root
-from chia.util.ints import uint32, uint64
+import lotus.server.ws_connection as ws
+from lotus.consensus.constants import ConsensusConstants
+from lotus.full_node.coin_store import CoinStore
+from lotus.protocols import full_node_protocol
+from lotus.seeder.crawl_store import CrawlStore
+from lotus.seeder.peer_record import PeerRecord, PeerReliability
+from lotus.server.server import LotusServer
+from lotus.types.peer_info import PeerInfo
+from lotus.util.path import path_from_root
+from lotus.util.ints import uint32, uint64
 
 log = logging.getLogger(__name__)
 
@@ -28,7 +28,7 @@ class Crawler:
     coin_store: CoinStore
     connection: aiosqlite.Connection
     config: Dict
-    server: Optional[ChiaServer]
+    server: Optional[LotusServer]
     crawl_store: Optional[CrawlStore]
     log: logging.Logger
     constants: ConsensusConstants
@@ -82,7 +82,7 @@ class Crawler:
         return await self.server.start_client(peer_info, on_connect)
 
     async def connect_task(self, peer):
-        async def peer_action(peer: ws.WSChiaConnection):
+        async def peer_action(peer: ws.WSLotusConnection):
 
             peer_info = peer.get_peer_info()
             version = peer.get_version()
@@ -323,14 +323,14 @@ class Crawler:
         except Exception as e:
             self.log.error(f"Exception: {e}. Traceback: {traceback.format_exc()}.")
 
-    def set_server(self, server: ChiaServer):
+    def set_server(self, server: LotusServer):
         self.server = server
 
     def _state_changed(self, change: str, change_data: Optional[Dict[str, Any]] = None):
         if self.state_changed_callback is not None:
             self.state_changed_callback(change, change_data)
 
-    async def new_peak(self, request: full_node_protocol.NewPeak, peer: ws.WSChiaConnection):
+    async def new_peak(self, request: full_node_protocol.NewPeak, peer: ws.WSLotusConnection):
         try:
             peer_info = peer.get_peer_info()
             tls_version = peer.get_tls_version()
@@ -345,7 +345,7 @@ class Crawler:
         except Exception as e:
             self.log.error(f"Exception: {e}. Traceback: {traceback.format_exc()}.")
 
-    async def on_connect(self, connection: ws.WSChiaConnection):
+    async def on_connect(self, connection: ws.WSLotusConnection):
         pass
 
     def _close(self):

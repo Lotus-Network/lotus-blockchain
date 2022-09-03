@@ -2,9 +2,9 @@ from dataclasses import dataclass
 
 from blspy import G1Element
 
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.util.ints import uint32
-from chia.wallet.util.wallet_types import WalletType
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.util.ints import uint32
+from lotus.wallet.util.wallet_types import WalletType
 
 
 @dataclass(frozen=True)

@@ -7,9 +7,9 @@ import signal
 import sys
 from typing import Any, Callable, Coroutine, Dict, List, Optional, Tuple, TypeVar
 
-from chia.daemon.server import service_launch_lock_path
-from chia.util.lock import Lockfile, LockfileError
-from chia.server.ssl_context import chia_ssl_ca_paths, private_ssl_ca_paths
+from lotus.daemon.server import service_launch_lock_path
+from lotus.util.lock import Lockfile, LockfileError
+from lotus.server.ssl_context import lotus_ssl_ca_paths, private_ssl_ca_paths
 from ..protocols.shared_protocol import capabilities
 
 try:
@@ -17,14 +17,14 @@ try:
 except ImportError:
     uvloop = None
 
-from chia.cmds.init_funcs import chia_full_version_str
-from chia.rpc.rpc_server import start_rpc_server, RpcServer
-from chia.server.outbound_message import NodeType
-from chia.server.server import ChiaServer
-from chia.server.upnp import UPnP
-from chia.types.peer_info import PeerInfo
-from chia.util.setproctitle import setproctitle
-from chia.util.ints import uint16
+from lotus.cmds.init_funcs import lotus_full_version_str
+from lotus.rpc.rpc_server import start_rpc_server, RpcServer
+from lotus.server.outbound_message import NodeType
+from lotus.server.server import LotusServer
+from lotus.server.upnp import UPnP
+from lotus.types.peer_info import PeerInfo
+from lotus.util.setproctitle import setproctitle
+from lotus.util.ints import uint16
 
 from .reconnect_task import start_reconnect_task
 
@@ -79,13 +79,13 @@ class Service:
         self.max_request_body_size = max_request_body_size
 
         self._log = logging.getLogger(service_name)
-        self._log.info(f"chia-blockchain version: {chia_full_version_str()}")
+        self._log.info(f"lotus-blockchain version: {lotus_full_version_str()}")
 
         self.service_config = self.config[service_name]
 
         self._rpc_info = rpc_info
         private_ca_crt, private_ca_key = private_ssl_ca_paths(root_path, self.config)
-        chia_ca_crt, chia_ca_key = chia_ssl_ca_paths(root_path, self.config)
+        lotus_ca_crt, lotus_ca_key = lotus_ssl_ca_paths(root_path, self.config)
         inbound_rlp = self.config.get("inbound_rate_limit_percent")
         outbound_rlp = self.config.get("outbound_rate_limit_percent")
         if node_type == NodeType.WALLET:
@@ -96,7 +96,7 @@ class Service:
             capabilities_to_use = override_capabilities
 
         assert inbound_rlp and outbound_rlp
-        self._server = ChiaServer(
+        self._server = LotusServer(
             advertised_port,
             node,
             peer_api,
@@ -109,7 +109,7 @@ class Service:
             root_path,
             self.service_config,
             (private_ca_crt, private_ca_key),
-            (chia_ca_crt, chia_ca_key),
+            (lotus_ca_crt, lotus_ca_key),
             name=f"{service_name}_server",
         )
         f = getattr(node, "set_server", None)
@@ -198,7 +198,7 @@ class Service:
     async def setup_process_global_state(self) -> None:
         # Being async forces this to be run from within an active event loop as is
         # needed for the signal handler setup.
-        proctitle_name = f"chia_{self._service_name}"
+        proctitle_name = f"lotus_{self._service_name}"
         setproctitle(proctitle_name)
 
         global main_pid
@@ -261,7 +261,7 @@ class Service:
 
         self._log.info("Waiting for socket to be closed (if opened)")
 
-        self._log.info("Waiting for ChiaServer to be closed")
+        self._log.info("Waiting for LotusServer to be closed")
         await self._server.await_closed()
 
         if self.rpc_server:

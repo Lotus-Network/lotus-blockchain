@@ -3,7 +3,7 @@ from typing import TypeVar
 
 from typing_extensions import Protocol
 
-from chia.protocols.harvester_protocol import PlotSyncIdentifier
+from lotus.protocols.harvester_protocol import PlotSyncIdentifier
 
 
 class Constants:

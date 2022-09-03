@@ -7,20 +7,20 @@ from enum import Enum
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple, Union
 
-from chia.consensus.coinbase import create_puzzlehash_for_pk
-from chia.cmds.passphrase_funcs import obtain_current_passphrase
-from chia.daemon.client import connect_to_daemon_and_validate
-from chia.daemon.keychain_proxy import KeychainProxy, connect_to_keychain_and_validate, wrap_local_keychain
-from chia.util.bech32m import encode_puzzle_hash
-from chia.util.errors import KeychainNotSet
-from chia.util.config import load_config
-from chia.util.default_root import DEFAULT_ROOT_PATH
-from chia.util.errors import KeychainException
-from chia.util.file_keyring import MAX_LABEL_LENGTH
-from chia.util.ints import uint32
-from chia.util.keychain import Keychain, bytes_to_mnemonic, generate_mnemonic, mnemonic_to_seed
-from chia.util.keyring_wrapper import KeyringWrapper
-from chia.wallet.derive_keys import (
+from lotus.consensus.coinbase import create_puzzlehash_for_pk
+from lotus.cmds.passphrase_funcs import obtain_current_passphrase
+from lotus.daemon.client import connect_to_daemon_and_validate
+from lotus.daemon.keychain_proxy import KeychainProxy, connect_to_keychain_and_validate, wrap_local_keychain
+from lotus.util.bech32m import encode_puzzle_hash
+from lotus.util.errors import KeychainNotSet
+from lotus.util.config import load_config
+from lotus.util.default_root import DEFAULT_ROOT_PATH
+from lotus.util.errors import KeychainException
+from lotus.util.file_keyring import MAX_LABEL_LENGTH
+from lotus.util.ints import uint32
+from lotus.util.keychain import Keychain, bytes_to_mnemonic, generate_mnemonic, mnemonic_to_seed
+from lotus.util.keyring_wrapper import KeyringWrapper
+from lotus.wallet.derive_keys import (
     master_sk_to_farmer_sk,
     master_sk_to_pool_sk,
     master_sk_to_wallet_sk,
@@ -49,7 +49,7 @@ def generate_and_print():
     mnemonic = generate_mnemonic()
     print("Generating private key. Mnemonic (24 secret words):")
     print(mnemonic)
-    print("Note that this key has not been added to the keychain. Run chia keys add")
+    print("Note that this key has not been added to the keychain. Run lotus keys add")
     return mnemonic
 
 
@@ -99,7 +99,7 @@ def show_all_key_labels() -> None:
     keys = Keychain().get_keys()
 
     if len(keys) == 0:
-        sys.exit("No keys are present in the keychain. Generate them with 'chia keys generate'")
+        sys.exit("No keys are present in the keychain. Generate them with 'lotus keys generate'")
 
     print_line("fingerprint", "label")
     print_line("-" * fingerprint_width, "-" * MAX_LABEL_LENGTH)
@@ -188,7 +188,7 @@ def derive_sk_from_hd_path(master_sk: PrivateKey, hd_path_root: str) -> Tuple[Pr
     and returns the derived key and the HD path that was used to derive it.
     """
 
-    from chia.wallet.derive_keys import _derive_path, _derive_path_unhardened
+    from lotus.wallet.derive_keys import _derive_path, _derive_path_unhardened
 
     class DerivationType(Enum):
         NONOBSERVER = 0
@@ -246,12 +246,12 @@ def verify(message: str, public_key: str, signature: str):
 
 
 async def migrate_keys(root_path: Path, forced: bool = False) -> bool:
-    from chia.util.keyring_wrapper import KeyringWrapper
-    from chia.util.misc import prompt_yes_no
+    from lotus.util.keyring_wrapper import KeyringWrapper
+    from lotus.util.misc import prompt_yes_no
 
     deprecation_message = (
         "\nLegacy keyring support is deprecated and will be removed in an upcoming version. "
-        "You need to migrate your keyring to continue using Chia.\n"
+        "You need to migrate your keyring to continue using Lotus.\n"
     )
 
     # Check if the keyring needs a full migration (i.e. if it's using the old keyring)
@@ -295,7 +295,7 @@ async def migrate_keys(root_path: Path, forced: bool = False) -> bool:
             print()
             if not prompt_yes_no("Migrate these keys?"):
                 await keychain_proxy.close()
-                print("Migration aborted, can't run any chia commands.")
+                print("Migration aborted, can't run any lotus commands.")
                 return False
 
             for sk, seed_bytes in keys_to_migrate:
@@ -356,7 +356,7 @@ def _search_derived(
     the provided search terms.
     """
 
-    from chia.wallet.derive_keys import _derive_path, _derive_path_unhardened
+    from lotus.wallet.derive_keys import _derive_path, _derive_path_unhardened
 
     class DerivedSearchResultType(Enum):
         PUBLIC_KEY = "public key"
@@ -657,7 +657,7 @@ def derive_child_key(
     Derive child keys from the provided master key.
     """
 
-    from chia.wallet.derive_keys import _derive_path, _derive_path_unhardened
+    from lotus.wallet.derive_keys import _derive_path, _derive_path_unhardened
 
     derivation_root_sk: Optional[PrivateKey] = None
     hd_path_root: Optional[str] = None

@@ -4,13 +4,13 @@ from typing import Any, Dict, List, Optional, Tuple
 from clvm.casts import int_from_bytes
 from clvm_tools.binutils import disassemble
 
-from chia.types.blockchain_format.program import Program, SerializedProgram
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.util.ints import uint16, uint64
-from chia.wallet.nft_wallet.nft_info import NFTCoinInfo, NFTInfo
-from chia.wallet.nft_wallet.uncurry_nft import UncurriedNFT
-from chia.wallet.puzzles.load_clvm import load_clvm
-from chia.wallet.puzzles.p2_delegated_puzzle_or_hidden_puzzle import solution_for_conditions
+from lotus.types.blockchain_format.program import Program, SerializedProgram
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.util.ints import uint16, uint64
+from lotus.wallet.nft_wallet.nft_info import NFTCoinInfo, NFTInfo
+from lotus.wallet.nft_wallet.uncurry_nft import UncurriedNFT
+from lotus.wallet.puzzles.load_clvm import load_clvm
+from lotus.wallet.puzzles.p2_delegated_puzzle_or_hidden_puzzle import solution_for_conditions
 
 log = logging.getLogger(__name__)
 SINGLETON_TOP_LAYER_MOD = load_clvm("singleton_top_layer_v1_1.clvm")

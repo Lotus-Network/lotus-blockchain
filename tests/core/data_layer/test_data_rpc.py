@@ -8,27 +8,27 @@ from typing import Any, AsyncIterator, Dict, List, Tuple
 import pytest
 import pytest_asyncio
 
-from chia.consensus.block_rewards import calculate_base_farmer_reward, calculate_pool_reward
-from chia.data_layer.data_layer import DataLayer
-from chia.data_layer.data_layer_errors import OfferIntegrityError
-from chia.data_layer.data_layer_util import OfferStore, StoreProofs
-from chia.data_layer.data_layer_wallet import DataLayerWallet, verify_offer
-from chia.rpc.data_layer_rpc_api import DataLayerRpcApi
-from chia.rpc.rpc_server import start_rpc_server
-from chia.rpc.wallet_rpc_api import WalletRpcApi
-from chia.server.start_data_layer import create_data_layer_service
-from chia.simulator.block_tools import BlockTools
-from chia.simulator.full_node_simulator import FullNodeSimulator, backoff_times
-from chia.simulator.simulator_protocol import FarmNewBlockProtocol
-from chia.simulator.time_out_assert import time_out_assert
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.types.peer_info import PeerInfo
-from chia.util.byte_types import hexstr_to_bytes
-from chia.util.config import save_config
-from chia.util.ints import uint16, uint32
-from chia.wallet.trading.offer import Offer as TradingOffer
-from chia.wallet.wallet import Wallet
-from chia.wallet.wallet_node import WalletNode
+from lotus.consensus.block_rewards import calculate_base_farmer_reward, calculate_pool_reward
+from lotus.data_layer.data_layer import DataLayer
+from lotus.data_layer.data_layer_errors import OfferIntegrityError
+from lotus.data_layer.data_layer_util import OfferStore, StoreProofs
+from lotus.data_layer.data_layer_wallet import DataLayerWallet, verify_offer
+from lotus.rpc.data_layer_rpc_api import DataLayerRpcApi
+from lotus.rpc.rpc_server import start_rpc_server
+from lotus.rpc.wallet_rpc_api import WalletRpcApi
+from lotus.server.start_data_layer import create_data_layer_service
+from lotus.simulator.block_tools import BlockTools
+from lotus.simulator.full_node_simulator import FullNodeSimulator, backoff_times
+from lotus.simulator.simulator_protocol import FarmNewBlockProtocol
+from lotus.simulator.time_out_assert import time_out_assert
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.types.peer_info import PeerInfo
+from lotus.util.byte_types import hexstr_to_bytes
+from lotus.util.config import save_config
+from lotus.util.ints import uint16, uint32
+from lotus.wallet.trading.offer import Offer as TradingOffer
+from lotus.wallet.wallet import Wallet
+from lotus.wallet.wallet_node import WalletNode
 from tests.setup_nodes import setup_simulators_and_wallets
 from tests.wallet.rl_wallet.test_rl_rpc import is_transaction_confirmed
 

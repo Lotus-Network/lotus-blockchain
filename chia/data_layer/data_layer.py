@@ -9,9 +9,9 @@ from typing import Any, Awaitable, Callable, Dict, List, Optional, Set, Tuple, U
 import aiohttp
 import aiosqlite
 
-from chia.data_layer.data_layer_errors import KeyNotFoundError
-from chia.data_layer.data_layer_server import DataLayerServer
-from chia.data_layer.data_layer_util import (
+from lotus.data_layer.data_layer_errors import KeyNotFoundError
+from lotus.data_layer.data_layer_server import DataLayerServer
+from lotus.data_layer.data_layer_util import (
     DiffData,
     InternalNode,
     KeyValue,
@@ -29,18 +29,18 @@ from chia.data_layer.data_layer_util import (
     TerminalNode,
     leaf_hash,
 )
-from chia.data_layer.data_layer_wallet import DataLayerWallet, Mirror, SingletonRecord, verify_offer
-from chia.data_layer.data_store import DataStore
-from chia.data_layer.download_data import insert_from_delta_file, write_files_for_root
-from chia.rpc.wallet_rpc_client import WalletRpcClient
-from chia.server.server import ChiaServer
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.util.db_wrapper import DBWrapper
-from chia.util.ints import uint32, uint64
-from chia.util.path import path_from_root
-from chia.wallet.trade_record import TradeRecord
-from chia.wallet.trading.offer import Offer as TradingOffer
-from chia.wallet.transaction_record import TransactionRecord
+from lotus.data_layer.data_layer_wallet import DataLayerWallet, Mirror, SingletonRecord, verify_offer
+from lotus.data_layer.data_store import DataStore
+from lotus.data_layer.download_data import insert_from_delta_file, write_files_for_root
+from lotus.rpc.wallet_rpc_client import WalletRpcClient
+from lotus.server.server import LotusServer
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.util.db_wrapper import DBWrapper
+from lotus.util.ints import uint32, uint64
+from lotus.util.path import path_from_root
+from lotus.wallet.trade_record import TradeRecord
+from lotus.wallet.trading.offer import Offer as TradingOffer
+from lotus.wallet.transaction_record import TransactionRecord
 
 
 class DataLayer:
@@ -91,7 +91,7 @@ class DataLayer:
     def _set_state_changed_callback(self, callback: Callable[..., object]) -> None:
         self.state_changed_callback = callback
 
-    def set_server(self, server: ChiaServer) -> None:
+    def set_server(self, server: LotusServer) -> None:
         self.server = server
 
     async def _start(self) -> bool:

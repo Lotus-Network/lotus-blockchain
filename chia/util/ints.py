@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from chia.util.struct_stream import StructStream, parse_metadata_from_name
+from lotus.util.struct_stream import StructStream, parse_metadata_from_name
 
 
 @parse_metadata_from_name

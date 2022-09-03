@@ -5,25 +5,25 @@ from typing import Any, Awaitable, Callable, Dict, List
 import pytest
 from clvm_tools.binutils import disassemble
 
-from chia.consensus.block_rewards import calculate_base_farmer_reward, calculate_pool_reward
-from chia.full_node.mempool_manager import MempoolManager
-from chia.rpc.wallet_rpc_api import WalletRpcApi
-from chia.simulator.full_node_simulator import FullNodeSimulator
-from chia.simulator.simulator_protocol import FarmNewBlockProtocol, ReorgProtocol
-from chia.simulator.time_out_assert import time_out_assert, time_out_assert_not_none
-from chia.types.blockchain_format.program import Program
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.types.peer_info import PeerInfo
-from chia.types.spend_bundle import SpendBundle
-from chia.util.bech32m import encode_puzzle_hash
-from chia.util.byte_types import hexstr_to_bytes
-from chia.util.ints import uint16, uint32, uint64
-from chia.wallet.did_wallet.did_wallet import DIDWallet
-from chia.wallet.nft_wallet.nft_wallet import NFTWallet
-from chia.wallet.util.address_type import AddressType
-from chia.wallet.util.compute_memos import compute_memos
-from chia.wallet.util.wallet_types import WalletType
-from chia.wallet.wallet_state_manager import WalletStateManager
+from lotus.consensus.block_rewards import calculate_base_farmer_reward, calculate_pool_reward
+from lotus.full_node.mempool_manager import MempoolManager
+from lotus.rpc.wallet_rpc_api import WalletRpcApi
+from lotus.simulator.full_node_simulator import FullNodeSimulator
+from lotus.simulator.simulator_protocol import FarmNewBlockProtocol, ReorgProtocol
+from lotus.simulator.time_out_assert import time_out_assert, time_out_assert_not_none
+from lotus.types.blockchain_format.program import Program
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.types.peer_info import PeerInfo
+from lotus.types.spend_bundle import SpendBundle
+from lotus.util.bech32m import encode_puzzle_hash
+from lotus.util.byte_types import hexstr_to_bytes
+from lotus.util.ints import uint16, uint32, uint64
+from lotus.wallet.did_wallet.did_wallet import DIDWallet
+from lotus.wallet.nft_wallet.nft_wallet import NFTWallet
+from lotus.wallet.util.address_type import AddressType
+from lotus.wallet.util.compute_memos import compute_memos
+from lotus.wallet.util.wallet_types import WalletType
+from lotus.wallet.wallet_state_manager import WalletStateManager
 from tests.util.wallet_is_synced import wallet_is_synced
 
 
@@ -123,7 +123,7 @@ async def test_nft_wallet_creation_automatically(two_wallet_nodes: Any, trusted:
     )
     metadata = Program.to(
         [
-            ("u", ["https://www.chia.net/img/branding/chia-logo.svg"]),
+            ("u", ["https://www.lotus.net/img/branding/lotus-logo.svg"]),
             ("h", "0xD4584AD463139FA8C0D9F68F4B59F185"),
         ]
     )
@@ -219,7 +219,7 @@ async def test_nft_wallet_creation_and_transfer(two_wallet_nodes: Any, trusted: 
     )
     metadata = Program.to(
         [
-            ("u", ["https://www.chia.net/img/branding/chia-logo.svg"]),
+            ("u", ["https://www.lotus.net/img/branding/lotus-logo.svg"]),
             ("h", "0xD4584AD463139FA8C0D9F68F4B59F185"),
         ]
     )
@@ -375,7 +375,7 @@ async def test_nft_wallet_rpc_creation_and_list(two_wallet_nodes: Any, trusted: 
             "wallet_id": nft_wallet_0_id,
             "artist_address": ph,
             "hash": "0xD4584AD463139FA8C0D9F68F4B59F185",
-            "uris": ["https://www.chia.net/img/branding/chia-logo.svg"],
+            "uris": ["https://www.lotus.net/img/branding/lotus-logo.svg"],
         }
     )
 
@@ -422,7 +422,7 @@ async def test_nft_wallet_rpc_creation_and_list(two_wallet_nodes: Any, trusted: 
 )
 @pytest.mark.asyncio
 async def test_nft_wallet_rpc_update_metadata(two_wallet_nodes: Any, trusted: Any) -> None:
-    from chia.types.blockchain_format.sized_bytes import bytes32
+    from lotus.types.blockchain_format.sized_bytes import bytes32
 
     num_blocks = 3
     full_nodes, wallets, _ = two_wallet_nodes
@@ -475,7 +475,7 @@ async def test_nft_wallet_rpc_update_metadata(two_wallet_nodes: Any, trusted: An
             "wallet_id": nft_wallet_0_id,
             "artist_address": ph,
             "hash": "0xD4584AD463139FA8C0D9F68F4B59F185",
-            "uris": ["https://www.chia.net/img/branding/chia-logo.svg"],
+            "uris": ["https://www.lotus.net/img/branding/lotus-logo.svg"],
         }
     )
 
@@ -497,7 +497,7 @@ async def test_nft_wallet_rpc_update_metadata(two_wallet_nodes: Any, trusted: An
     assert coin["chain_info"] == disassemble(
         Program.to(
             [
-                ("u", ["https://www.chia.net/img/branding/chia-logo.svg"]),
+                ("u", ["https://www.lotus.net/img/branding/lotus-logo.svg"]),
                 ("h", hexstr_to_bytes("0xD4584AD463139FA8C0D9F68F4B59F185")),
                 ("mu", []),
                 ("lu", []),
@@ -536,7 +536,7 @@ async def test_nft_wallet_rpc_update_metadata(two_wallet_nodes: Any, trusted: An
     assert coin["mint_height"] > 0
     uris = coin["data_uris"]
     assert len(uris) == 1
-    assert "https://www.chia.net/img/branding/chia-logo.svg" in uris
+    assert "https://www.lotus.net/img/branding/lotus-logo.svg" in uris
     assert len(coin["metadata_uris"]) == 1
     assert "http://metadata" == coin["metadata_uris"][0]
     assert len(coin["license_uris"]) == 0
@@ -665,7 +665,7 @@ async def test_nft_with_did_wallet_creation(two_wallet_nodes: Any, trusted: Any)
         {
             "wallet_id": nft_wallet_0_id,
             "hash": "0xD4584AD463139FA8C0D9F68F4B59F185",
-            "uris": ["https://www.chia.net/img/branding/chia-logo.svg"],
+            "uris": ["https://www.lotus.net/img/branding/lotus-logo.svg"],
             "target_address": encode_puzzle_hash(nft_ph, "txch"),
         }
     )
@@ -718,7 +718,7 @@ async def test_nft_with_did_wallet_creation(two_wallet_nodes: Any, trusted: Any)
     did_nft = coins[0].to_json_dict()
     assert did_nft["mint_height"] > 0
     assert did_nft["supports_did"]
-    assert did_nft["data_uris"][0] == "https://www.chia.net/img/branding/chia-logo.svg"
+    assert did_nft["data_uris"][0] == "https://www.lotus.net/img/branding/lotus-logo.svg"
     assert did_nft["data_hash"] == "0xD4584AD463139FA8C0D9F68F4B59F185".lower()
     assert did_nft["owner_did"][2:] == hex_did_id
     # Check unassigned NFT
@@ -815,7 +815,7 @@ async def test_nft_rpc_mint(two_wallet_nodes: Any, trusted: Any) -> None:
         {
             "wallet_id": nft_wallet_0_id,
             "hash": data_hash_param,
-            "uris": ["https://www.chia.net/img/branding/chia-logo.svg"],
+            "uris": ["https://www.lotus.net/img/branding/lotus-logo.svg"],
             "license_uris": license_uris,
             "license_hash": license_hash,
             "meta_hash": meta_hash,
@@ -926,7 +926,7 @@ async def test_nft_transfer_nft_with_did(two_wallet_nodes: Any, trusted: Any) ->
         {
             "wallet_id": nft_wallet_0_id,
             "hash": "0xD4584AD463139FA8C0D9F68F4B59F185",
-            "uris": ["https://www.chia.net/img/branding/chia-logo.svg"],
+            "uris": ["https://www.lotus.net/img/branding/lotus-logo.svg"],
             "fee": fee,
             "did_id": hmr_did_id,
         }
@@ -1079,8 +1079,8 @@ async def test_update_metadata_for_nft_did(two_wallet_nodes: Any, trusted: Any) 
         {
             "wallet_id": nft_wallet_0_id,
             "hash": "0xD4584AD463139FA8C0D9F68F4B59F185",
-            "uris": ["https://www.chia.net/img/branding/chia-logo.svg"],
-            "mu": ["https://www.chia.net/img/branding/chia-logo.svg"],
+            "uris": ["https://www.lotus.net/img/branding/lotus-logo.svg"],
+            "mu": ["https://www.lotus.net/img/branding/lotus-logo.svg"],
             "did": hex_did_id,
         }
     )
@@ -1138,7 +1138,7 @@ async def test_update_metadata_for_nft_did(two_wallet_nodes: Any, trusted: Any) 
     assert coin["mint_height"] > 0
     uris = coin["data_uris"]
     assert len(uris) == 1
-    assert "https://www.chia.net/img/branding/chia-logo.svg" in uris
+    assert "https://www.lotus.net/img/branding/lotus-logo.svg" in uris
     assert len(coin["metadata_uris"]) == 1
     assert "http://metadata" == coin["metadata_uris"][0]
     assert len(coin["license_uris"]) == 0
@@ -1209,8 +1209,8 @@ async def test_nft_set_did(two_wallet_nodes: Any, trusted: Any) -> None:
         {
             "wallet_id": nft_wallet_0_id,
             "hash": "0xD4584AD463139FA8C0D9F68F4B59F185",
-            "uris": ["https://www.chia.net/img/branding/chia-logo.svg"],
-            "mu": ["https://www.chia.net/img/branding/chia-logo.svg"],
+            "uris": ["https://www.lotus.net/img/branding/lotus-logo.svg"],
+            "mu": ["https://www.lotus.net/img/branding/lotus-logo.svg"],
             "did_id": "",
         }
     )
@@ -1361,8 +1361,8 @@ async def test_set_nft_status(two_wallet_nodes: Any, trusted: Any) -> None:
         {
             "wallet_id": nft_wallet_0_id,
             "hash": "0xD4584AD463139FA8C0D9F68F4B59F185",
-            "uris": ["https://www.chia.net/img/branding/chia-logo.svg"],
-            "mu": ["https://www.chia.net/img/branding/chia-logo.svg"],
+            "uris": ["https://www.lotus.net/img/branding/lotus-logo.svg"],
+            "mu": ["https://www.lotus.net/img/branding/lotus-logo.svg"],
         }
     )
     assert resp.get("success")

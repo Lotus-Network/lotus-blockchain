@@ -1,12 +1,12 @@
 from typing import Dict, List, Tuple
 
-from chia.rpc.full_node_rpc_client import FullNodeRpcClient
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.types.coin_record import CoinRecord
-from chia.types.full_block import FullBlock
-from chia.util.bech32m import encode_puzzle_hash
-from chia.util.byte_types import hexstr_to_bytes
-from chia.util.ints import uint128
+from lotus.rpc.full_node_rpc_client import FullNodeRpcClient
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.types.coin_record import CoinRecord
+from lotus.types.full_block import FullBlock
+from lotus.util.bech32m import encode_puzzle_hash
+from lotus.util.byte_types import hexstr_to_bytes
+from lotus.util.ints import uint128
 
 
 class SimulatorFullNodeRpcClient(FullNodeRpcClient):

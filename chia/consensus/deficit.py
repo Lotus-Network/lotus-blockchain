@@ -1,8 +1,8 @@
 from typing import Optional
 
-from chia.consensus.block_record import BlockRecord
-from chia.consensus.constants import ConsensusConstants
-from chia.util.ints import uint8, uint32
+from lotus.consensus.block_record import BlockRecord
+from lotus.consensus.constants import ConsensusConstants
+from lotus.util.ints import uint8, uint32
 
 
 def calculate_deficit(

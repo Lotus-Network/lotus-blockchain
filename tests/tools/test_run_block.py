@@ -2,9 +2,9 @@ import json
 from pathlib import Path
 from typing import List
 
-from chia.consensus.default_constants import DEFAULT_CONSTANTS
-from chia.types.condition_opcodes import ConditionOpcode
-from chia.types.condition_with_args import ConditionWithArgs
+from lotus.consensus.default_constants import DEFAULT_CONSTANTS
+from lotus.types.condition_opcodes import ConditionOpcode
+from lotus.types.condition_with_args import ConditionWithArgs
 from tools.run_block import run_json_block
 
 testnet10 = {

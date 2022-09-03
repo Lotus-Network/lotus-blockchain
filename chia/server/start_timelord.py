@@ -3,17 +3,17 @@ import pathlib
 import sys
 from typing import Dict, Optional
 
-from chia.consensus.constants import ConsensusConstants
-from chia.consensus.default_constants import DEFAULT_CONSTANTS
-from chia.rpc.timelord_rpc_api import TimelordRpcApi
-from chia.server.outbound_message import NodeType
-from chia.server.start_service import RpcInfo, Service, async_run
-from chia.timelord.timelord import Timelord
-from chia.timelord.timelord_api import TimelordAPI
-from chia.types.peer_info import PeerInfo
-from chia.util.chia_logging import initialize_logging
-from chia.util.config import load_config, load_config_cli
-from chia.util.default_root import DEFAULT_ROOT_PATH
+from lotus.consensus.constants import ConsensusConstants
+from lotus.consensus.default_constants import DEFAULT_CONSTANTS
+from lotus.rpc.timelord_rpc_api import TimelordRpcApi
+from lotus.server.outbound_message import NodeType
+from lotus.server.start_service import RpcInfo, Service, async_run
+from lotus.timelord.timelord import Timelord
+from lotus.timelord.timelord_api import TimelordAPI
+from lotus.types.peer_info import PeerInfo
+from lotus.util.lotus_logging import initialize_logging
+from lotus.util.config import load_config, load_config_cli
+from lotus.util.default_root import DEFAULT_ROOT_PATH
 
 # See: https://bugs.python.org/issue29288
 "".encode("idna")

@@ -3,24 +3,24 @@ import itertools
 import time
 from typing import Collection, Dict, Iterator, List, Optional, Set, Tuple
 
-from chia.consensus.block_record import BlockRecord
-from chia.consensus.block_rewards import calculate_base_farmer_reward, calculate_pool_reward
-from chia.consensus.multiprocess_validation import PreValidationResult
-from chia.full_node.full_node import FullNode
-from chia.full_node.full_node_api import FullNodeAPI
-from chia.protocols.full_node_protocol import RespondBlock
-from chia.simulator.block_tools import BlockTools
-from chia.simulator.simulator_protocol import FarmNewBlockProtocol, GetAllCoinsProtocol, ReorgProtocol
-from chia.types.blockchain_format.coin import Coin
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.types.coin_record import CoinRecord
-from chia.types.full_block import FullBlock
-from chia.util.api_decorators import api_request
-from chia.util.config import lock_and_load_config, save_config
-from chia.util.ints import uint8, uint32, uint64, uint128
-from chia.wallet.transaction_record import TransactionRecord
-from chia.wallet.util.wallet_types import AmountWithPuzzlehash
-from chia.wallet.wallet import Wallet
+from lotus.consensus.block_record import BlockRecord
+from lotus.consensus.block_rewards import calculate_base_farmer_reward, calculate_pool_reward
+from lotus.consensus.multiprocess_validation import PreValidationResult
+from lotus.full_node.full_node import FullNode
+from lotus.full_node.full_node_api import FullNodeAPI
+from lotus.protocols.full_node_protocol import RespondBlock
+from lotus.simulator.block_tools import BlockTools
+from lotus.simulator.simulator_protocol import FarmNewBlockProtocol, GetAllCoinsProtocol, ReorgProtocol
+from lotus.types.blockchain_format.coin import Coin
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.types.coin_record import CoinRecord
+from lotus.types.full_block import FullBlock
+from lotus.util.api_decorators import api_request
+from lotus.util.config import lock_and_load_config, save_config
+from lotus.util.ints import uint8, uint32, uint64, uint128
+from lotus.wallet.transaction_record import TransactionRecord
+from lotus.wallet.util.wallet_types import AmountWithPuzzlehash
+from lotus.wallet.wallet import Wallet
 
 
 def backoff_times(

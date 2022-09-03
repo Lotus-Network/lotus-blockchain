@@ -8,10 +8,10 @@ from typing import Any, Callable, List, Tuple, Type, Union
 import pytest
 from blspy import G1Element
 
-from chia.plot_sync.delta import Delta
-from chia.plot_sync.receiver import Receiver, Sync
-from chia.plot_sync.util import ErrorCodes, State
-from chia.protocols.harvester_protocol import (
+from lotus.plot_sync.delta import Delta
+from lotus.plot_sync.receiver import Receiver, Sync
+from lotus.plot_sync.util import ErrorCodes, State
+from lotus.protocols.harvester_protocol import (
     Plot,
     PlotSyncDone,
     PlotSyncIdentifier,
@@ -20,11 +20,11 @@ from chia.protocols.harvester_protocol import (
     PlotSyncResponse,
     PlotSyncStart,
 )
-from chia.server.ws_connection import NodeType
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.util.ints import uint8, uint32, uint64
-from chia.util.misc import get_list_or_len
-from chia.util.streamable import _T_Streamable
+from lotus.server.ws_connection import NodeType
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.util.ints import uint8, uint32, uint64
+from lotus.util.misc import get_list_or_len
+from lotus.util.streamable import _T_Streamable
 from tests.plot_sync.util import get_dummy_connection
 
 log = logging.getLogger(__name__)

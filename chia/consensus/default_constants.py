@@ -1,4 +1,4 @@
-from chia.util.ints import uint64
+from lotus.util.ints import uint64
 
 from .constants import ConsensusConstants
 
@@ -29,7 +29,7 @@ default_kwargs = {
     # We override this value based on the chain being run (testnet0, testnet1, mainnet, etc)
     # Default used for tests is std_hash(b'')
     "GENESIS_CHALLENGE": bytes.fromhex("e0bdf64ab980fd9c64fc986298b0ef1cbd1f0b9edf927ef1d6184643217bdd90"),
-    # Forks of chia should change this value to provide replay attack protection. This is set to mainnet genesis chall
+    # Forks of lotus should change this value to provide replay attack protection. This is set to mainnet genesis chall
     "AGG_SIG_ME_ADDITIONAL_DATA": bytes.fromhex("ccd5bb71183532bff220ba46c268991a3ff07eb358e8255a65c30a2dce0e5fbb"),
     "GENESIS_PRE_FARM_POOL_PUZZLE_HASH": bytes.fromhex(
         "d23da14695a188ae5708dd152263c4db883eb27edeb936178d4d988b8f3ce5fc"

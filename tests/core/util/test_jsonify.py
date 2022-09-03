@@ -1,9 +1,9 @@
 from dataclasses import dataclass
 from typing import Any, Dict, List, Optional, Tuple
 
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.util.ints import uint32
-from chia.util.streamable import Streamable, recurse_jsonify, streamable
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.util.ints import uint32
+from lotus.util.streamable import Streamable, recurse_jsonify, streamable
 
 
 def dict_with_types(d: Dict[str, Any]) -> Dict[str, Any]:

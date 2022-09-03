@@ -1,5 +1,5 @@
 import pytest
-from chia.util.generator_tools import list_to_batches
+from lotus.util.generator_tools import list_to_batches
 
 
 def test_empty_lists():

@@ -5,26 +5,26 @@ from concurrent.futures.process import ProcessPoolExecutor
 from multiprocessing.context import BaseContext
 from typing import IO, List, Tuple, Optional
 
-from chia.consensus.block_record import BlockRecord
-from chia.consensus.constants import ConsensusConstants
-from chia.full_node.weight_proof import (
+from lotus.consensus.block_record import BlockRecord
+from lotus.consensus.constants import ConsensusConstants
+from lotus.full_node.weight_proof import (
     _validate_sub_epoch_summaries,
     validate_weight_proof_inner,
 )
-from chia.types.blockchain_format.sub_epoch_summary import SubEpochSummary
+from lotus.types.blockchain_format.sub_epoch_summary import SubEpochSummary
 
-from chia.types.weight_proof import (
+from lotus.types.weight_proof import (
     WeightProof,
 )
 
-from chia.util.ints import uint32
-from chia.util.setproctitle import getproctitle, setproctitle
+from lotus.util.ints import uint32
+from lotus.util.setproctitle import getproctitle, setproctitle
 
 log = logging.getLogger(__name__)
 
 
 def _create_shutdown_file() -> IO:
-    return tempfile.NamedTemporaryFile(prefix="chia_wallet_weight_proof_handler_executor_shutdown_trigger")
+    return tempfile.NamedTemporaryFile(prefix="lotus_wallet_weight_proof_handler_executor_shutdown_trigger")
 
 
 class WalletWeightProofHandler:

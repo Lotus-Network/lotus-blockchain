@@ -1,15 +1,15 @@
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
 
-from chia.rpc.full_node_rpc_client import FullNodeRpcClient
+from lotus.rpc.full_node_rpc_client import FullNodeRpcClient
 
 
 async def print_blockchain_state(node_client: FullNodeRpcClient, config: Dict[str, Any]) -> bool:
     import time
 
-    from chia.consensus.block_record import BlockRecord
-    from chia.util.ints import uint64
-    from chia.util.misc import format_bytes
+    from lotus.consensus.block_record import BlockRecord
+    from lotus.util.ints import uint64
+    from lotus.util.misc import format_bytes
 
     blockchain_state = await node_client.get_blockchain_state()
     if blockchain_state is None:
@@ -47,7 +47,7 @@ async def print_blockchain_state(node_client: FullNodeRpcClient, config: Dict[st
         print(f"Current Blockchain Status: Not Synced. Peak height: {peak.height}")
     else:
         print("\nSearching for an initial chain\n")
-        print("You may be able to expedite with 'chia show -a host:port' using a known node.\n")
+        print("You may be able to expedite with 'lotus show -a host:port' using a known node.\n")
 
     if peak is not None:
         if peak.is_transaction_block:
@@ -94,11 +94,11 @@ async def print_block_from_hash(
 ) -> None:
     import time
 
-    from chia.consensus.block_record import BlockRecord
-    from chia.types.blockchain_format.sized_bytes import bytes32
-    from chia.types.full_block import FullBlock
-    from chia.util.bech32m import encode_puzzle_hash
-    from chia.util.byte_types import hexstr_to_bytes
+    from lotus.consensus.block_record import BlockRecord
+    from lotus.types.blockchain_format.sized_bytes import bytes32
+    from lotus.types.full_block import FullBlock
+    from lotus.util.bech32m import encode_puzzle_hash
+    from lotus.util.byte_types import hexstr_to_bytes
 
     block: Optional[BlockRecord] = await node_client.get_block_record(hexstr_to_bytes(block_by_header_hash))
     full_block: Optional[FullBlock] = await node_client.get_block(hexstr_to_bytes(block_by_header_hash))
@@ -167,7 +167,7 @@ async def show_async(
     block_header_hash_by_height: str,
     block_by_header_hash: str,
 ) -> None:
-    from chia.cmds.cmds_util import get_any_service_client
+    from lotus.cmds.cmds_util import get_any_service_client
 
     node_client: Optional[FullNodeRpcClient]
     async with get_any_service_client("full_node", rpc_port, root_path) as node_config_fp:

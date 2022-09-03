@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 from typing import Dict, List, Union
 
-from chia.protocols.harvester_protocol import Plot
+from lotus.protocols.harvester_protocol import Plot
 
 
 @dataclass

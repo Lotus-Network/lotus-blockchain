@@ -8,9 +8,9 @@ import pytest
 import random
 import yaml
 
-from chia.util.config import (
+from lotus.util.config import (
     config_path_for_filename,
-    create_default_chia_config,
+    create_default_lotus_config,
     initial_config_file,
     load_config,
     lock_and_load_config,
@@ -154,7 +154,7 @@ def default_config_dict() -> Dict:
 class TestConfig:
     def test_create_config_new(self, tmpdir):
         """
-        Test create_default_chia_config() as in a first run scenario
+        Test create_default_lotus_config() as in a first run scenario
         """
         # When: using a clean directory
         root_path: Path = Path(tmpdir)
@@ -162,7 +162,7 @@ class TestConfig:
         # Expect: config.yaml doesn't exist
         assert config_file_path.exists() is False
         # When: creating a new config
-        create_default_chia_config(root_path)
+        create_default_lotus_config(root_path)
         # Expect: config.yaml exists
         assert config_file_path.exists() is True
 
@@ -176,7 +176,7 @@ class TestConfig:
 
     def test_create_config_overwrite(self, tmpdir):
         """
-        Test create_default_chia_config() when overwriting an existing config.yaml
+        Test create_default_lotus_config() when overwriting an existing config.yaml
         """
         # When: using a clean directory
         root_path: Path = Path(tmpdir)
@@ -188,7 +188,7 @@ class TestConfig:
         # Expect: config.yaml exists
         assert config_file_path.exists() is True
         # When: creating a new config
-        create_default_chia_config(root_path)
+        create_default_lotus_config(root_path)
         # Expect: config.yaml exists
         assert config_file_path.exists() is True
 

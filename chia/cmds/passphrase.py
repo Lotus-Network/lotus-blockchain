@@ -4,7 +4,7 @@ import sys
 from io import TextIOWrapper
 from typing import Optional
 
-from chia.util.config import load_config
+from lotus.util.config import load_config
 
 
 @click.group("passphrase", short_help="Manage your keyring passphrase")

@@ -41,7 +41,7 @@ Remove-Item node_modules -Recurse -Force
 
 # Other than `lotus-blockchain-gui/package/gui`, all other packages are no longer necessary after build.
 # Since these unused packages make cache unnecessarily fat, unused packages should be removed.
-Write-Output "Remove unused @chia packages to make cache slim"
+Write-Output "Remove unused @lotus packages to make cache slim"
 Remove-Item packages\api -Recurse -Force
 Remove-Item packages\api-react -Recurse -Force
 Remove-Item packages\core -Recurse -Force
@@ -55,5 +55,5 @@ Remove-Item electron\dist -Recurse -Force # ~186MB
 Remove-Item "@mui" -Recurse -Force # ~71MB
 Remove-Item typescript -Recurse -Force # ~63MB
 
-# Remove `packages/gui/node_modules/@chia` because it causes an error on later `electron-packager` command
-Remove-Item "@chia" -Recurse -Force
+# Remove `packages/gui/node_modules/@lotus` because it causes an error on later `electron-packager` command
+Remove-Item "@lotus" -Recurse -Force

@@ -3,15 +3,15 @@ from typing import List, Iterator, Optional
 
 from blspy import G2Element
 
-from chia.types.blockchain_format.coin import Coin, coin_as_list
-from chia.types.blockchain_format.program import Program, INFINITE_COST
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.types.condition_opcodes import ConditionOpcode
-from chia.types.spend_bundle import CoinSpend, SpendBundle
-from chia.util.condition_tools import conditions_dict_for_solution
-from chia.wallet.lineage_proof import LineageProof
-from chia.wallet.puzzles.cat_loader import CAT_MOD
-from chia.wallet.uncurried_puzzle import UncurriedPuzzle
+from lotus.types.blockchain_format.coin import Coin, coin_as_list
+from lotus.types.blockchain_format.program import Program, INFINITE_COST
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.types.condition_opcodes import ConditionOpcode
+from lotus.types.spend_bundle import CoinSpend, SpendBundle
+from lotus.util.condition_tools import conditions_dict_for_solution
+from lotus.wallet.lineage_proof import LineageProof
+from lotus.wallet.puzzles.cat_loader import CAT_MOD
+from lotus.wallet.uncurried_puzzle import UncurriedPuzzle
 
 NULL_SIGNATURE = G2Element()
 

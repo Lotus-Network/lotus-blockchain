@@ -3,16 +3,16 @@ from typing import AsyncIterator, List, Tuple
 import pytest
 import pytest_asyncio
 
-from chia.cmds.units import units
-from chia.consensus.block_rewards import calculate_pool_reward, calculate_base_farmer_reward
-from chia.server.server import ChiaServer
-from chia.simulator.block_tools import create_block_tools_async, BlockTools
-from chia.simulator.full_node_simulator import FullNodeSimulator
-from chia.simulator.simulator_protocol import FarmNewBlockProtocol, GetAllCoinsProtocol, ReorgProtocol
-from chia.simulator.time_out_assert import time_out_assert
-from chia.types.peer_info import PeerInfo
-from chia.util.ints import uint16, uint32, uint64
-from chia.wallet.wallet_node import WalletNode
+from lotus.cmds.units import units
+from lotus.consensus.block_rewards import calculate_pool_reward, calculate_base_farmer_reward
+from lotus.server.server import LotusServer
+from lotus.simulator.block_tools import create_block_tools_async, BlockTools
+from lotus.simulator.full_node_simulator import FullNodeSimulator
+from lotus.simulator.simulator_protocol import FarmNewBlockProtocol, GetAllCoinsProtocol, ReorgProtocol
+from lotus.simulator.time_out_assert import time_out_assert
+from lotus.types.peer_info import PeerInfo
+from lotus.util.ints import uint16, uint32, uint64
+from lotus.wallet.wallet_node import WalletNode
 from tests.core.node_height import node_height_at_least
 from tests.setup_nodes import (
     SimulatorsAndWallets,
@@ -131,7 +131,7 @@ class TestSimulation:
     @pytest.mark.asyncio
     async def test_simulator_auto_farm_and_get_coins(
         self,
-        two_wallet_nodes: Tuple[List[FullNodeSimulator], List[Tuple[WalletNode, ChiaServer]], BlockTools],
+        two_wallet_nodes: Tuple[List[FullNodeSimulator], List[Tuple[WalletNode, LotusServer]], BlockTools],
         self_hostname: str,
     ) -> None:
         num_blocks = 2
@@ -253,11 +253,11 @@ class TestSimulation:
         argvalues=[
             [0, 0],
             [1, 2],
-            [(2 * units["chia"]) - 1, 2],
-            [2 * units["chia"], 2],
-            [(2 * units["chia"]) + 1, 4],
-            [3 * units["chia"], 4],
-            [10 * units["chia"], 10],
+            [(2 * units["lotus"]) - 1, 2],
+            [2 * units["lotus"], 2],
+            [(2 * units["lotus"]) + 1, 4],
+            [3 * units["lotus"], 4],
+            [10 * units["lotus"], 10],
         ],
     )
     async def test_simulation_farm_rewards(

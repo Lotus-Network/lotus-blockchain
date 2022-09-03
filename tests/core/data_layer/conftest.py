@@ -14,12 +14,12 @@ import pytest_asyncio
 # https://github.com/pytest-dev/pytest/issues/7469
 from _pytest.fixtures import SubRequest
 
-from chia.data_layer.data_layer_util import NodeType, Status
-from chia.data_layer.data_store import DataStore
-from chia.types.blockchain_format.tree_hash import bytes32
-from chia.util.db_wrapper import DBWrapper
+from lotus.data_layer.data_layer_util import NodeType, Status
+from lotus.data_layer.data_store import DataStore
+from lotus.types.blockchain_format.tree_hash import bytes32
+from lotus.util.db_wrapper import DBWrapper
 from tests.core.data_layer.util import (
-    ChiaRoot,
+    LotusRoot,
     Example,
     add_0123_example,
     add_01234567_example,
@@ -40,9 +40,9 @@ def scripts_path_fixture() -> pathlib.Path:
     return pathlib.Path(scripts_string)
 
 
-@pytest.fixture(name="chia_root", scope="function")
-def chia_root_fixture(tmp_path: pathlib.Path, scripts_path: pathlib.Path) -> ChiaRoot:
-    root = ChiaRoot(path=tmp_path.joinpath("chia_root"), scripts_path=scripts_path)
+@pytest.fixture(name="lotus_root", scope="function")
+def lotus_root_fixture(tmp_path: pathlib.Path, scripts_path: pathlib.Path) -> LotusRoot:
+    root = LotusRoot(path=tmp_path.joinpath("lotus_root"), scripts_path=scripts_path)
     root.run(args=["init"])
     root.run(args=["configure", "--set-log-level", "INFO"])
 
@@ -50,8 +50,8 @@ def chia_root_fixture(tmp_path: pathlib.Path, scripts_path: pathlib.Path) -> Chi
 
 
 @contextlib.contextmanager
-def closing_chia_root_popen(chia_root: ChiaRoot, args: List[str]) -> Iterator[None]:
-    environment = {**os.environ, "CHIA_ROOT": os.fspath(chia_root.path)}
+def closing_lotus_root_popen(lotus_root: LotusRoot, args: List[str]) -> Iterator[None]:
+    environment = {**os.environ, "LOTUS_ROOT": os.fspath(lotus_root.path)}
 
     with subprocess.Popen(args=args, env=environment) as process:
         try:
@@ -64,18 +64,18 @@ def closing_chia_root_popen(chia_root: ChiaRoot, args: List[str]) -> Iterator[No
                 process.kill()
 
 
-@pytest.fixture(name="chia_daemon", scope="function")
-def chia_daemon_fixture(chia_root: ChiaRoot) -> Iterator[None]:
-    with closing_chia_root_popen(chia_root=chia_root, args=[sys.executable, "-m", "chia.daemon.server"]):
+@pytest.fixture(name="lotus_daemon", scope="function")
+def lotus_daemon_fixture(lotus_root: LotusRoot) -> Iterator[None]:
+    with closing_lotus_root_popen(lotus_root=lotus_root, args=[sys.executable, "-m", "lotus.daemon.server"]):
         # TODO: this is not pretty as a hard coded time
         # let it settle
         time.sleep(5)
         yield
 
 
-@pytest.fixture(name="chia_data", scope="function")
-def chia_data_fixture(chia_root: ChiaRoot, chia_daemon: None, scripts_path: pathlib.Path) -> Iterator[None]:
-    with closing_chia_root_popen(chia_root=chia_root, args=[os.fspath(scripts_path.joinpath("chia_data_layer"))]):
+@pytest.fixture(name="lotus_data", scope="function")
+def lotus_data_fixture(lotus_root: LotusRoot, lotus_daemon: None, scripts_path: pathlib.Path) -> Iterator[None]:
+    with closing_lotus_root_popen(lotus_root=lotus_root, args=[os.fspath(scripts_path.joinpath("lotus_data_layer"))]):
         # TODO: this is not pretty as a hard coded time
         # let it settle
         time.sleep(5)

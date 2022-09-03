@@ -2,14 +2,14 @@ from typing import Dict, List, Optional, Tuple
 
 from clvm.casts import int_from_bytes
 
-from chia.types.blockchain_format.coin import Coin
-from chia.types.blockchain_format.program import Program, SerializedProgram
-from chia.types.blockchain_format.sized_bytes import bytes32, bytes48
-from chia.types.condition_opcodes import ConditionOpcode
-from chia.types.condition_with_args import ConditionWithArgs
-from chia.util.errors import ConsensusError, Err
-from chia.util.ints import uint64
-from chia.types.spend_bundle_conditions import SpendBundleConditions
+from lotus.types.blockchain_format.coin import Coin
+from lotus.types.blockchain_format.program import Program, SerializedProgram
+from lotus.types.blockchain_format.sized_bytes import bytes32, bytes48
+from lotus.types.condition_opcodes import ConditionOpcode
+from lotus.types.condition_with_args import ConditionWithArgs
+from lotus.util.errors import ConsensusError, Err
+from lotus.util.ints import uint64
+from lotus.types.spend_bundle_conditions import SpendBundleConditions
 
 # TODO: review each `assert` and consider replacing with explicit checks
 #       since asserts can be stripped with python `-OO` flag

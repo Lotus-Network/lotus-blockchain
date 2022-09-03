@@ -5,9 +5,9 @@ from typing import Any, Dict
 
 from aiohttp import web
 
-from chia.data_layer.download_data import is_filename_valid
-from chia.server.upnp import UPnP
-from chia.util.path import path_from_root
+from lotus.data_layer.download_data import is_filename_valid
+from lotus.server.upnp import UPnP
+from lotus.util.path import path_from_root
 
 
 @dataclass

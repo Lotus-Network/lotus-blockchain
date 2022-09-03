@@ -1,9 +1,9 @@
 import logging
 from typing import Dict, Optional
 
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.util.db_wrapper import DBWrapper2
-from chia.wallet.lineage_proof import LineageProof
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.util.db_wrapper import DBWrapper2
+from lotus.wallet.lineage_proof import LineageProof
 
 log = logging.getLogger(__name__)
 

@@ -18,20 +18,20 @@ from cryptography import x509
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import hashes, serialization
 
-from chia.protocols.protocol_message_types import ProtocolMessageTypes
-from chia.protocols.protocol_state_machine import message_requires_reply
-from chia.protocols.protocol_timing import API_EXCEPTION_BAN_SECONDS, INVALID_PROTOCOL_BAN_SECONDS
-from chia.protocols.shared_protocol import protocol_version
-from chia.server.introducer_peers import IntroducerPeers
-from chia.server.outbound_message import Message, NodeType
-from chia.server.ssl_context import private_ssl_paths, public_ssl_paths
-from chia.server.ws_connection import WSChiaConnection
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.types.peer_info import PeerInfo
-from chia.util.errors import Err, ProtocolError
-from chia.util.ints import uint16
-from chia.util.network import is_in_network, is_localhost, select_port
-from chia.util.ssl_check import verify_ssl_certs_and_keys
+from lotus.protocols.protocol_message_types import ProtocolMessageTypes
+from lotus.protocols.protocol_state_machine import message_requires_reply
+from lotus.protocols.protocol_timing import API_EXCEPTION_BAN_SECONDS, INVALID_PROTOCOL_BAN_SECONDS
+from lotus.protocols.shared_protocol import protocol_version
+from lotus.server.introducer_peers import IntroducerPeers
+from lotus.server.outbound_message import Message, NodeType
+from lotus.server.ssl_context import private_ssl_paths, public_ssl_paths
+from lotus.server.ws_connection import WSLotusConnection
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.types.peer_info import PeerInfo
+from lotus.util.errors import Err, ProtocolError
+from lotus.util.ints import uint16
+from lotus.util.network import is_in_network, is_localhost, select_port
+from lotus.util.ssl_check import verify_ssl_certs_and_keys
 
 max_message_size = 50 * 1024 * 1024  # 50MB
 
@@ -99,7 +99,7 @@ def ssl_context_for_client(
     return ssl_context
 
 
-class ChiaServer:
+class LotusServer:
     def __init__(
         self,
         port: int,
@@ -114,14 +114,14 @@ class ChiaServer:
         root_path: Path,
         config: Dict,
         private_ca_crt_key: Tuple[Path, Path],
-        chia_ca_crt_key: Tuple[Path, Path],
+        lotus_ca_crt_key: Tuple[Path, Path],
         name: str = None,
     ):
         # Keeps track of all connections to and from this node.
-        self.all_connections: Dict[bytes32, WSChiaConnection] = {}
+        self.all_connections: Dict[bytes32, WSLotusConnection] = {}
         self.tasks: Set[asyncio.Task] = set()
 
-        self.connection_by_type: Dict[NodeType, Dict[bytes32, WSChiaConnection]] = {
+        self.connection_by_type: Dict[NodeType, Dict[bytes32, WSLotusConnection]] = {
             NodeType.FULL_NODE: {},
             NodeType.DATA_LAYER: {},
             NodeType.WALLET: {},
@@ -164,7 +164,7 @@ class ChiaServer:
         else:
             self.p2p_crt_path, self.p2p_key_path = None, None
         self.ca_private_crt_path, self.ca_private_key_path = private_ca_crt_key
-        self.chia_ca_crt_path, self.chia_ca_key_path = chia_ca_crt_key
+        self.lotus_ca_crt_path, self.lotus_ca_key_path = lotus_ca_crt_key
         self.node_id = self.my_id()
 
         self.incoming_task: Optional[asyncio.Task] = None
@@ -209,7 +209,7 @@ class ChiaServer:
         is_crawler = getattr(self.node, "crawl", None)
         while True:
             await asyncio.sleep(600 if is_crawler is None else 2)
-            to_remove: List[WSChiaConnection] = []
+            to_remove: List[WSLotusConnection] = []
             for connection in self.all_connections.values():
                 if (
                     self._local_type == NodeType.FULL_NODE or self._local_type == NodeType.WALLET
@@ -261,7 +261,7 @@ class ChiaServer:
         else:
             self.p2p_crt_path, self.p2p_key_path = public_ssl_paths(self.root_path, self.config)
             ssl_context = ssl_context_for_server(
-                self.chia_ca_crt_path, self.chia_ca_key_path, self.p2p_crt_path, self.p2p_key_path, log=self.log
+                self.lotus_ca_crt_path, self.lotus_ca_key_path, self.p2p_crt_path, self.p2p_key_path, log=self.log
             )
 
         # If self._port is set to zero, the socket will bind to a new available port. Therefore, we have to obtain
@@ -298,9 +298,9 @@ class ChiaServer:
         peer_id = bytes32(der_cert.fingerprint(hashes.SHA256()))
         if peer_id == self.node_id:
             return ws
-        connection: Optional[WSChiaConnection] = None
+        connection: Optional[WSLotusConnection] = None
         try:
-            connection = WSChiaConnection(
+            connection = WSLotusConnection(
                 self._local_type,
                 ws,
                 self._port,
@@ -361,7 +361,7 @@ class ChiaServer:
         await close_event.wait()
         return ws
 
-    async def connection_added(self, connection: WSChiaConnection, on_connect=None):
+    async def connection_added(self, connection: WSLotusConnection, on_connect=None):
         # If we already had a connection to this peer_id, close the old one. This is secure because peer_ids are based
         # on TLS public keys
         if connection.peer_node_id in self.all_connections:
@@ -410,10 +410,10 @@ class ChiaServer:
             )
         else:
             ssl_context = ssl_context_for_client(
-                self.chia_ca_crt_path, self.chia_ca_key_path, self.p2p_crt_path, self.p2p_key_path
+                self.lotus_ca_crt_path, self.lotus_ca_key_path, self.p2p_crt_path, self.p2p_key_path
             )
         session = None
-        connection: Optional[WSChiaConnection] = None
+        connection: Optional[WSLotusConnection] = None
         try:
             # Crawler/DNS introducer usually uses a lower timeout than the default
             timeout_value = float(self.config.get("peer_connect_timeout", 30))
@@ -449,7 +449,7 @@ class ChiaServer:
             if peer_id == self.node_id:
                 raise RuntimeError(f"Trying to connect to a peer ({target_node}) with the same peer_id: {peer_id}")
 
-            connection = WSChiaConnection(
+            connection = WSLotusConnection(
                 self._local_type,
                 ws,
                 self._port,
@@ -502,7 +502,7 @@ class ChiaServer:
 
         return False
 
-    def connection_closed(self, connection: WSChiaConnection, ban_time: int):
+    def connection_closed(self, connection: WSLotusConnection, ban_time: int):
         if is_localhost(connection.peer_host) and ban_time != 0:
             self.log.warning(f"Trying to ban localhost for {ban_time}, but will not ban")
             ban_time = 0
@@ -551,7 +551,7 @@ class ChiaServer:
             if payload_inc is None or connection_inc is None:
                 continue
 
-            async def api_call(full_message: Message, connection: WSChiaConnection, task_id):
+            async def api_call(full_message: Message, connection: WSLotusConnection, task_id):
                 nonlocal message_types
                 start_time = time.time()
                 message_type = ""
@@ -646,7 +646,7 @@ class ChiaServer:
         self,
         messages: List[Message],
         node_type: NodeType,
-        origin_peer: WSChiaConnection,
+        origin_peer: WSLotusConnection,
     ):
         for node_id, connection in self.all_connections.items():
             if node_id == origin_peer.peer_node_id:
@@ -689,7 +689,7 @@ class ChiaServer:
             for message in messages:
                 await connection.send_message(message)
 
-    def get_outgoing_connections(self) -> List[WSChiaConnection]:
+    def get_outgoing_connections(self) -> List[WSLotusConnection]:
         result = []
         for _, connection in self.all_connections.items():
             if connection.is_outbound:
@@ -697,7 +697,7 @@ class ChiaServer:
 
         return result
 
-    def get_full_node_outgoing_connections(self) -> List[WSChiaConnection]:
+    def get_full_node_outgoing_connections(self) -> List[WSLotusConnection]:
         result = []
         connections = self.get_full_node_connections()
         for connection in connections:
@@ -705,10 +705,10 @@ class ChiaServer:
                 result.append(connection)
         return result
 
-    def get_full_node_connections(self) -> List[WSChiaConnection]:
+    def get_full_node_connections(self) -> List[WSLotusConnection]:
         return list(self.connection_by_type[NodeType.FULL_NODE].values())
 
-    def get_connections(self, node_type: Optional[NodeType] = None) -> List[WSChiaConnection]:
+    def get_connections(self, node_type: Optional[NodeType] = None) -> List[WSLotusConnection]:
         result = []
         for _, connection in self.all_connections.items():
             if node_type is None or connection.connection_type == node_type:
@@ -756,11 +756,11 @@ class ChiaServer:
         ip = None
         port = self._port
 
-        # Use chia's service first.
+        # Use lotus's service first.
         try:
             timeout = ClientTimeout(total=15)
             async with ClientSession(timeout=timeout) as session:
-                async with session.get("https://ip.chia.net/") as resp:
+                async with session.get("https://ip.lotus.net/") as resp:
                     if resp.status == 200:
                         ip = str(await resp.text())
                         ip = ip.rstrip()
@@ -802,7 +802,7 @@ class ChiaServer:
             return inbound_count < self.config["max_inbound_timelord"]
         return True
 
-    def is_trusted_peer(self, peer: WSChiaConnection, trusted_peers: Dict) -> bool:
+    def is_trusted_peer(self, peer: WSLotusConnection, trusted_peers: Dict) -> bool:
         if trusted_peers is None:
             return False
         if not self.config["testing"] and peer.peer_host == "127.0.0.1":

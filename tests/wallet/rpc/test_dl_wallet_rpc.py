@@ -5,18 +5,18 @@ from typing import AsyncIterator
 import pytest
 import pytest_asyncio
 
-from chia.consensus.block_rewards import calculate_base_farmer_reward, calculate_pool_reward
-from chia.data_layer.data_layer_wallet import Mirror, SingletonRecord
-from chia.rpc.full_node_rpc_api import FullNodeRpcApi
-from chia.rpc.rpc_server import start_rpc_server
-from chia.rpc.wallet_rpc_api import WalletRpcApi
-from chia.rpc.wallet_rpc_client import WalletRpcClient
-from chia.simulator.simulator_protocol import FarmNewBlockProtocol
-from chia.simulator.time_out_assert import time_out_assert
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.types.peer_info import PeerInfo
-from chia.util.ints import uint16, uint32, uint64
-from chia.wallet.db_wallet.db_wallet_puzzles import create_mirror_puzzle
+from lotus.consensus.block_rewards import calculate_base_farmer_reward, calculate_pool_reward
+from lotus.data_layer.data_layer_wallet import Mirror, SingletonRecord
+from lotus.rpc.full_node_rpc_api import FullNodeRpcApi
+from lotus.rpc.rpc_server import start_rpc_server
+from lotus.rpc.wallet_rpc_api import WalletRpcApi
+from lotus.rpc.wallet_rpc_client import WalletRpcClient
+from lotus.simulator.simulator_protocol import FarmNewBlockProtocol
+from lotus.simulator.time_out_assert import time_out_assert
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.types.peer_info import PeerInfo
+from lotus.util.ints import uint16, uint32, uint64
+from lotus.wallet.db_wallet.db_wallet_puzzles import create_mirror_puzzle
 from tests.setup_nodes import SimulatorsAndWallets, setup_simulators_and_wallets
 from tests.util.rpc import validate_get_routes
 

@@ -4,27 +4,27 @@ import logging
 import time
 from typing import Dict, List, Optional, Set, Tuple
 
-from chia.consensus.block_record import BlockRecord
-from chia.consensus.blockchain_interface import BlockchainInterface
-from chia.consensus.constants import ConsensusConstants
-from chia.consensus.difficulty_adjustment import can_finish_sub_and_full_epoch
-from chia.consensus.make_sub_epoch_summary import next_sub_epoch_summary
-from chia.consensus.multiprocess_validation import PreValidationResult
-from chia.consensus.pot_iterations import calculate_sp_interval_iters
-from chia.full_node.signage_point import SignagePoint
-from chia.protocols import timelord_protocol
-from chia.server.outbound_message import Message
-from chia.types.blockchain_format.classgroup import ClassgroupElement
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.types.blockchain_format.sub_epoch_summary import SubEpochSummary
-from chia.types.blockchain_format.vdf import VDFInfo
-from chia.types.end_of_slot_bundle import EndOfSubSlotBundle
-from chia.types.full_block import FullBlock
-from chia.types.generator_types import CompressorArg
-from chia.types.unfinished_block import UnfinishedBlock
-from chia.util.ints import uint8, uint32, uint64, uint128
-from chia.util.lru_cache import LRUCache
-from chia.util.streamable import Streamable, streamable
+from lotus.consensus.block_record import BlockRecord
+from lotus.consensus.blockchain_interface import BlockchainInterface
+from lotus.consensus.constants import ConsensusConstants
+from lotus.consensus.difficulty_adjustment import can_finish_sub_and_full_epoch
+from lotus.consensus.make_sub_epoch_summary import next_sub_epoch_summary
+from lotus.consensus.multiprocess_validation import PreValidationResult
+from lotus.consensus.pot_iterations import calculate_sp_interval_iters
+from lotus.full_node.signage_point import SignagePoint
+from lotus.protocols import timelord_protocol
+from lotus.server.outbound_message import Message
+from lotus.types.blockchain_format.classgroup import ClassgroupElement
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.types.blockchain_format.sub_epoch_summary import SubEpochSummary
+from lotus.types.blockchain_format.vdf import VDFInfo
+from lotus.types.end_of_slot_bundle import EndOfSubSlotBundle
+from lotus.types.full_block import FullBlock
+from lotus.types.generator_types import CompressorArg
+from lotus.types.unfinished_block import UnfinishedBlock
+from lotus.util.ints import uint8, uint32, uint64, uint128
+from lotus.util.lru_cache import LRUCache
+from lotus.util.streamable import Streamable, streamable
 
 log = logging.getLogger(__name__)
 

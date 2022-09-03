@@ -7,15 +7,15 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from chia.protocols import full_node_protocol
-from chia.types.blockchain_format.sub_epoch_summary import SubEpochSummary
-from chia.types.full_block import FullBlock
-from chia.types.peer_info import PeerInfo
-from chia.util.hash import std_hash
-from chia.util.ints import uint16
+from lotus.protocols import full_node_protocol
+from lotus.types.blockchain_format.sub_epoch_summary import SubEpochSummary
+from lotus.types.full_block import FullBlock
+from lotus.types.peer_info import PeerInfo
+from lotus.util.hash import std_hash
+from lotus.util.ints import uint16
 from tests.core.node_height import node_height_exactly, node_height_between
 from tests.setup_nodes import test_constants
-from chia.simulator.time_out_assert import time_out_assert
+from lotus.simulator.time_out_assert import time_out_assert
 
 log = logging.getLogger(__name__)
 

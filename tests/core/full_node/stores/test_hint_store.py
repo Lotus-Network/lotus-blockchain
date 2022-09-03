@@ -2,16 +2,16 @@ import logging
 import pytest
 from clvm.casts import int_to_bytes
 
-from chia.full_node.hint_store import HintStore
-from chia.protocols.full_node_protocol import RespondBlock
-from chia.types.blockchain_format.coin import Coin
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.types.condition_opcodes import ConditionOpcode
-from chia.types.condition_with_args import ConditionWithArgs
-from chia.types.spend_bundle import SpendBundle
-from chia.util.ints import uint64
+from lotus.full_node.hint_store import HintStore
+from lotus.protocols.full_node_protocol import RespondBlock
+from lotus.types.blockchain_format.coin import Coin
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.types.condition_opcodes import ConditionOpcode
+from lotus.types.condition_with_args import ConditionWithArgs
+from lotus.types.spend_bundle import SpendBundle
+from lotus.util.ints import uint64
 from tests.util.db_connection import DBConnection
-from chia.simulator.wallet_tools import WalletTool
+from lotus.simulator.wallet_tools import WalletTool
 
 
 log = logging.getLogger(__name__)

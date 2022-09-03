@@ -1,11 +1,11 @@
 import logging
 
 from blspy import PrivateKey
-from chia.cmds.init_funcs import check_keys
-from chia.util.errors import KeychainException, KeychainFingerprintNotFound
-from chia.util.ints import uint32
-from chia.util.keychain import KeyData, Keychain
-from chia.util.streamable import streamable, Streamable
+from lotus.cmds.init_funcs import check_keys
+from lotus.util.errors import KeychainException, KeychainFingerprintNotFound
+from lotus.util.ints import uint32
+from lotus.util.keychain import KeyData, Keychain
+from lotus.util.streamable import streamable, Streamable
 from pathlib import Path
 from dataclasses import dataclass
 from typing import Any, Dict, List, Optional, cast, Type

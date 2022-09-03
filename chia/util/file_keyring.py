@@ -18,9 +18,9 @@ from typing_extensions import final
 from watchdog.events import DirModifiedEvent, FileSystemEvent, FileSystemEventHandler
 from watchdog.observers import Observer
 
-from chia.util.default_root import DEFAULT_KEYS_ROOT_PATH
-from chia.util.errors import KeychainFingerprintNotFound, KeychainLabelExists, KeychainLabelInvalid
-from chia.util.lock import Lockfile
+from lotus.util.default_root import DEFAULT_KEYS_ROOT_PATH
+from lotus.util.errors import KeychainFingerprintNotFound, KeychainLabelExists, KeychainLabelInvalid
+from lotus.util.lock import Lockfile
 
 SALT_BYTES = 16  # PBKDF2 param
 NONCE_BYTES = 12  # ChaCha20Poly1305 nonce is 12-bytes
@@ -51,7 +51,7 @@ def symmetric_key_from_passphrase(passphrase: str, salt: bytes) -> bytes:
 
 
 def get_symmetric_key(salt: bytes) -> bytes:
-    from chia.cmds.passphrase_funcs import obtain_current_passphrase
+    from lotus.cmds.passphrase_funcs import obtain_current_passphrase
 
     try:
         passphrase = obtain_current_passphrase(use_passphrase_cache=True)
@@ -369,7 +369,7 @@ class FileKeyring(FileSystemEventHandler):  # type: ignore[misc] # Class cannot 
         return self.outer_payload_cache == default_outer_payload()
 
     def write_keyring(self, fresh_salt: bool = False) -> None:
-        from chia.util.keyring_wrapper import KeyringWrapper
+        from lotus.util.keyring_wrapper import KeyringWrapper
 
         data_yaml = yaml.safe_dump(self.cached_data_dict)
         nonce = generate_nonce()

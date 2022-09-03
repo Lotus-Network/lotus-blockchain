@@ -8,9 +8,9 @@ from typing import List, Optional
 import aiohttp
 from typing_extensions import Literal
 
-from chia.data_layer.data_layer_util import NodeType, Root, SerializedNode, ServerInfo, Status
-from chia.data_layer.data_store import DataStore
-from chia.types.blockchain_format.sized_bytes import bytes32
+from lotus.data_layer.data_layer_util import NodeType, Root, SerializedNode, ServerInfo, Status
+from lotus.data_layer.data_store import DataStore
+from lotus.types.blockchain_format.sized_bytes import bytes32
 
 
 def get_full_tree_filename(tree_id: bytes32, node_hash: bytes32, generation: int) -> str:

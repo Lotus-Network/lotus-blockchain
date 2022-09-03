@@ -4,16 +4,16 @@ from typing import Any, Callable, Dict, List, Optional
 
 from typing_extensions import Protocol
 
-from chia.farmer.farmer import Farmer
-from chia.plot_sync.receiver import Receiver
-from chia.protocols.harvester_protocol import Plot
-from chia.rpc.rpc_server import Endpoint, EndpointResult
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.util.byte_types import hexstr_to_bytes
-from chia.util.ints import uint32
-from chia.util.paginator import Paginator
-from chia.util.streamable import Streamable, streamable
-from chia.util.ws_message import WsRpcMessage, create_payload_dict
+from lotus.farmer.farmer import Farmer
+from lotus.plot_sync.receiver import Receiver
+from lotus.protocols.harvester_protocol import Plot
+from lotus.rpc.rpc_server import Endpoint, EndpointResult
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.util.byte_types import hexstr_to_bytes
+from lotus.util.ints import uint32
+from lotus.util.paginator import Paginator
+from lotus.util.streamable import Streamable, streamable
+from lotus.util.ws_message import WsRpcMessage, create_payload_dict
 
 
 class PaginatedRequestData(Protocol):
@@ -80,7 +80,7 @@ def plot_matches_filter(plot: Plot, filter_item: FilterItem) -> bool:
 class FarmerRpcApi:
     def __init__(self, farmer: Farmer):
         self.service = farmer
-        self.service_name = "chia_farmer"
+        self.service_name = "lotus_farmer"
 
     def get_routes(self) -> Dict[str, Endpoint]:
         return {

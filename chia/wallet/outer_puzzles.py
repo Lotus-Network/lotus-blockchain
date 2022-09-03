@@ -1,16 +1,16 @@
 from enum import Enum
 from typing import Dict, Optional
 
-from chia.types.blockchain_format.program import Program
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.wallet.cat_wallet.cat_outer_puzzle import CATOuterPuzzle
-from chia.wallet.driver_protocol import DriverProtocol
-from chia.wallet.nft_wallet.metadata_outer_puzzle import MetadataOuterPuzzle
-from chia.wallet.nft_wallet.ownership_outer_puzzle import OwnershipOuterPuzzle
-from chia.wallet.nft_wallet.singleton_outer_puzzle import SingletonOuterPuzzle
-from chia.wallet.nft_wallet.transfer_program_puzzle import TransferProgramPuzzle
-from chia.wallet.puzzle_drivers import PuzzleInfo, Solver
-from chia.wallet.uncurried_puzzle import UncurriedPuzzle
+from lotus.types.blockchain_format.program import Program
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.wallet.cat_wallet.cat_outer_puzzle import CATOuterPuzzle
+from lotus.wallet.driver_protocol import DriverProtocol
+from lotus.wallet.nft_wallet.metadata_outer_puzzle import MetadataOuterPuzzle
+from lotus.wallet.nft_wallet.ownership_outer_puzzle import OwnershipOuterPuzzle
+from lotus.wallet.nft_wallet.singleton_outer_puzzle import SingletonOuterPuzzle
+from lotus.wallet.nft_wallet.transfer_program_puzzle import TransferProgramPuzzle
+from lotus.wallet.puzzle_drivers import PuzzleInfo, Solver
+from lotus.wallet.uncurried_puzzle import UncurriedPuzzle
 
 """
 This file provides a central location for acquiring drivers for outer puzzles like CATs, NFTs, etc.

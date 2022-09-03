@@ -1,7 +1,7 @@
 from blspy import PrivateKey  # pyright: reportMissingImports=false
-from chia.util.default_root import DEFAULT_KEYS_ROOT_PATH
-from chia.util.file_keyring import FileKeyring
-from chia.util.misc import prompt_yes_no
+from lotus.util.default_root import DEFAULT_KEYS_ROOT_PATH
+from lotus.util.file_keyring import FileKeyring
+from lotus.util.misc import prompt_yes_no
 from keyrings.cryptfile.cryptfile import CryptFileKeyring  # pyright: reportMissingImports=false
 from keyring.backends.macOS import Keyring as MacKeyring
 from keyring.backends.Windows import WinVaultKeyring as WinKeyring
@@ -16,10 +16,10 @@ from typing import Any, List, Optional, Tuple, Type, Union
 # WARNING: Changing the default passphrase will prevent passphrase-less users from accessing
 # their existing keys. Using a new default passphrase requires migrating existing users to
 # the new passphrase.
-DEFAULT_PASSPHRASE_IF_NO_MASTER_PASSPHRASE = "$ chia passphrase set # all the cool kids are doing it!"
+DEFAULT_PASSPHRASE_IF_NO_MASTER_PASSPHRASE = "$ lotus passphrase set # all the cool kids are doing it!"
 
-MASTER_PASSPHRASE_SERVICE_NAME = "Chia Passphrase"
-MASTER_PASSPHRASE_USER_NAME = "Chia Passphrase"
+MASTER_PASSPHRASE_SERVICE_NAME = "Lotus Passphrase"
+MASTER_PASSPHRASE_USER_NAME = "Lotus Passphrase"
 
 
 LegacyKeyring = Union[MacKeyring, WinKeyring, CryptFileKeyring]
@@ -48,7 +48,7 @@ def get_os_passphrase_store() -> Optional[OSPassphraseStore]:
 
 def check_legacy_keyring_keys_present(keyring: LegacyKeyring) -> bool:
     from keyring.credentials import Credential
-    from chia.util.keychain import default_keychain_user, default_keychain_service, get_private_key_user, MAX_KEYS
+    from lotus.util.keychain import default_keychain_user, default_keychain_service, get_private_key_user, MAX_KEYS
 
     keychain_user: str = default_keychain_user()
     keychain_service: str = default_keychain_service()
@@ -107,7 +107,7 @@ class KeyringWrapper:
         used CryptFileKeyring. We now use our own FileKeyring backend and migrate
         the data from the legacy CryptFileKeyring (on write).
         """
-        from chia.util.errors import KeychainNotSet
+        from lotus.util.errors import KeychainNotSet
 
         self.keys_root_path = keys_root_path
         if force_legacy:
@@ -152,7 +152,7 @@ class KeyringWrapper:
         Grab the saved passphrase from the OS credential store (if available), otherwise
         use the default passphrase
         """
-        from chia.util.keychain import supports_os_passphrase_storage
+        from lotus.util.keychain import supports_os_passphrase_storage
 
         passphrase: Optional[str] = None
 
@@ -241,8 +241,8 @@ class KeyringWrapper:
         """
         Sets a new master passphrase for the keyring
         """
-        from chia.util.errors import KeychainRequiresMigration, KeychainCurrentPassphraseIsInvalid
-        from chia.util.keychain import supports_os_passphrase_storage
+        from lotus.util.errors import KeychainRequiresMigration, KeychainCurrentPassphraseIsInvalid
+        from lotus.util.keychain import supports_os_passphrase_storage
 
         # Require a valid current_passphrase
         if (
@@ -349,12 +349,12 @@ class KeyringWrapper:
                 "passphrase."
             )
             print(
-                "Would you like to set a master passphrase now? Use 'chia passphrase set' to change the passphrase.\n"
+                "Would you like to set a master passphrase now? Use 'lotus passphrase set' to change the passphrase.\n"
             )
 
             response = prompt_yes_no("Set keyring master passphrase?")
             if response:
-                from chia.cmds.passphrase_funcs import prompt_for_new_passphrase
+                from lotus.cmds.passphrase_funcs import prompt_for_new_passphrase
 
                 # Prompt for a master passphrase and cache it
                 new_passphrase, save_passphrase = prompt_for_new_passphrase()
@@ -366,7 +366,7 @@ class KeyringWrapper:
                 )
             else:
                 print(
-                    "Will skip setting a master passphrase. Use 'chia passphrase set' to set the master passphrase.\n"
+                    "Will skip setting a master passphrase. Use 'lotus passphrase set' to set the master passphrase.\n"
                 )
         else:
             import colorama
@@ -383,7 +383,7 @@ class KeyringWrapper:
         return prompt_yes_no("Begin keyring migration?")
 
     def migrate_legacy_keys(self) -> MigrationResults:
-        from chia.util.keychain import get_private_key_user, Keychain, MAX_KEYS
+        from lotus.util.keychain import get_private_key_user, Keychain, MAX_KEYS
 
         print("Migrating contents from legacy keyring")
 
@@ -415,7 +415,7 @@ class KeyringWrapper:
         )
 
     def verify_migration_results(self, migration_results: MigrationResults) -> bool:
-        from chia.util.keychain import Keychain
+        from lotus.util.keychain import Keychain
 
         # Stop using the legacy keyring. This will direct subsequent reads to the new keyring.
         self.legacy_keyring = None
@@ -490,11 +490,11 @@ class KeyringWrapper:
         perform a before/after comparison of the keyring contents, and on success we'll prompt
         to cleanup the legacy keyring.
         """
-        from chia.cmds.passphrase_funcs import async_update_daemon_migration_completed_if_running
+        from lotus.cmds.passphrase_funcs import async_update_daemon_migration_completed_if_running
 
         # Let the user know about the migration.
         if not self.confirm_migration():
-            print("Migration aborted, can't run any chia commands.")
+            print("Migration aborted, can't run any lotus commands.")
             return False
 
         try:

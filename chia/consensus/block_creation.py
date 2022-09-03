@@ -5,32 +5,32 @@ from typing import Callable, Dict, List, Optional, Tuple
 
 import blspy
 from blspy import G1Element, G2Element
-from chia_rs import compute_merkle_set_root
+from lotus_rs import compute_merkle_set_root
 from chiabip158 import PyBIP158
 
-from chia.consensus.block_record import BlockRecord
-from chia.consensus.block_rewards import calculate_base_farmer_reward, calculate_pool_reward
-from chia.consensus.blockchain_interface import BlockchainInterface
-from chia.consensus.coinbase import create_farmer_coin, create_pool_coin
-from chia.consensus.constants import ConsensusConstants
-from chia.consensus.cost_calculator import NPCResult
-from chia.full_node.mempool_check_conditions import get_name_puzzle_conditions
-from chia.full_node.signage_point import SignagePoint
-from chia.types.blockchain_format.coin import Coin, hash_coin_ids
-from chia.types.blockchain_format.foliage import Foliage, FoliageBlockData, FoliageTransactionBlock, TransactionsInfo
-from chia.types.blockchain_format.pool_target import PoolTarget
-from chia.types.blockchain_format.proof_of_space import ProofOfSpace
-from chia.types.blockchain_format.reward_chain_block import RewardChainBlock, RewardChainBlockUnfinished
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.types.blockchain_format.vdf import VDFInfo, VDFProof
-from chia.types.end_of_slot_bundle import EndOfSubSlotBundle
-from chia.types.full_block import FullBlock
-from chia.types.generator_types import BlockGenerator
-from chia.types.unfinished_block import UnfinishedBlock
-from chia.util.hash import std_hash
-from chia.util.ints import uint8, uint32, uint64, uint128
-from chia.util.prev_transaction_block import get_prev_transaction_block
-from chia.util.recursive_replace import recursive_replace
+from lotus.consensus.block_record import BlockRecord
+from lotus.consensus.block_rewards import calculate_base_farmer_reward, calculate_pool_reward
+from lotus.consensus.blockchain_interface import BlockchainInterface
+from lotus.consensus.coinbase import create_farmer_coin, create_pool_coin
+from lotus.consensus.constants import ConsensusConstants
+from lotus.consensus.cost_calculator import NPCResult
+from lotus.full_node.mempool_check_conditions import get_name_puzzle_conditions
+from lotus.full_node.signage_point import SignagePoint
+from lotus.types.blockchain_format.coin import Coin, hash_coin_ids
+from lotus.types.blockchain_format.foliage import Foliage, FoliageBlockData, FoliageTransactionBlock, TransactionsInfo
+from lotus.types.blockchain_format.pool_target import PoolTarget
+from lotus.types.blockchain_format.proof_of_space import ProofOfSpace
+from lotus.types.blockchain_format.reward_chain_block import RewardChainBlock, RewardChainBlockUnfinished
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.types.blockchain_format.vdf import VDFInfo, VDFProof
+from lotus.types.end_of_slot_bundle import EndOfSubSlotBundle
+from lotus.types.full_block import FullBlock
+from lotus.types.generator_types import BlockGenerator
+from lotus.types.unfinished_block import UnfinishedBlock
+from lotus.util.hash import std_hash
+from lotus.util.ints import uint8, uint32, uint64, uint128
+from lotus.util.prev_transaction_block import get_prev_transaction_block
+from lotus.util.recursive_replace import recursive_replace
 
 log = logging.getLogger(__name__)
 

@@ -3,11 +3,11 @@ from typing import Optional
 
 from blspy import G2Element
 
-from chia.types.blockchain_format.pool_target import PoolTarget
-from chia.types.blockchain_format.proof_of_space import ProofOfSpace
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.util.ints import uint8, uint32, uint64
-from chia.util.streamable import Streamable, streamable
+from lotus.types.blockchain_format.pool_target import PoolTarget
+from lotus.types.blockchain_format.proof_of_space import ProofOfSpace
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.util.ints import uint8, uint32, uint64
+from lotus.util.streamable import Streamable, streamable
 
 """
 Protocol between farmer and full node.

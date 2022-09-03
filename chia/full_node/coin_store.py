@@ -2,17 +2,17 @@ from typing import List, Optional, Set, Dict, Any, Tuple
 
 from aiosqlite import Cursor
 
-from chia.protocols.wallet_protocol import CoinState
-from chia.types.blockchain_format.coin import Coin
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.types.coin_record import CoinRecord
-from chia.util.db_wrapper import DBWrapper2, SQLITE_MAX_VARIABLE_NUMBER
-from chia.util.ints import uint32, uint64
-from chia.util.chunks import chunks
+from lotus.protocols.wallet_protocol import CoinState
+from lotus.types.blockchain_format.coin import Coin
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.types.coin_record import CoinRecord
+from lotus.util.db_wrapper import DBWrapper2, SQLITE_MAX_VARIABLE_NUMBER
+from lotus.util.ints import uint32, uint64
+from lotus.util.chunks import chunks
 import time
 import logging
 
-from chia.util.lru_cache import LRUCache
+from lotus.util.lru_cache import LRUCache
 
 log = logging.getLogger(__name__)
 

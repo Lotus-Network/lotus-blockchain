@@ -112,7 +112,7 @@ def create_data_store(
     data_rpc_port: int,
     fee: Optional[str],
 ) -> None:
-    from chia.cmds.data_funcs import create_data_store_cmd
+    from lotus.cmds.data_funcs import create_data_store_cmd
 
     run(create_data_store_cmd(data_rpc_port, fee))
 
@@ -126,7 +126,7 @@ def get_value(
     key_string: str,
     data_rpc_port: int,
 ) -> None:
-    from chia.cmds.data_funcs import get_value_cmd
+    from lotus.cmds.data_funcs import get_value_cmd
 
     run(get_value_cmd(data_rpc_port, id, key_string))
 
@@ -142,7 +142,7 @@ def update_data_store(
     data_rpc_port: int,
     fee: str,
 ) -> None:
-    from chia.cmds.data_funcs import update_data_store_cmd
+    from lotus.cmds.data_funcs import update_data_store_cmd
 
     run(update_data_store_cmd(rpc_port=data_rpc_port, store_id=id, changelist=json.loads(changelist_string), fee=fee))
 
@@ -154,7 +154,7 @@ def get_keys(
     id: str,
     data_rpc_port: int,
 ) -> None:
-    from chia.cmds.data_funcs import get_keys_cmd
+    from lotus.cmds.data_funcs import get_keys_cmd
 
     run(get_keys_cmd(data_rpc_port, id))
 
@@ -166,7 +166,7 @@ def get_keys_values(
     id: str,
     data_rpc_port: int,
 ) -> None:
-    from chia.cmds.data_funcs import get_keys_values_cmd
+    from lotus.cmds.data_funcs import get_keys_values_cmd
 
     run(get_keys_values_cmd(data_rpc_port, id))
 
@@ -178,7 +178,7 @@ def get_root(
     id: str,
     data_rpc_port: int,
 ) -> None:
-    from chia.cmds.data_funcs import get_root_cmd
+    from lotus.cmds.data_funcs import get_root_cmd
 
     run(get_root_cmd(rpc_port=data_rpc_port, store_id=id))
 
@@ -199,7 +199,7 @@ def subscribe(
     urls: List[str],
     data_rpc_port: int,
 ) -> None:
-    from chia.cmds.data_funcs import subscribe_cmd
+    from lotus.cmds.data_funcs import subscribe_cmd
 
     run(subscribe_cmd(rpc_port=data_rpc_port, store_id=id, urls=urls))
 
@@ -213,7 +213,7 @@ def remove_subscription(
     urls: List[str],
     data_rpc_port: int,
 ) -> None:
-    from chia.cmds.data_funcs import remove_subscriptions_cmd
+    from lotus.cmds.data_funcs import remove_subscriptions_cmd
 
     run(remove_subscriptions_cmd(rpc_port=data_rpc_port, store_id=id, urls=urls))
 
@@ -225,7 +225,7 @@ def unsubscribe(
     id: str,
     data_rpc_port: int,
 ) -> None:
-    from chia.cmds.data_funcs import unsubscribe_cmd
+    from lotus.cmds.data_funcs import unsubscribe_cmd
 
     run(unsubscribe_cmd(rpc_port=data_rpc_port, store_id=id))
 
@@ -243,7 +243,7 @@ def get_kv_diff(
     hash_2: str,
     data_rpc_port: int,
 ) -> None:
-    from chia.cmds.data_funcs import get_kv_diff_cmd
+    from lotus.cmds.data_funcs import get_kv_diff_cmd
 
     run(get_kv_diff_cmd(rpc_port=data_rpc_port, store_id=id, hash_1=hash_1, hash_2=hash_2))
 
@@ -255,7 +255,7 @@ def get_root_history(
     id: str,
     data_rpc_port: int,
 ) -> None:
-    from chia.cmds.data_funcs import get_root_history_cmd
+    from lotus.cmds.data_funcs import get_root_history_cmd
 
     run(get_root_history_cmd(rpc_port=data_rpc_port, store_id=id))
 
@@ -278,7 +278,7 @@ def get_root_history(
 )
 @create_rpc_port_option()
 def add_missing_files(ids: Optional[str], overwrite: bool, foldername: Optional[str], data_rpc_port: int) -> None:
-    from chia.cmds.data_funcs import add_missing_files_cmd
+    from lotus.cmds.data_funcs import add_missing_files_cmd
 
     run(
         add_missing_files_cmd(
@@ -304,7 +304,7 @@ def add_missing_files(ids: Optional[str], overwrite: bool, foldername: Optional[
 @create_fee_option()
 @create_rpc_port_option()
 def add_mirror(id: str, amount: int, urls: List[str], fee: Optional[str], data_rpc_port: int) -> None:
-    from chia.cmds.data_funcs import add_mirror_cmd
+    from lotus.cmds.data_funcs import add_mirror_cmd
 
     run(
         add_mirror_cmd(
@@ -322,7 +322,7 @@ def add_mirror(id: str, amount: int, urls: List[str], fee: Optional[str], data_r
 @create_fee_option()
 @create_rpc_port_option()
 def delete_mirror(id: str, fee: Optional[str], data_rpc_port: int) -> None:
-    from chia.cmds.data_funcs import delete_mirror_cmd
+    from lotus.cmds.data_funcs import delete_mirror_cmd
 
     run(
         delete_mirror_cmd(
@@ -337,7 +337,7 @@ def delete_mirror(id: str, fee: Optional[str], data_rpc_port: int) -> None:
 @click.option("-i", "--id", help="Store id", type=str, required=True)
 @create_rpc_port_option()
 def get_mirrors(id: str, data_rpc_port: int) -> None:
-    from chia.cmds.data_funcs import get_mirrors_cmd
+    from lotus.cmds.data_funcs import get_mirrors_cmd
 
     run(
         get_mirrors_cmd(
@@ -350,7 +350,7 @@ def get_mirrors(id: str, data_rpc_port: int) -> None:
 @data_cmd.command("get_subscriptions", short_help="Get subscribed stores, including the owned stores")
 @create_rpc_port_option()
 def get_subscriptions(data_rpc_port: int) -> None:
-    from chia.cmds.data_funcs import get_subscriptions_cmd
+    from lotus.cmds.data_funcs import get_subscriptions_cmd
 
     run(
         get_subscriptions_cmd(
@@ -362,7 +362,7 @@ def get_subscriptions(data_rpc_port: int) -> None:
 @data_cmd.command("get_owned_stores", short_help="Get owned stores")
 @create_rpc_port_option()
 def get_owned_stores(data_rpc_port: int) -> None:
-    from chia.cmds.data_funcs import get_owned_stores_cmd
+    from lotus.cmds.data_funcs import get_owned_stores_cmd
 
     run(
         get_owned_stores_cmd(

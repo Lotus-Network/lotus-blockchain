@@ -8,39 +8,39 @@ import pytest
 import pytest_asyncio
 from blspy import G2Element
 
-from chia.consensus.block_rewards import calculate_base_farmer_reward, calculate_pool_reward
-from chia.consensus.coinbase import create_puzzlehash_for_pk
-from chia.rpc.full_node_rpc_client import FullNodeRpcClient
-from chia.rpc.wallet_rpc_client import WalletRpcClient
-from chia.server.server import ChiaServer
-from chia.simulator.full_node_simulator import FullNodeSimulator
-from chia.simulator.simulator_protocol import FarmNewBlockProtocol
-from chia.simulator.time_out_assert import time_out_assert
-from chia.types.announcement import Announcement
-from chia.types.blockchain_format.coin import Coin
-from chia.types.blockchain_format.program import Program
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.types.coin_record import CoinRecord
-from chia.types.coin_spend import CoinSpend
-from chia.types.peer_info import PeerInfo
-from chia.types.spend_bundle import SpendBundle
-from chia.util.bech32m import decode_puzzle_hash, encode_puzzle_hash
-from chia.util.config import lock_and_load_config, save_config
-from chia.util.hash import std_hash
-from chia.util.ints import uint16, uint32, uint64
-from chia.wallet.cat_wallet.cat_constants import DEFAULT_CATS
-from chia.wallet.cat_wallet.cat_wallet import CATWallet
-from chia.wallet.derive_keys import master_sk_to_wallet_sk, master_sk_to_wallet_sk_unhardened
-from chia.wallet.did_wallet.did_wallet import DIDWallet
-from chia.wallet.nft_wallet.nft_wallet import NFTWallet
-from chia.wallet.trading.trade_status import TradeStatus
-from chia.wallet.transaction_record import TransactionRecord
-from chia.wallet.transaction_sorting import SortKey
-from chia.wallet.util.address_type import AddressType
-from chia.wallet.util.compute_memos import compute_memos
-from chia.wallet.util.wallet_types import WalletType
-from chia.wallet.wallet import Wallet
-from chia.wallet.wallet_node import WalletNode
+from lotus.consensus.block_rewards import calculate_base_farmer_reward, calculate_pool_reward
+from lotus.consensus.coinbase import create_puzzlehash_for_pk
+from lotus.rpc.full_node_rpc_client import FullNodeRpcClient
+from lotus.rpc.wallet_rpc_client import WalletRpcClient
+from lotus.server.server import LotusServer
+from lotus.simulator.full_node_simulator import FullNodeSimulator
+from lotus.simulator.simulator_protocol import FarmNewBlockProtocol
+from lotus.simulator.time_out_assert import time_out_assert
+from lotus.types.announcement import Announcement
+from lotus.types.blockchain_format.coin import Coin
+from lotus.types.blockchain_format.program import Program
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.types.coin_record import CoinRecord
+from lotus.types.coin_spend import CoinSpend
+from lotus.types.peer_info import PeerInfo
+from lotus.types.spend_bundle import SpendBundle
+from lotus.util.bech32m import decode_puzzle_hash, encode_puzzle_hash
+from lotus.util.config import lock_and_load_config, save_config
+from lotus.util.hash import std_hash
+from lotus.util.ints import uint16, uint32, uint64
+from lotus.wallet.cat_wallet.cat_constants import DEFAULT_CATS
+from lotus.wallet.cat_wallet.cat_wallet import CATWallet
+from lotus.wallet.derive_keys import master_sk_to_wallet_sk, master_sk_to_wallet_sk_unhardened
+from lotus.wallet.did_wallet.did_wallet import DIDWallet
+from lotus.wallet.nft_wallet.nft_wallet import NFTWallet
+from lotus.wallet.trading.trade_status import TradeStatus
+from lotus.wallet.transaction_record import TransactionRecord
+from lotus.wallet.transaction_sorting import SortKey
+from lotus.wallet.util.address_type import AddressType
+from lotus.wallet.util.compute_memos import compute_memos
+from lotus.wallet.util.wallet_types import WalletType
+from lotus.wallet.wallet import Wallet
+from lotus.wallet.wallet_node import WalletNode
 from tests.util.wallet_is_synced import wallet_is_synced
 
 log = logging.getLogger(__name__)
@@ -55,7 +55,7 @@ class WalletBundle:
 
 @dataclasses.dataclass
 class FullNodeBundle:
-    server: ChiaServer
+    server: LotusServer
     api: FullNodeSimulator
     rpc_client: FullNodeRpcClient
 
@@ -653,7 +653,7 @@ async def test_offer_endpoints(wallet_rpc_environment: WalletRpcTestEnvironment)
     await farm_transaction(full_node_api, wallet_node, spend_bundle)
     await time_out_assert(20, get_confirmed_balance, 4, wallet_2_rpc, cat_wallet_id)
 
-    # Create an offer of 5 chia for one CAT
+    # Create an offer of 5 lotus for one CAT
     offer, trade_record = await wallet_1_rpc.create_offer_for_ids(
         {uint32(1): -5, cat_asset_id.hex(): 1}, validate_only=True
     )
@@ -868,7 +868,7 @@ async def test_nft_endpoints(wallet_rpc_environment: WalletRpcTestEnvironment):
         None,
         None,
         "0xD4584AD463139FA8C0D9F68F4B59F185",
-        ["https://www.chia.net/img/branding/chia-logo.svg"],
+        ["https://www.lotus.net/img/branding/lotus-logo.svg"],
     )
     assert res["success"]
 

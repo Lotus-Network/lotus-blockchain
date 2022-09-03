@@ -3,18 +3,18 @@ import logging
 from typing import AsyncIterator, Dict, List, Tuple, Optional, Union
 from pathlib import Path
 
-from chia.consensus.constants import ConsensusConstants
-from chia.full_node.full_node_api import FullNodeAPI
-from chia.protocols.shared_protocol import Capability
-from chia.server.server import ChiaServer
-from chia.server.start_data_layer import create_data_layer_service
-from chia.server.start_service import Service
-from chia.simulator.block_tools import BlockTools, create_block_tools_async, test_constants
-from chia.simulator.full_node_simulator import FullNodeSimulator
-from chia.types.peer_info import PeerInfo
-from chia.util.hash import std_hash
-from chia.util.ints import uint16, uint32
-from chia.wallet.wallet_node import WalletNode
+from lotus.consensus.constants import ConsensusConstants
+from lotus.full_node.full_node_api import FullNodeAPI
+from lotus.protocols.shared_protocol import Capability
+from lotus.server.server import LotusServer
+from lotus.server.start_data_layer import create_data_layer_service
+from lotus.server.start_service import Service
+from lotus.simulator.block_tools import BlockTools, create_block_tools_async, test_constants
+from lotus.simulator.full_node_simulator import FullNodeSimulator
+from lotus.types.peer_info import PeerInfo
+from lotus.util.hash import std_hash
+from lotus.util.ints import uint16, uint32
+from lotus.wallet.wallet_node import WalletNode
 from tests.setup_services import (
     setup_daemon,
     setup_farmer,
@@ -26,12 +26,12 @@ from tests.setup_services import (
     setup_vdf_clients,
     setup_wallet_node,
 )
-from chia.simulator.time_out_assert import time_out_assert_custom_interval
+from lotus.simulator.time_out_assert import time_out_assert_custom_interval
 from tests.util.keyring import TempKeyring
-from chia.simulator.socket import find_available_listen_port
+from lotus.simulator.socket import find_available_listen_port
 
 
-SimulatorsAndWallets = Tuple[List[FullNodeSimulator], List[Tuple[WalletNode, ChiaServer]], BlockTools]
+SimulatorsAndWallets = Tuple[List[FullNodeSimulator], List[Tuple[WalletNode, LotusServer]], BlockTools]
 
 
 def cleanup_keyring(keyring: TempKeyring):

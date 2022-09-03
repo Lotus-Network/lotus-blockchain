@@ -9,21 +9,21 @@ from typing import TYPE_CHECKING, Any, Dict, List, Optional, Set, Tuple, Type, T
 from blspy import G1Element, G2Element
 from clvm.EvalError import EvalError
 
-from chia.consensus.block_record import BlockRecord
-from chia.data_layer.data_layer_errors import OfferIntegrityError
-from chia.data_layer.data_layer_util import OfferStore, ProofOfInclusion, ProofOfInclusionLayer, StoreProofs, leaf_hash
-from chia.protocols.wallet_protocol import CoinState
-from chia.server.ws_connection import WSChiaConnection
-from chia.types.announcement import Announcement
-from chia.types.blockchain_format.coin import Coin
-from chia.types.blockchain_format.program import Program, SerializedProgram
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.types.coin_spend import CoinSpend
-from chia.types.condition_opcodes import ConditionOpcode
-from chia.types.spend_bundle import SpendBundle
-from chia.util.ints import uint8, uint32, uint64, uint128
-from chia.util.streamable import Streamable, streamable
-from chia.wallet.db_wallet.db_wallet_puzzles import (
+from lotus.consensus.block_record import BlockRecord
+from lotus.data_layer.data_layer_errors import OfferIntegrityError
+from lotus.data_layer.data_layer_util import OfferStore, ProofOfInclusion, ProofOfInclusionLayer, StoreProofs, leaf_hash
+from lotus.protocols.wallet_protocol import CoinState
+from lotus.server.ws_connection import WSLotusConnection
+from lotus.types.announcement import Announcement
+from lotus.types.blockchain_format.coin import Coin
+from lotus.types.blockchain_format.program import Program, SerializedProgram
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.types.coin_spend import CoinSpend
+from lotus.types.condition_opcodes import ConditionOpcode
+from lotus.types.spend_bundle import SpendBundle
+from lotus.util.ints import uint8, uint32, uint64, uint128
+from lotus.util.streamable import Streamable, streamable
+from lotus.wallet.db_wallet.db_wallet_puzzles import (
     ACS_MU,
     ACS_MU_PH,
     GRAFTROOT_DL_OFFERS,
@@ -37,24 +37,24 @@ from chia.wallet.db_wallet.db_wallet_puzzles import (
     launcher_to_struct,
     match_dl_singleton,
 )
-from chia.wallet.derivation_record import DerivationRecord
-from chia.wallet.lineage_proof import LineageProof
-from chia.wallet.outer_puzzles import AssetType
-from chia.wallet.puzzle_drivers import PuzzleInfo, Solver
-from chia.wallet.puzzles.singleton_top_layer_v1_1 import SINGLETON_LAUNCHER_HASH
-from chia.wallet.sign_coin_spends import sign_coin_spends
-from chia.wallet.trading.offer import NotarizedPayment, Offer
-from chia.wallet.transaction_record import TransactionRecord
-from chia.wallet.util.compute_memos import compute_memos
-from chia.wallet.util.merkle_utils import _simplify_merkle_proof
-from chia.wallet.util.transaction_type import TransactionType
-from chia.wallet.util.wallet_types import AmountWithPuzzlehash, WalletType
-from chia.wallet.wallet import Wallet
-from chia.wallet.wallet_coin_record import WalletCoinRecord
-from chia.wallet.wallet_info import WalletInfo
+from lotus.wallet.derivation_record import DerivationRecord
+from lotus.wallet.lineage_proof import LineageProof
+from lotus.wallet.outer_puzzles import AssetType
+from lotus.wallet.puzzle_drivers import PuzzleInfo, Solver
+from lotus.wallet.puzzles.singleton_top_layer_v1_1 import SINGLETON_LAUNCHER_HASH
+from lotus.wallet.sign_coin_spends import sign_coin_spends
+from lotus.wallet.trading.offer import NotarizedPayment, Offer
+from lotus.wallet.transaction_record import TransactionRecord
+from lotus.wallet.util.compute_memos import compute_memos
+from lotus.wallet.util.merkle_utils import _simplify_merkle_proof
+from lotus.wallet.util.transaction_type import TransactionType
+from lotus.wallet.util.wallet_types import AmountWithPuzzlehash, WalletType
+from lotus.wallet.wallet import Wallet
+from lotus.wallet.wallet_coin_record import WalletCoinRecord
+from lotus.wallet.wallet_info import WalletInfo
 
 if TYPE_CHECKING:
-    from chia.wallet.wallet_state_manager import WalletStateManager
+    from lotus.wallet.wallet_state_manager import WalletStateManager
 
 
 @streamable
@@ -199,7 +199,7 @@ class DataLayerWallet:
 
         return True, inner_puzhash
 
-    async def get_launcher_coin_state(self, launcher_id: bytes32, peer: WSChiaConnection) -> CoinState:
+    async def get_launcher_coin_state(self, launcher_id: bytes32, peer: WSLotusConnection) -> CoinState:
         coin_states: List[CoinState] = await self.wallet_state_manager.wallet_node.get_coin_state(
             [launcher_id], peer=peer
         )
@@ -219,7 +219,7 @@ class DataLayerWallet:
     async def track_new_launcher_id(
         self,
         launcher_id: bytes32,
-        peer: WSChiaConnection,
+        peer: WSLotusConnection,
         spend: Optional[CoinSpend] = None,
         height: Optional[uint32] = None,
     ) -> None:
@@ -238,7 +238,7 @@ class DataLayerWallet:
     async def new_launcher_spend(
         self,
         launcher_spend: CoinSpend,
-        peer: WSChiaConnection,
+        peer: WSLotusConnection,
         height: Optional[uint32] = None,
     ) -> None:
         launcher_id: bytes32 = launcher_spend.coin.name()
@@ -382,7 +382,7 @@ class DataLayerWallet:
         announcement_to_assert: Announcement,
         coin_announcement: bool = True,
     ) -> TransactionRecord:
-        chia_tx = await self.standard_wallet.generate_signed_transaction(
+        lotus_tx = await self.standard_wallet.generate_signed_transaction(
             amount=uint64(0),
             puzzle_hash=await self.standard_wallet.get_new_puzzlehash(),
             fee=fee,
@@ -390,8 +390,8 @@ class DataLayerWallet:
             coin_announcements_to_consume={announcement_to_assert} if coin_announcement else None,
             puzzle_announcements_to_consume=None if coin_announcement else {announcement_to_assert},
         )
-        assert chia_tx.spend_bundle is not None
-        return chia_tx
+        assert lotus_tx.spend_bundle is not None
+        return lotus_tx
 
     async def create_update_state_spend(
         self,
@@ -594,13 +594,13 @@ class DataLayerWallet:
             name=singleton_record.coin_id,
         )
         if fee > 0:
-            chia_tx = await self.create_tandem_xch_tx(
+            lotus_tx = await self.create_tandem_xch_tx(
                 fee, Announcement(current_coin.name(), b"$"), coin_announcement=True
             )
-            aggregate_bundle = SpendBundle.aggregate([dl_tx.spend_bundle, chia_tx.spend_bundle])
+            aggregate_bundle = SpendBundle.aggregate([dl_tx.spend_bundle, lotus_tx.spend_bundle])
             dl_tx = dataclasses.replace(dl_tx, spend_bundle=aggregate_bundle)
-            chia_tx = dataclasses.replace(chia_tx, spend_bundle=None)
-            txs: List[TransactionRecord] = [dl_tx, chia_tx]
+            lotus_tx = dataclasses.replace(lotus_tx, spend_bundle=None)
+            txs: List[TransactionRecord] = [dl_tx, lotus_tx]
         else:
             txs = [dl_tx]
 
@@ -731,7 +731,7 @@ class DataLayerWallet:
         return [create_mirror_tx_record]
 
     async def delete_mirror(
-        self, mirror_id: bytes32, peer: WSChiaConnection, fee: uint64 = uint64(0)
+        self, mirror_id: bytes32, peer: WSLotusConnection, fee: uint64 = uint64(0)
     ) -> List[TransactionRecord]:
         mirror: Mirror = await self.get_mirror(mirror_id)
         mirror_coin: Coin = (await self.wallet_state_manager.wallet_node.get_coin_state([mirror.coin_id], peer=peer))[
@@ -792,7 +792,7 @@ class DataLayerWallet:
         ]
 
         if excess_fee > 0:
-            chia_tx: TransactionRecord = await self.wallet_state_manager.main_wallet.generate_signed_transaction(
+            lotus_tx: TransactionRecord = await self.wallet_state_manager.main_wallet.generate_signed_transaction(
                 uint64(1),
                 new_puzhash,
                 fee=uint64(excess_fee),
@@ -800,9 +800,9 @@ class DataLayerWallet:
             )
             txs = [
                 dataclasses.replace(
-                    txs[0], spend_bundle=SpendBundle.aggregate([txs[0].spend_bundle, chia_tx.spend_bundle])
+                    txs[0], spend_bundle=SpendBundle.aggregate([txs[0].spend_bundle, lotus_tx.spend_bundle])
                 ),
-                dataclasses.replace(chia_tx, spend_bundle=None),
+                dataclasses.replace(lotus_tx, spend_bundle=None),
             ]
 
         return txs
@@ -811,7 +811,7 @@ class DataLayerWallet:
     # SYNCING #
     ###########
 
-    async def coin_added(self, coin: Coin, height: uint32, peer: WSChiaConnection) -> None:
+    async def coin_added(self, coin: Coin, height: uint32, peer: WSLotusConnection) -> None:
         if coin.puzzle_hash == create_mirror_puzzle().get_tree_hash():
             parent_state: CoinState = (
                 await self.wallet_state_manager.wallet_node.get_coin_state([coin.parent_coin_info], peer=peer)

@@ -2,9 +2,9 @@ from typing import List, Optional
 
 from typing_extensions import Protocol
 
-from chia.types.blockchain_format.program import SerializedProgram
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.util.ints import uint32
+from lotus.types.blockchain_format.program import SerializedProgram
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.util.ints import uint32
 
 
 class BlockInfo(Protocol):

@@ -1,6 +1,6 @@
 from typing import List, Tuple
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.util.db_wrapper import DBWrapper2
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.util.db_wrapper import DBWrapper2
 import logging
 
 log = logging.getLogger(__name__)

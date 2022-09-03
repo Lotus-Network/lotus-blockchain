@@ -4,20 +4,20 @@ from multiprocessing import freeze_support
 import sys
 from typing import Dict, Optional
 
-from chia.consensus.constants import ConsensusConstants
-from chia.consensus.default_constants import DEFAULT_CONSTANTS
-from chia.rpc.wallet_rpc_api import WalletRpcApi
-from chia.server.outbound_message import NodeType
-from chia.server.start_service import RpcInfo, Service, async_run
-from chia.types.peer_info import PeerInfo
-from chia.util.chia_logging import initialize_logging
-from chia.util.config import load_config_cli, load_config
-from chia.util.default_root import DEFAULT_ROOT_PATH
-from chia.util.keychain import Keychain
-from chia.wallet.wallet_node import WalletNode
+from lotus.consensus.constants import ConsensusConstants
+from lotus.consensus.default_constants import DEFAULT_CONSTANTS
+from lotus.rpc.wallet_rpc_api import WalletRpcApi
+from lotus.server.outbound_message import NodeType
+from lotus.server.start_service import RpcInfo, Service, async_run
+from lotus.types.peer_info import PeerInfo
+from lotus.util.lotus_logging import initialize_logging
+from lotus.util.config import load_config_cli, load_config
+from lotus.util.default_root import DEFAULT_ROOT_PATH
+from lotus.util.keychain import Keychain
+from lotus.wallet.wallet_node import WalletNode
 
 # See: https://bugs.python.org/issue29288
-from chia.wallet.wallet_node_api import WalletNodeAPI
+from lotus.wallet.wallet_node_api import WalletNodeAPI
 
 "".encode("idna")
 
@@ -91,7 +91,7 @@ async def async_main() -> int:
     # This is simulator
     local_test = service_config["testing"]
     if local_test is True:
-        from chia.simulator.block_tools import test_constants
+        from lotus.simulator.block_tools import test_constants
 
         constants = test_constants
         current = service_config["database_path"]
@@ -113,8 +113,8 @@ async def async_main() -> int:
 
 def main() -> int:
     freeze_support()
-    if os.getenv("CHIA_INSTRUMENT_WALLET", 0) != 0:
-        from chia.util.task_timing import start_task_instrumentation, stop_task_instrumentation
+    if os.getenv("LOTUS_INSTRUMENT_WALLET", 0) != 0:
+        from lotus.util.task_timing import start_task_instrumentation, stop_task_instrumentation
         import atexit
 
         start_task_instrumentation()

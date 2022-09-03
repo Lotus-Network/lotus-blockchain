@@ -1,6 +1,6 @@
 from typing import Iterable, List
 
-from chia.types.blockchain_format.sized_bytes import bytes32
+from lotus.types.blockchain_format.sized_bytes import bytes32
 
 
 class IntegrityError(Exception):

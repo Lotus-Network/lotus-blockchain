@@ -5,20 +5,20 @@ from typing import List, Optional
 import pytest
 import pytest_asyncio
 
-from chia.consensus.blockchain import ReceiveBlockResult
-from chia.consensus.find_fork_point import find_fork_point_in_chain
-from chia.consensus.multiprocess_validation import PreValidationResult
-from chia.consensus.pot_iterations import is_overflow_block
-from chia.full_node.full_node_store import FullNodeStore
-from chia.full_node.signage_point import SignagePoint
-from chia.protocols import timelord_protocol
-from chia.protocols.timelord_protocol import NewInfusionPointVDF
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.types.unfinished_block import UnfinishedBlock
-from chia.util.block_cache import BlockCache
-from chia.util.hash import std_hash
-from chia.util.ints import uint8, uint32, uint64, uint128
-from chia.simulator.block_tools import get_signage_point, create_block_tools_async
+from lotus.consensus.blockchain import ReceiveBlockResult
+from lotus.consensus.find_fork_point import find_fork_point_in_chain
+from lotus.consensus.multiprocess_validation import PreValidationResult
+from lotus.consensus.pot_iterations import is_overflow_block
+from lotus.full_node.full_node_store import FullNodeStore
+from lotus.full_node.signage_point import SignagePoint
+from lotus.protocols import timelord_protocol
+from lotus.protocols.timelord_protocol import NewInfusionPointVDF
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.types.unfinished_block import UnfinishedBlock
+from lotus.util.block_cache import BlockCache
+from lotus.util.hash import std_hash
+from lotus.util.ints import uint8, uint32, uint64, uint128
+from lotus.simulator.block_tools import get_signage_point, create_block_tools_async
 from tests.blockchain.blockchain_test_utils import (
     _validate_and_add_block,
     _validate_and_add_block_no_error,

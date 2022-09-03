@@ -1,6 +1,6 @@
 import asyncio
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.types.full_block import FullBlock
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.types.full_block import FullBlock
 import logging
 import random
 import sqlite3
@@ -9,15 +9,15 @@ import dataclasses
 import pytest
 from clvm.casts import int_to_bytes
 
-from chia.consensus.blockchain import Blockchain
-from chia.consensus.full_block_to_block_record import header_block_to_sub_block_record
-from chia.consensus.default_constants import DEFAULT_CONSTANTS
-from chia.full_node.block_store import BlockStore
-from chia.full_node.coin_store import CoinStore
-from chia.full_node.hint_store import HintStore
-from chia.util.ints import uint8
-from chia.types.blockchain_format.vdf import VDFProof
-from chia.types.blockchain_format.program import SerializedProgram
+from lotus.consensus.blockchain import Blockchain
+from lotus.consensus.full_block_to_block_record import header_block_to_sub_block_record
+from lotus.consensus.default_constants import DEFAULT_CONSTANTS
+from lotus.full_node.block_store import BlockStore
+from lotus.full_node.coin_store import CoinStore
+from lotus.full_node.hint_store import HintStore
+from lotus.util.ints import uint8
+from lotus.types.blockchain_format.vdf import VDFProof
+from lotus.types.blockchain_format.program import SerializedProgram
 from tests.blockchain.blockchain_test_utils import _validate_and_add_block
 from tests.util.db_connection import DBConnection
 from tests.setup_nodes import test_constants

@@ -1,19 +1,19 @@
 import logging
 from typing import Dict, Optional, Tuple, List
-from chia.consensus.block_header_validation import validate_finished_header_block
-from chia.consensus.block_record import BlockRecord
-from chia.consensus.blockchain import ReceiveBlockResult
-from chia.consensus.blockchain_interface import BlockchainInterface
-from chia.consensus.constants import ConsensusConstants
-from chia.consensus.find_fork_point import find_fork_point_in_chain
-from chia.consensus.full_block_to_block_record import block_to_block_record
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.types.header_block import HeaderBlock
-from chia.types.weight_proof import WeightProof
-from chia.util.errors import Err
-from chia.util.ints import uint32, uint64
-from chia.wallet.key_val_store import KeyValStore
-from chia.wallet.wallet_weight_proof_handler import WalletWeightProofHandler
+from lotus.consensus.block_header_validation import validate_finished_header_block
+from lotus.consensus.block_record import BlockRecord
+from lotus.consensus.blockchain import ReceiveBlockResult
+from lotus.consensus.blockchain_interface import BlockchainInterface
+from lotus.consensus.constants import ConsensusConstants
+from lotus.consensus.find_fork_point import find_fork_point_in_chain
+from lotus.consensus.full_block_to_block_record import block_to_block_record
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.types.header_block import HeaderBlock
+from lotus.types.weight_proof import WeightProof
+from lotus.util.errors import Err
+from lotus.util.ints import uint32, uint64
+from lotus.wallet.key_val_store import KeyValStore
+from lotus.wallet.wallet_weight_proof_handler import WalletWeightProofHandler
 
 log = logging.getLogger(__name__)
 

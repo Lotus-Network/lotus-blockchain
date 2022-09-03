@@ -1,24 +1,24 @@
 import logging
 from typing import Dict, Optional, Tuple
-from chia_rs import MEMPOOL_MODE, NO_NEG_DIV
-from chia.types.blockchain_format.coin import Coin
+from lotus_rs import MEMPOOL_MODE, NO_NEG_DIV
+from lotus.types.blockchain_format.coin import Coin
 
-from chia.consensus.cost_calculator import NPCResult
-from chia.types.spend_bundle_conditions import SpendBundleConditions
-from chia.full_node.generator import setup_generator_args
-from chia.types.coin_record import CoinRecord
-from chia.types.generator_types import BlockGenerator
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.util.errors import Err
-from chia.util.ints import uint32, uint64, uint16
-from chia.wallet.puzzles.rom_bootstrap_generator import get_generator
-from chia.types.blockchain_format.program import Program
-from chia.wallet.puzzles.load_clvm import load_serialized_clvm
-from chia.consensus.default_constants import DEFAULT_CONSTANTS
+from lotus.consensus.cost_calculator import NPCResult
+from lotus.types.spend_bundle_conditions import SpendBundleConditions
+from lotus.full_node.generator import setup_generator_args
+from lotus.types.coin_record import CoinRecord
+from lotus.types.generator_types import BlockGenerator
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.util.errors import Err
+from lotus.util.ints import uint32, uint64, uint16
+from lotus.wallet.puzzles.rom_bootstrap_generator import get_generator
+from lotus.types.blockchain_format.program import Program
+from lotus.wallet.puzzles.load_clvm import load_serialized_clvm
+from lotus.consensus.default_constants import DEFAULT_CONSTANTS
 
 GENERATOR_MOD = get_generator()
 
-DESERIALIZE_MOD = load_serialized_clvm("chialisp_deserialisation.clvm", package_or_requirement="chia.wallet.puzzles")
+DESERIALIZE_MOD = load_serialized_clvm("chialisp_deserialisation.clvm", package_or_requirement="lotus.wallet.puzzles")
 
 log = logging.getLogger(__name__)
 

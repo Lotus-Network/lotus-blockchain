@@ -9,23 +9,23 @@ import pytest
 import pytest_asyncio
 from blspy import G1Element
 
-from chia.farmer.farmer_api import Farmer
-from chia.harvester.harvester_api import Harvester
-from chia.plot_sync.delta import Delta, PathListDelta, PlotListDelta
-from chia.plot_sync.receiver import Receiver
-from chia.plot_sync.sender import Sender
-from chia.plot_sync.util import Constants, State
-from chia.plotting.manager import PlotManager
-from chia.plotting.util import add_plot_directory, remove_plot_directory
-from chia.protocols.harvester_protocol import Plot
-from chia.server.start_service import Service
-from chia.server.ws_connection import ProtocolMessageTypes
-from chia.simulator.block_tools import BlockTools
-from chia.simulator.time_out_assert import time_out_assert
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.util.config import create_default_chia_config, lock_and_load_config, save_config
-from chia.util.ints import uint8, uint32, uint64
-from chia.util.streamable import _T_Streamable
+from lotus.farmer.farmer_api import Farmer
+from lotus.harvester.harvester_api import Harvester
+from lotus.plot_sync.delta import Delta, PathListDelta, PlotListDelta
+from lotus.plot_sync.receiver import Receiver
+from lotus.plot_sync.sender import Sender
+from lotus.plot_sync.util import Constants, State
+from lotus.plotting.manager import PlotManager
+from lotus.plotting.util import add_plot_directory, remove_plot_directory
+from lotus.protocols.harvester_protocol import Plot
+from lotus.server.start_service import Service
+from lotus.server.ws_connection import ProtocolMessageTypes
+from lotus.simulator.block_tools import BlockTools
+from lotus.simulator.time_out_assert import time_out_assert
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.util.config import create_default_lotus_config, lock_and_load_config, save_config
+from lotus.util.ints import uint8, uint32, uint64
+from lotus.util.streamable import _T_Streamable
 from tests.plot_sync.util import start_harvester_service
 from tests.plotting.test_plot_manager import Directory, MockPlotInfo
 from tests.plotting.util import get_test_plots
@@ -289,7 +289,7 @@ async def environment(
     dir_invalid: Directory = new_test_dir("invalid", plots_invalid)
     dir_keys_missing: Directory = new_test_dir("keys_missing", plots_keys_missing)
     dir_duplicates: Directory = new_test_dir("duplicates", directories[3].plots)
-    create_default_chia_config(tmp_path)
+    create_default_lotus_config(tmp_path)
 
     # Invalidate the plots in `dir_invalid`
     for path in dir_invalid.path_list():

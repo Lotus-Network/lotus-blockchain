@@ -4,30 +4,30 @@ from typing import Awaitable, Callable, Dict, List, Optional, Set, Tuple, Union
 
 from chiabip158 import PyBIP158
 
-from chia.consensus.block_record import BlockRecord
-from chia.consensus.block_rewards import calculate_base_farmer_reward, calculate_pool_reward
-from chia.consensus.block_root_validation import validate_block_merkle_roots
-from chia.consensus.blockchain_interface import BlockchainInterface
-from chia.consensus.coinbase import create_farmer_coin, create_pool_coin
-from chia.consensus.constants import ConsensusConstants
-from chia.consensus.cost_calculator import NPCResult
-from chia.consensus.find_fork_point import find_fork_point_in_chain
-from chia.full_node.block_store import BlockStore
-from chia.full_node.coin_store import CoinStore
-from chia.full_node.mempool_check_conditions import get_name_puzzle_conditions, mempool_check_time_locks
-from chia.types.block_protocol import BlockInfo
-from chia.types.blockchain_format.coin import Coin
-from chia.types.blockchain_format.sized_bytes import bytes32, bytes48
-from chia.types.coin_record import CoinRecord
-from chia.types.full_block import FullBlock
-from chia.types.generator_types import BlockGenerator
-from chia.types.unfinished_block import UnfinishedBlock
-from chia.util import cached_bls
-from chia.util.condition_tools import pkm_pairs
-from chia.util.errors import Err
-from chia.util.generator_tools import tx_removals_and_additions
-from chia.util.hash import std_hash
-from chia.util.ints import uint32, uint64
+from lotus.consensus.block_record import BlockRecord
+from lotus.consensus.block_rewards import calculate_base_farmer_reward, calculate_pool_reward
+from lotus.consensus.block_root_validation import validate_block_merkle_roots
+from lotus.consensus.blockchain_interface import BlockchainInterface
+from lotus.consensus.coinbase import create_farmer_coin, create_pool_coin
+from lotus.consensus.constants import ConsensusConstants
+from lotus.consensus.cost_calculator import NPCResult
+from lotus.consensus.find_fork_point import find_fork_point_in_chain
+from lotus.full_node.block_store import BlockStore
+from lotus.full_node.coin_store import CoinStore
+from lotus.full_node.mempool_check_conditions import get_name_puzzle_conditions, mempool_check_time_locks
+from lotus.types.block_protocol import BlockInfo
+from lotus.types.blockchain_format.coin import Coin
+from lotus.types.blockchain_format.sized_bytes import bytes32, bytes48
+from lotus.types.coin_record import CoinRecord
+from lotus.types.full_block import FullBlock
+from lotus.types.generator_types import BlockGenerator
+from lotus.types.unfinished_block import UnfinishedBlock
+from lotus.util import cached_bls
+from lotus.util.condition_tools import pkm_pairs
+from lotus.util.errors import Err
+from lotus.util.generator_tools import tx_removals_and_additions
+from lotus.util.hash import std_hash
+from lotus.util.ints import uint32, uint64
 
 log = logging.getLogger(__name__)
 

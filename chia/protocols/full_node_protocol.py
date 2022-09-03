@@ -1,16 +1,16 @@
 from dataclasses import dataclass
 from typing import List, Optional
 
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.types.blockchain_format.vdf import VDFInfo, VDFProof
-from chia.types.end_of_slot_bundle import EndOfSubSlotBundle
-from chia.types.full_block import FullBlock
-from chia.types.peer_info import TimestampedPeerInfo
-from chia.types.spend_bundle import SpendBundle
-from chia.types.unfinished_block import UnfinishedBlock
-from chia.types.weight_proof import WeightProof
-from chia.util.ints import uint8, uint32, uint64, uint128
-from chia.util.streamable import Streamable, streamable
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.types.blockchain_format.vdf import VDFInfo, VDFProof
+from lotus.types.end_of_slot_bundle import EndOfSubSlotBundle
+from lotus.types.full_block import FullBlock
+from lotus.types.peer_info import TimestampedPeerInfo
+from lotus.types.spend_bundle import SpendBundle
+from lotus.types.unfinished_block import UnfinishedBlock
+from lotus.types.weight_proof import WeightProof
+from lotus.util.ints import uint8, uint32, uint64, uint128
+from lotus.util.streamable import Streamable, streamable
 
 """
 Protocol between full nodes.

@@ -3,15 +3,15 @@ from typing import Any, List, Tuple
 
 import pytest
 
-from chia.data_layer.data_layer_wallet import DataLayerWallet
-from chia.simulator.time_out_assert import time_out_assert
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.util.ints import uint64
-from chia.wallet.puzzle_drivers import Solver
-from chia.wallet.trade_record import TradeRecord
-from chia.wallet.trading.offer import Offer
-from chia.wallet.trading.trade_status import TradeStatus
-from chia.wallet.util.merkle_utils import build_merkle_tree, simplify_merkle_proof
+from lotus.data_layer.data_layer_wallet import DataLayerWallet
+from lotus.simulator.time_out_assert import time_out_assert
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.util.ints import uint64
+from lotus.wallet.puzzle_drivers import Solver
+from lotus.wallet.trade_record import TradeRecord
+from lotus.wallet.trading.offer import Offer
+from lotus.wallet.trading.trade_status import TradeStatus
+from lotus.wallet.util.merkle_utils import build_merkle_tree, simplify_merkle_proof
 
 
 async def is_singleton_confirmed_and_root(dl_wallet: DataLayerWallet, lid: bytes32, root: bytes32) -> bool:

@@ -1,4 +1,4 @@
-from chia.consensus.default_constants import DEFAULT_CONSTANTS
+from lotus.consensus.default_constants import DEFAULT_CONSTANTS
 
 test_constants = DEFAULT_CONSTANTS.replace(
     **{

@@ -4,13 +4,13 @@ import os
 import sys
 import time
 
-from chia.daemon.client import acquire_connection_to_daemon
-from chia.util.config import load_config
-from chia.util.errors import KeychainMaxUnlockAttempts
-from chia.util.keychain import Keychain, supports_os_passphrase_storage
-from chia.util.keyring_wrapper import KeyringWrapper, DEFAULT_PASSPHRASE_IF_NO_MASTER_PASSPHRASE
-from chia.util.misc import prompt_yes_no
-from chia.util.ws_message import WsRpcMessage
+from lotus.daemon.client import acquire_connection_to_daemon
+from lotus.util.config import load_config
+from lotus.util.errors import KeychainMaxUnlockAttempts
+from lotus.util.keychain import Keychain, supports_os_passphrase_storage
+from lotus.util.keyring_wrapper import KeyringWrapper, DEFAULT_PASSPHRASE_IF_NO_MASTER_PASSPHRASE
+from lotus.util.misc import prompt_yes_no
+from lotus.util.ws_message import WsRpcMessage
 from getpass import getpass
 from io import TextIOWrapper
 from pathlib import Path
@@ -118,7 +118,7 @@ def prompt_to_save_passphrase() -> bool:
             print(
                 "\n"
                 "Your passphrase can be stored in your system's secure credential store. "
-                "Other Chia processes will be able to access your keys without prompting for your passphrase."
+                "Other Lotus processes will be able to access your keys without prompting for your passphrase."
             )
             if warning is not None:
                 colorama.init()
@@ -163,7 +163,7 @@ def read_passphrase_from_file(passphrase_file: TextIOWrapper) -> str:
 def initialize_passphrase() -> None:
     if Keychain.has_master_passphrase():
         print("Keyring is already protected by a passphrase")
-        print("\nUse 'chia passphrase set' or 'chia passphrase remove' to update or remove your passphrase")
+        print("\nUse 'lotus passphrase set' or 'lotus passphrase remove' to update or remove your passphrase")
         sys.exit(1)
 
     # We'll rely on Keyring initialization to leverage the cached passphrase for

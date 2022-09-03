@@ -1,21 +1,21 @@
 from clvm_tools import binutils
 from clvm_tools.clvmc import compile_clvm_text
 
-from chia.full_node.generator import run_generator_unsafe
-from chia.full_node.mempool_check_conditions import get_name_puzzle_conditions
-from chia.types.blockchain_format.program import Program, SerializedProgram
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.types.generator_types import BlockGenerator
-from chia.util.ints import uint32
-from chia.wallet.puzzles.load_clvm import load_clvm
-from chia.consensus.condition_costs import ConditionCost
-from chia.types.spend_bundle_conditions import Spend
+from lotus.full_node.generator import run_generator_unsafe
+from lotus.full_node.mempool_check_conditions import get_name_puzzle_conditions
+from lotus.types.blockchain_format.program import Program, SerializedProgram
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.types.generator_types import BlockGenerator
+from lotus.util.ints import uint32
+from lotus.wallet.puzzles.load_clvm import load_clvm
+from lotus.consensus.condition_costs import ConditionCost
+from lotus.types.spend_bundle_conditions import Spend
 
 MAX_COST = int(1e15)
 COST_PER_BYTE = int(12000)
 
 
-DESERIALIZE_MOD = load_clvm("chialisp_deserialisation.clvm", package_or_requirement="chia.wallet.puzzles")
+DESERIALIZE_MOD = load_clvm("chialisp_deserialisation.clvm", package_or_requirement="lotus.wallet.puzzles")
 
 
 GENERATOR_CODE = """

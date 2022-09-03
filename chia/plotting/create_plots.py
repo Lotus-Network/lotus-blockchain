@@ -7,13 +7,13 @@ from typing import Dict, List, Optional, Tuple
 from blspy import AugSchemeMPL, G1Element, PrivateKey
 from chiapos import DiskPlotter
 
-from chia.daemon.keychain_proxy import KeychainProxy, connect_to_keychain_and_validate, wrap_local_keychain
-from chia.plotting.util import stream_plot_info_ph, stream_plot_info_pk
-from chia.types.blockchain_format.proof_of_space import ProofOfSpace
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.util.bech32m import decode_puzzle_hash
-from chia.util.keychain import Keychain
-from chia.wallet.derive_keys import master_sk_to_farmer_sk, master_sk_to_local_sk, master_sk_to_pool_sk
+from lotus.daemon.keychain_proxy import KeychainProxy, connect_to_keychain_and_validate, wrap_local_keychain
+from lotus.plotting.util import stream_plot_info_ph, stream_plot_info_pk
+from lotus.types.blockchain_format.proof_of_space import ProofOfSpace
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.util.bech32m import decode_puzzle_hash
+from lotus.util.keychain import Keychain
+from lotus.wallet.derive_keys import master_sk_to_farmer_sk, master_sk_to_local_sk, master_sk_to_pool_sk
 
 log = logging.getLogger(__name__)
 
@@ -112,7 +112,7 @@ class PlotKeysResolver:
         sk: Optional[PrivateKey] = await self.get_sk(keychain_proxy)
         if sk is None:
             raise RuntimeError(
-                "No keys, please run 'chia keys add', 'chia keys generate' or provide a public key with -f"
+                "No keys, please run 'lotus keys add', 'lotus keys generate' or provide a public key with -f"
             )
         return master_sk_to_farmer_sk(sk).get_g1()
 
@@ -120,7 +120,7 @@ class PlotKeysResolver:
         sk: Optional[PrivateKey] = await self.get_sk(keychain_proxy)
         if sk is None:
             raise RuntimeError(
-                "No keys, please run 'chia keys add', 'chia keys generate' or provide a public key with -p"
+                "No keys, please run 'lotus keys add', 'lotus keys generate' or provide a public key with -p"
             )
         return master_sk_to_pool_sk(sk).get_g1()
 

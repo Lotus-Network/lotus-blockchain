@@ -1,9 +1,9 @@
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from chia.rpc.rpc_client import RpcClient
-from chia.types.blockchain_format.sized_bytes import bytes32
-from chia.util.ints import uint64
+from lotus.rpc.rpc_client import RpcClient
+from lotus.types.blockchain_format.sized_bytes import bytes32
+from lotus.util.ints import uint64
 
 
 class DataLayerRpcClient(RpcClient):

@@ -1,9 +1,9 @@
 from dataclasses import dataclass
 from typing import List
 
-from chia.types.blockchain_format.coin import Coin
-from chia.types.header_block import HeaderBlock
-from chia.util.streamable import Streamable, streamable
+from lotus.types.blockchain_format.coin import Coin
+from lotus.types.header_block import HeaderBlock
+from lotus.util.streamable import Streamable, streamable
 
 
 @streamable

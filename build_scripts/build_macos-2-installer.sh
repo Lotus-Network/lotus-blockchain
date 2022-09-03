@@ -8,11 +8,11 @@ git submodule
 # If the env variable NOTARIZE and the username and password variables are
 # set, this will attempt to Notarize the signed DMG.
 
-if [ ! "$CHIA_INSTALLER_VERSION" ]; then
-	echo "WARNING: No environment variable CHIA_INSTALLER_VERSION set. Using 0.0.0."
-	CHIA_INSTALLER_VERSION="0.0.0"
+if [ ! "$LOTUS_INSTALLER_VERSION" ]; then
+	echo "WARNING: No environment variable LOTUS_INSTALLER_VERSION set. Using 0.0.0."
+	LOTUS_INSTALLER_VERSION="0.0.0"
 fi
-echo "Chia Installer Version is: $CHIA_INSTALLER_VERSION"
+echo "Lotus Installer Version is: $LOTUS_INSTALLER_VERSION"
 
 echo "Installing npm utilities"
 cd npm_macos || exit 1
@@ -25,7 +25,7 @@ sudo rm -rf dist
 mkdir dist
 
 echo "Create executables with pyinstaller"
-SPEC_FILE=$(python -c 'import chia; print(chia.PYINSTALLER_SPEC_PATH)')
+SPEC_FILE=$(python -c 'import lotus; print(lotus.PYINSTALLER_SPEC_PATH)')
 pyinstaller --log-level=INFO "$SPEC_FILE"
 LAST_EXIT_CODE=$?
 if [ "$LAST_EXIT_CODE" -ne 0 ]; then
@@ -37,17 +37,17 @@ cp -r dist/daemon ../lotus-blockchain-gui/packages/gui
 # Change to the gui package
 cd ../lotus-blockchain-gui/packages/gui || exit 1
 
-# sets the version for chia-blockchain in package.json
+# sets the version for lotus-blockchain in package.json
 brew install jq
 cp package.json package.json.orig
-jq --arg VER "$CHIA_INSTALLER_VERSION" '.version=$VER' package.json > temp.json && mv temp.json package.json
+jq --arg VER "$LOTUS_INSTALLER_VERSION" '.version=$VER' package.json > temp.json && mv temp.json package.json
 
 echo "Building macOS Electron app"
 OPT_ARCH="--x64"
 if [ "$(arch)" = "arm64" ]; then
   OPT_ARCH="--arm64"
 fi
-PRODUCT_NAME="Chia"
+PRODUCT_NAME="Lotus"
 if [ "$NOTARIZE" == true ]; then
 	echo "Setting credentials for signing"
 	export CSC_LINK=$APPLE_DEV_ID_APP
@@ -59,7 +59,7 @@ fi
 echo electron-builder build --mac "${OPT_ARCH}" --config.productName="$PRODUCT_NAME"
 electron-builder build --mac "${OPT_ARCH}" --config.productName="$PRODUCT_NAME"
 LAST_EXIT_CODE=$?
-ls -l dist/mac*/chia.app/Contents/Resources/app.asar
+ls -l dist/mac*/lotus.app/Contents/Resources/app.asar
 
 # reset the package.json to the original
 mv package.json.orig package.json
@@ -73,10 +73,10 @@ mv dist/* ../../../build_scripts/dist/
 cd ../../../build_scripts || exit 1
 
 mkdir final_installer
-DMG_NAME="chia-${CHIA_INSTALLER_VERSION}.dmg"
+DMG_NAME="lotus-${LOTUS_INSTALLER_VERSION}.dmg"
 if [ "$(arch)" = "arm64" ]; then
-  mv dist/${DMG_NAME} dist/chia-${CHIA_INSTALLER_VERSION}-arm64.dmg
-  DMG_NAME=chia-${CHIA_INSTALLER_VERSION}-arm64.dmg
+  mv dist/${DMG_NAME} dist/lotus-${LOTUS_INSTALLER_VERSION}-arm64.dmg
+  DMG_NAME=lotus-${LOTUS_INSTALLER_VERSION}-arm64.dmg
 fi
 mv dist/$DMG_NAME final_installer/
 
@@ -85,7 +85,7 @@ ls -lh final_installer
 if [ "$NOTARIZE" == true ]; then
 	echo "Notarize $DMG_NAME on ci"
 	cd final_installer || exit 1
-  notarize-cli --file="$DMG_NAME" --bundle-id net.chia.blockchain \
+  notarize-cli --file="$DMG_NAME" --bundle-id net.lotus.blockchain \
 	--username "$APPLE_NOTARIZE_USERNAME" --password "$APPLE_NOTARIZE_PASSWORD"
   echo "Notarization step complete"
 else
@@ -96,7 +96,7 @@ fi
 #
 # Ask for username and password. password should be an app specific password.
 # Generate app specific password https://support.apple.com/en-us/HT204397
-# xcrun altool --notarize-app -f Chia-0.1.X.dmg --primary-bundle-id net.chia.blockchain -u username -p password
+# xcrun altool --notarize-app -f Lotus-0.1.X.dmg --primary-bundle-id net.lotus.blockchain -u username -p password
 # xcrun altool --notarize-app; -should return REQUEST-ID, use it in next command
 #
 # Wait until following command return a success message".
@@ -104,7 +104,7 @@ fi
 # It can take a while, run it every few minutes.
 #
 # Once that is successful, execute the following command":
-# xcrun stapler staple Chia-0.1.X.dmg
+# xcrun stapler staple Lotus-0.1.X.dmg
 #
 # Validate DMG:
-# xcrun stapler validate Chia-0.1.X.dmg
+# xcrun stapler validate Lotus-0.1.X.dmg

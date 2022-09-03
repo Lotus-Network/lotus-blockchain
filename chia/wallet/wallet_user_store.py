@@ -1,9 +1,9 @@
 from typing import List, Optional
 
-from chia.util.db_wrapper import DBWrapper2, execute_fetchone
-from chia.util.ints import uint32
-from chia.wallet.util.wallet_types import WalletType
-from chia.wallet.wallet_info import WalletInfo
+from lotus.util.db_wrapper import DBWrapper2, execute_fetchone
+from lotus.util.ints import uint32
+from lotus.wallet.util.wallet_types import WalletType
+from lotus.wallet.wallet_info import WalletInfo
 
 
 class WalletUserStore:
@@ -42,7 +42,7 @@ class WalletUserStore:
     async def init_wallet(self):
         all_wallets = await self.get_all_wallet_info_entries()
         if len(all_wallets) == 0:
-            await self.create_wallet("Chia Wallet", WalletType.STANDARD_WALLET, "")
+            await self.create_wallet("Lotus Wallet", WalletType.STANDARD_WALLET, "")
 
     async def create_wallet(
         self,

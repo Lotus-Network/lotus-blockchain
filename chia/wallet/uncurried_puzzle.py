@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from chia.types.blockchain_format.program import Program
+from lotus.types.blockchain_format.program import Program
 
 
 @dataclass(frozen=True)
