@@ -107,9 +107,9 @@ def configure(
             if testnet == "true" or testnet == "t":
                 print("Setting Testnet")
                 testnet_port = "58444"
-                testnet_introducer = "introducer-testnet10.lotus.net"
-                testnet_dns_introducer = "dns-introducer-testnet10.lotus.net"
-                bootstrap_peers = ["testnet10-node.lotus.net"]
+                testnet_introducer = "introducer-testnet10.lotusgang.org"
+                testnet_dns_introducer = "dns-introducer-testnet10.lotusgang.org"
+                bootstrap_peers = ["testnet10-node.lotusgang.org"]
                 testnet = "testnet10"
                 config["full_node"]["port"] = int(testnet_port)
                 if config["full_node"]["introducer_peer"] is None:
@@ -151,9 +151,9 @@ def configure(
             elif testnet == "false" or testnet == "f":
                 print("Setting Mainnet")
                 mainnet_port = "8444"
-                mainnet_introducer = "introducer.lotus.net"
-                mainnet_dns_introducer = "dns-introducer.lotus.net"
-                bootstrap_peers = ["node.lotus.net"]
+                mainnet_introducer = "introducer.lotusgang.org"
+                mainnet_dns_introducer = "dns-introducer.lotusgang.org"
+                bootstrap_peers = ["node.lotusgang.org"]
                 net = "mainnet"
                 config["full_node"]["port"] = int(mainnet_port)
                 config["full_node"]["introducer_peer"]["port"] = int(mainnet_port)

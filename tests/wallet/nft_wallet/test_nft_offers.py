@@ -93,7 +93,7 @@ async def test_nft_offer_with_fee(two_wallet_nodes: Any, trusted: Any) -> None:
 
     metadata = Program.to(
         [
-            ("u", ["https://www.lotus.net/img/branding/lotus-logo.svg"]),
+            ("u", ["https://www.lotusgang.org/img/branding/lotus-logo.svg"]),
             ("h", "0xD4584AD463139FA8C0D9F68F4B59F185"),
         ]
     )
@@ -262,7 +262,7 @@ async def test_nft_offer_cancellations(two_wallet_nodes: Any, trusted: Any) -> N
 
     metadata = Program.to(
         [
-            ("u", ["https://www.lotus.net/img/branding/lotus-logo.svg"]),
+            ("u", ["https://www.lotusgang.org/img/branding/lotus-logo.svg"]),
             ("h", "0xD4584AD463139FA8C0D9F68F4B59F185"),
         ]
     )
@@ -379,7 +379,7 @@ async def test_nft_offer_with_metadata_update(two_wallet_nodes: Any, trusted: An
 
     metadata = Program.to(
         [
-            ("u", ["https://www.lotus.net/img/branding/lotus-logo.svg"]),
+            ("u", ["https://www.lotusgang.org/img/branding/lotus-logo.svg"]),
             ("h", "0xD4584AD463139FA8C0D9F68F4B59F185"),
             ("mu", []),
             ("lu", []),
@@ -523,7 +523,7 @@ async def test_nft_offer_nft_for_cat(two_wallet_nodes: Any, trusted: Any) -> Non
 
     metadata = Program.to(
         [
-            ("u", ["https://www.lotus.net/img/branding/lotus-logo.svg"]),
+            ("u", ["https://www.lotusgang.org/img/branding/lotus-logo.svg"]),
             ("h", "0xD4584AD463139FA8C0D9F68F4B59F185"),
         ]
     )
@@ -743,7 +743,7 @@ async def test_nft_offer_nft_for_nft(two_wallet_nodes: Any, trusted: Any) -> Non
 
     metadata = Program.to(
         [
-            ("u", ["https://www.lotus.net/img/branding/lotus-logo.svg"]),
+            ("u", ["https://www.lotusgang.org/img/branding/lotus-logo.svg"]),
             ("h", "0xD4584AD463139FA8C0D9F68F4B59F185"),
         ]
     )
@@ -754,7 +754,7 @@ async def test_nft_offer_nft_for_nft(two_wallet_nodes: Any, trusted: Any) -> Non
 
     metadata_2 = Program.to(
         [
-            ("u", ["https://www.lotus.net/image2.html"]),
+            ("u", ["https://www.lotusgang.org/image2.html"]),
             ("h", "0xD4584AD463139FA8C0D9F68F4B59F183"),
         ]
     )

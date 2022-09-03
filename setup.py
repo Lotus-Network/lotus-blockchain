@@ -68,10 +68,10 @@ dev_dependencies = [
 
 kwargs = dict(
     name="lotus-blockchain",
-    author="Mariano Sorgente",
-    author_email="mariano@lotus.net",
+    author="Agem FZE",
+    author_email="info@agem.ae",
     description="Lotus blockchain full node, farmer, timelord, and wallet.",
-    url="https://lotus.net/",
+    url="https://lotusgang.org/",
     license="Apache License",
     python_requires=">=3.7, <4",
     keywords="lotus blockchain node",

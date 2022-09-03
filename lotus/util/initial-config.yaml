@@ -134,7 +134,7 @@ seeder:
   crawler_db_path: "crawler.db"
   # Peers used for the initial run.
   bootstrap_peers:
-    - "node.lotus.net"
+    - "node.lotusgang.org"
   # Only consider nodes synced at least to this height.
   minimum_height: 240000
   # How many of a particular version we need to see before reporting it in the logs
@@ -407,7 +407,7 @@ full_node:
   # List of trusted DNS seeders to bootstrap from.
   # If you modify this, please change the hardcode as well from FullNode.set_server()
   dns_servers:
-    - "dns-introducer.lotus.net"
+    - "dns-introducer.lotusgang.org"
   farmer_peer:
       host: *self_hostname
       port: 5947
@@ -415,7 +415,7 @@ full_node:
       host: *self_hostname
       port: 5946
   introducer_peer:
-      host: introducer.lotus.net  # Lotus AWS introducer IPv4/IPv6
+      host: introducer.lotusgang.org  # Lotus AWS introducer IPv4/IPv6
       port: 5980
   wallet_peer:
     host: *self_hostname
@@ -490,7 +490,7 @@ wallet:
   initial_num_public_keys: 425
 
   dns_servers:
-    - "dns-introducer.lotus.net"
+    - "dns-introducer.lotusgang.org"
 
   full_node_peer:
     host: *self_hostname
@@ -520,7 +520,7 @@ wallet:
   recent_peer_threshold: 6000
 
   introducer_peer:
-    host: introducer.lotus.net # Lotus AWS introducer IPv4/IPv6
+    host: introducer.lotusgang.org # Lotus AWS introducer IPv4/IPv6
     port: 5980
 
   ssl:

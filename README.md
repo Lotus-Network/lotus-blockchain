@@ -1,6 +1,6 @@
 # lotus-blockchain
 
-![Alt text](https://www.lotus.net/img/lotus_logo.svg)
+![Alt text](https://www.lotusgang.org/img/lotus_logo.svg)
 
 | Current Release/main | Development Branch/dev |
 |         :---:          |          :---:         |

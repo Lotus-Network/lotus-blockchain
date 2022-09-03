@@ -123,7 +123,7 @@ async def test_nft_offer_sell_nft(two_wallet_nodes: Any, trusted: Any) -> None:
     )
     metadata = Program.to(
         [
-            ("u", ["https://www.lotus.net/img/branding/lotus-logo.svg"]),
+            ("u", ["https://www.lotusgang.org/img/branding/lotus-logo.svg"]),
             ("h", "0xD4584AD463139FA8C0D9F68F4B59F185"),
         ]
     )
@@ -278,7 +278,7 @@ async def test_nft_offer_request_nft(two_wallet_nodes: Any, trusted: Any) -> Non
     )
     metadata = Program.to(
         [
-            ("u", ["https://www.lotus.net/img/branding/lotus-logo.svg"]),
+            ("u", ["https://www.lotusgang.org/img/branding/lotus-logo.svg"]),
             ("h", "0xD4584AD463139FA8C0D9F68F4B59F185"),
         ]
     )
@@ -432,7 +432,7 @@ async def test_nft_offer_sell_did_to_did(two_wallet_nodes: Any, trusted: Any) ->
     )
     metadata = Program.to(
         [
-            ("u", ["https://www.lotus.net/img/branding/lotus-logo.svg"]),
+            ("u", ["https://www.lotusgang.org/img/branding/lotus-logo.svg"]),
             ("h", "0xD4584AD463139FA8C0D9F68F4B59F185"),
         ]
     )
@@ -614,7 +614,7 @@ async def test_nft_offer_sell_nft_for_cat(two_wallet_nodes: Any, trusted: Any) -
     )
     metadata = Program.to(
         [
-            ("u", ["https://www.lotus.net/img/branding/lotus-logo.svg"]),
+            ("u", ["https://www.lotusgang.org/img/branding/lotus-logo.svg"]),
             ("h", "0xD4584AD463139FA8C0D9F68F4B59F185"),
         ]
     )
@@ -806,7 +806,7 @@ async def test_nft_offer_request_nft_for_cat(two_wallet_nodes: Any, trusted: boo
     )
     metadata = Program.to(
         [
-            ("u", ["https://www.lotus.net/img/branding/lotus-logo.svg"]),
+            ("u", ["https://www.lotusgang.org/img/branding/lotus-logo.svg"]),
             ("h", "0xD4584AD463139FA8C0D9F68F4B59F185"),
         ]
     )
@@ -999,7 +999,7 @@ async def test_nft_offer_sell_cancel(two_wallet_nodes: Any, trusted: Any) -> Non
     )
     metadata = Program.to(
         [
-            ("u", ["https://www.lotus.net/img/branding/lotus-logo.svg"]),
+            ("u", ["https://www.lotusgang.org/img/branding/lotus-logo.svg"]),
             ("h", "0xD4584AD463139FA8C0D9F68F4B59F185"),
         ]
     )
@@ -1119,7 +1119,7 @@ async def test_nft_offer_sell_cancel_in_batch(two_wallet_nodes: Any, trusted: An
     )
     metadata = Program.to(
         [
-            ("u", ["https://www.lotus.net/img/branding/lotus-logo.svg"]),
+            ("u", ["https://www.lotusgang.org/img/branding/lotus-logo.svg"]),
             ("h", "0xD4584AD463139FA8C0D9F68F4B59F185"),
         ]
     )
@@ -1295,7 +1295,7 @@ async def test_complex_nft_offer(two_wallet_nodes: Any, trusted: Any) -> None:
     )
     metadata = Program.to(
         [
-            ("u", ["https://www.lotus.net/img/branding/lotus-logo.svg"]),
+            ("u", ["https://www.lotusgang.org/img/branding/lotus-logo.svg"]),
             ("h", "0xD4584AD463139FA8C0D9F68F4B59F185"),
         ]
     )
