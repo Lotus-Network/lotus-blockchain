@@ -48,6 +48,8 @@ from lotus.util.generator_tools import get_block_header, tx_removals_and_additio
 from lotus.util.inline_executor import InlineExecutor
 from lotus.util.ints import uint16, uint32, uint64, uint128
 from lotus.util.setproctitle import getproctitle, setproctitle
+from lotus.util.default_root import DEFAULT_ROOT_PATH
+from lotus.util.config import load_config
 
 log = logging.getLogger(__name__)
 
@@ -130,7 +132,10 @@ class Blockchain(BlockchainInterface):
             cpu_count = multiprocessing.cpu_count()
             if cpu_count > 61:
                 cpu_count = 61  # Windows Server 2016 has an issue https://bugs.python.org/issue26903
+            config = load_config(DEFAULT_ROOT_PATH, "config.yaml")
             num_workers = max(cpu_count - reserved_cores, 1)
+            if 'multiprocessing_limit' in config.keys():
+                num_workers = min(num_workers, int(config["multiprocessing_limit"]));
             self.pool = ProcessPoolExecutor(
                 max_workers=num_workers,
                 mp_context=multiprocessing_context,
