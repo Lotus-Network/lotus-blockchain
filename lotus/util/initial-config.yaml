@@ -474,7 +474,7 @@ introducer:
 
 wallet:
   port: 5949
-  rpc_port: 9256
+  rpc_port: 9756
 
   enable_profiler: False
 
@@ -563,7 +563,7 @@ data_layer:
   port: 8561
   wallet_peer:
     host: localhost
-    port: 9256
+    port: 9756
 
   database_path: "data_layer/db/data_layer_CHALLENGE.sqlite"
   # The location where the server files will be stored.
